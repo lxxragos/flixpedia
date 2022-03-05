@@ -10,6 +10,7 @@
     	
    <typeAlias alias="DramaDto" type="com.semi.flix.drama.DramaDto"/>
    <typeAlias alias="MemberDto" type="com.semi.flix.member.MemberDto"/>	
+   <typeAlias alias="AdminMemberDto" type="com.semi.flix.admin.member.AdminMemberDto"/>
     	
 	</typeAliases>
 
@@ -17,6 +18,7 @@
 	  
 		<mapper resource=	"/com/semi/flix/mapper/Drama.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Member.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/AdminMember.xml"/>
 		
 	</mappers>
 	
