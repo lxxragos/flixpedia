@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.semi.flix.admin.toonboard.*" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>FLIXPEDIA - admin page</title>
+    <title>FLIXMEDIA-toon view</title>
 
     <!-- Custom fonts for this template-->
     <link href="<%=request.getContextPath()%>/resources/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -22,11 +23,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom styles for this template-->
     <link href="<%=request.getContextPath()%>/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
-
+	<script src="https://cdn.ckeditor.com/ckeditor5/32.0.0/classic/ckeditor.js"></script>
 </head>
 
 <body id="page-top">
-	<%@include file="../admin/include/adminnav.jsp" %>
+	<%@include file="../include/adminnav.jsp" %>
+	<%
+	String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
+	      String keyword = AdminStringUtil.nullToValue(request.getParameter("keyword"), "");
+	      String pg = AdminStringUtil.nullToValue(request.getParameter("pg"), "0");
+	%>
+    <%
+    ToonBoardDto dto = (ToonBoardDto)request.getAttribute("toonboardDto");
+    dto = (dto == null) ? new ToonBoardDto() : dto;
+    %>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -131,7 +141,7 @@
             <div class="sidebar-card d-none d-lg-flex">
                 <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
                 <p class="text-center mb-2"><strong>FLIXPEDIA</strong> 메인페이지로 이동하여 자세한 사항을 확인하세요</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">도메인이동</a>
+                <a class="btn btn-success btn-sm" href="${commonURL}/">도메인이동</a>
             </div>
 
         </ul>
@@ -339,186 +349,89 @@
                 </nav>
                 <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+				<!-- Begin Page Content -->
+				<form id="myform" name="myform" enctype="multipart/form-data">
+				<input type="hidden" name="board_seq" id="board_seq" value="<%=dto.getBoard_seq() %>"/>
+				<input type="hidden" name="pg"      value="<%=pg%>" >
+      			<input type="hidden" name="key"     value="<%=key%>" >
+      			<input type="hidden" name="keyword" value="<%=keyword%>" >
+				
+				<div class="container rounded bg-white mt-5 mb-5">
+				    <div class="row">
+				        <div class="col-md-3 border-right">
+				            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+				                <img class="rounded mt-5" style="width:80%; height:auto;" id="uplaod" src="../../upload/<%=dto.getToon_images() %>">       
+				            </div>
+				        </div>
+				        <div class="col-md-5 border-right">
+				            <div class="p-3 py-5">
+				                <div class="d-flex justify-content-between align-items-center mb-3">
+				                    
+				                </div>
+				            <div class="row mt-2">
+				                <div class="col-md-6">
+				                <label class="labels">카테고리</label>
+				                <input readonly="readonly" type="text" class="form-control" placeholder="category" id="category_code" name="category_code"
+				                value="<%=dto.getCategory_code()%>" >
+				                </div>
+				                <div class="col-md-6">
+				                <label class="labels">장르</label>
+				                <input readonly="readonly"type="text" class="form-control" placeholder="genre" id="genre_code" name="genre_code"
+				                value="<%=dto.getGenre_code()%>" >
+				                </div>
+				            </div>
+				            <div class="row mt-2">
+				                <div class="col-md-6">
+				                <label class="labels">제목</label>
+				                <input readonly="readonly" type="text" class="form-control" placeholder="title" id="title" name="title"
+				                value="<%=dto.getToon_title()%>">
+				                </div>
+				                <div class="col-md-6">
+				                <label class="labels">감독</label>
+				                <input readonly="readonly" type="text" class="form-control" placeholder="producer" id="writer" name="writer"
+				                value="<%=dto.getToon_author()%>" >
+				                </div>
+				            </div>
+				            <div class="row mt-3">
+				                <div class="col-md-12">
+				                <label class="labels">줄거리</label>
+				                <textarea readonly="readonly" class="form-control" id="contents" name="contents" placeholder="enter contents" 
+				                ><%=dto.getToon_content()%></textarea>
+				                </div>
+				            </div>
+				            <div class="row mt-3">
+				                <div class="col-md-6">
+				                <label class="labels">제작년도</label>
+				                <input readonly="readonly" type="text" class="form-control" placeholder="productionyear" id="toon_productionyear" name="toon_productionyear"
+				                value="<%=dto.getToon_productionyear()%>">
+				                </div>
+				                <div class="col-md-6">
+				                <label class="labels">연령제한</label>
+				                <input readonly="readonly" type="text" class="form-control" placeholder="agelimit" id="toon_agelimit" name="toon_agelimit"
+				                value="<%=dto.getToon_agelimit()%>">
+				                </div>
+				            </div>
+				            <div class="row mt-3">
+				                <div class="col-md-12">
+				                <label class="labels">예고편 url</label>
+				                <textarea readonly="readonly" class="form-control" id="toon_url" name="toon_url" placeholder="URL address" 
+				                ><%=dto.getToon_url()%></textarea>
+				                </div>
+				            </div>
+				            <div class="mt-5 text-center">
+				                <button class="btn btn-primary profile-button" type="button" onclick="goModify()">수정</button>
+				                <button class="btn btn-primary profile-button" type="button" onclick="goDelete()">삭제</button>
+				                <button class="btn btn-primary profile-button" type="button" onclick="goList()">취소</button>
+				            </div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+				</form>
+<!-- /.container-fluid -->
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                월방문자수</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                가입 회원수</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">등록된 게시물수
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                고객Q&A</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Content Row -->
-
-                    <div class="row">
-
-                        <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">월 방문자수</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">등록된 게시물 수</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> 영화
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> tv
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> 웹툰
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
+</div>
+<!-- End of Main Content -->
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -555,7 +468,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="${commonURL}/admin/adminindex">Logout</a>
+                    <a class="btn btn-primary" href="${commonURL}/admin/daminindex">Logout</a>
                 </div>
             </div>
         </div>
@@ -565,7 +478,7 @@
     <script src="<%=request.getContextPath()%>/resources/admin/vendor/jquery/jquery.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
+    <!-- Core plugin  JavaScript-->
     <script src="<%=request.getContextPath()%>/resources/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
@@ -582,6 +495,31 @@
 
 </html>
 <script>
+function goList()
+{
+   var frm = document.myform;
+   frm.action="<%=request.getContextPath()%>/admin/toonboard/list";
+   frm.submit();
+}
+
+function goModify()
+{
+   var frm = document.myform;
+   frm.action="<%=request.getContextPath()%>/admin/toonboard/modify";
+   frm.submit();
+}
+
+
+function goDelete()
+{
+   if( confirm("삭제하시겠습니까?"))
+   {
+      var frm = document.myform;
+      frm.action="<%=request.getContextPath()%>/admin/toonboard/delete";
+      frm.submit();
+   }
+}
+
 function goMain()
 {
 	location.href="${commonURL}/admin/adminhome";	//페이지 이동	

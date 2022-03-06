@@ -63,15 +63,15 @@ request.setAttribute("commonURL", request.getContextPath());
 							<br>
 			
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="우편번호" id="zipNo" name="zipNo" readonly="readonly">
+						<input type="text" class="sign__input" placeholder="우편번호" id="zipcode" name="zipcode" readonly="readonly">
 					</div>
 					
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="주소" id=roadAddrPart1 name="roadAddrPart1" readonly="readonly">
+						<input type="text" class="sign__input" placeholder="주소" id="address1" name="address1" readonly="readonly">
 					</div>
 					
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="상세주소" id="addrDetail" name="addrDetail" readonly="readonly">
+						<input type="text" class="sign__input" placeholder="상세주소" id="address2" name="address2" readonly="readonly">
 					</div>
 					
 					<button type="button" class="sign__btn" onclick="goWrite()">등록</button>
@@ -91,12 +91,12 @@ function goPopup()
 	
 	}
 
-function jusoCallBack(roadAddrPart1,addrDetail, zipNo)
+function jusoCallBack(address1,address2,zipcode)
 {
-		document.form.roadAddrPart1.value = roadAddrPart1;
-		document.form.addrDetail.value = addrDetail;
-		document.form.zipNo.value = zipNo;
-	}
+		document.myform.address1.value = address1;
+		document.myform.address2.value = address2;
+		document.myform.zipcode.value = zipcode;
+}
 	
 function goWrite() 
 {
@@ -150,22 +150,22 @@ function goWrite()
 		frm.email.focus();
 		return false;
 	};
-	if( frm.zipNo.value.trim()=="")
+	if( frm.zipcode.value.trim()=="")
 	{
 		alert("우편번호를 입력하세요");
-		frm.zipNo.focus();
+		frm.zipcode.focus();
 		return false;
 	};
-	if( frm.roadAddrPart1.value.trim()=="")
+	if( frm.address1.value.trim()=="")
 	{
 		alert("도로명 주소를 입력하세요");
-		frm.roadAddrPart1.focus();
+		frm.address1.focus();
 		return false;
 	};
-	if( frm.addrDetail.value.trim()=="")
+	if( frm.address2.value.trim()=="")
 	{
 		alert("상세 주소를 입력하세요");
-		frm.addrDetail.focus();
+		frm.address2.focus();
 		return false;
 	};
 

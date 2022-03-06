@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.semi.flix.admin.board.*" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,22 +12,25 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>FLIXPEDIA - admin page</title>
+    <title>FLIXMEDIA-write</title>
 
     <!-- Custom fonts for this template-->
-    <link href="<%=request.getContextPath()%>/resources/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="<%=request.getContextPath()%>/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom styles for this template-->
-    <link href="<%=request.getContextPath()%>/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="<%=request.getContextPath()%>/resources/css/sb-admin-2.min.css" rel="stylesheet">
+	
 </head>
 
 <body id="page-top">
-	<%@include file="../admin/include/adminnav.jsp" %>
+	<%@include file="../include/adminnav.jsp" %>
+	<%
+	AdminBoardDto dto = (AdminBoardDto)request.getAttribute("adminboardDto");
+	%>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -69,9 +73,9 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">게시판 관리:</h6>
-                        <a class="collapse-item" href="${commonURL}/admin/board/writemain">게시글 업로드</a>
-                        <a class="collapse-item" href="${commonURL}/admin/board/listmain">게시글 수정/삭제</a>
-                        <a class="collapse-item" href="${commonURL}/admin/board/avgmain">평점 관리</a>
+                        <a class="collapse-item" href="${commonURL}/board/write">게시글 업로드</a>
+                        <a class="collapse-item" href="${commonURL}/board/list">게시글 수정/삭제</a>
+                        <a class="collapse-item" href="cards.html">평점 관리</a>
                     </div>
                 </div>
             </li>
@@ -339,186 +343,78 @@
                 </nav>
                 <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+				<!-- Begin Page Content -->
+				<form id="myform" name="myform" enctype="multipart/form-data">
+				<input type="hidden" name="board_seq" id="board_seq" value="<%=dto.getBoard_seq() %>"/>
+				<input type="hidden" name="hit" id="hit" value="<%=dto.getHit() %>"/>
+				
+				<div class="container rounded bg-white mt-5 mb-5">
+				    <div class="row">
+				        <div class="col-md-5 border-right">
+					            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+					                <img class="rounded mt-5" src="">       
+					                <input type="file" class="form-control" id="uplaod" name="upload" 
+					                        placeholder="이미지를 업로드하세요" value="<%=dto.getImages() %>" onchange="readURL(this);"/>
+					                        <br/><br/>
+									<img id="preview" style="width:50%; height:auto;"/>
+									
+					            </div>
+				        </div>
+				        <div class="col-md-7 border-right">
+				            <div class="p-3 py-5">
+				                <div class="d-flex justify-content-between align-items-center mb-3">
+				                    
+				                </div>
+				            <div class="row mt-2">
+				                <div class="col-md-6">
+				                <label class="labels">카테고리</label>
+				                <input type="text" class="form-control" placeholder="category" id="category_code" name="category_code"
+				                value="<%=dto.getCategory_code()%>">
+				                </div>
+				                <div class="col-md-6">
+				                <label class="labels">장르</label>
+				                <input type="text" class="form-control" placeholder="genre" id="genre_code" name="genre_code"
+				                value="<%=dto.getGenre_code()%>" >
+				                </div>
+				            </div>
+				            <div class="row mt-2">
+				                <div class="col-md-6">
+				                <label class="labels">제목</label>
+				                <input type="text" class="form-control" placeholder="title" id="title" name="title"
+				                value="<%=dto.getTitle()%>">
+				                </div>
+				                <div class="col-md-6">
+				                <label class="labels">감독</label>
+				                <input type="text" class="form-control" placeholder="producer" id="writer" name="writer"
+				                value="<%=dto.getWriter()%>" >
+				                </div>
+				            </div>
+				            <div class="row mt-3">
+				                <div class="col-md-12">
+				                <label class="labels">줄거리</label>
+				                <textarea class="form-control" id="contents" name="contents" placeholder="enter contents" 
+				                ><%=dto.getContents()%></textarea>
+				                </div>
+				            </div>
+				            <div class="row mt-3">
+				                <div class="col-md-6">
+				                <label class="labels">관람객수</label>
+				                <input type="text" class="form-control" placeholder="attendance" id="attendance" name="attendance"
+				                value="<%=dto.getAttendance()%>">
+				                </div>
+				            </div>
+				            <div class="mt-5 text-center">
+				                <button class="btn btn-primary profile-button" type="button" onclick="goWrite()">등록</button>
+				            </div>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+				</form>
+<!-- /.container-fluid -->
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                월방문자수</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                가입 회원수</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">등록된 게시물수
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                고객Q&A</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Content Row -->
-
-                    <div class="row">
-
-                        <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">월 방문자수</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">등록된 게시물 수</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> 영화
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> tv
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> 웹툰
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
+</div>
+<!-- End of Main Content -->
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -555,35 +451,93 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="${commonURL}/admin/adminindex">Logout</a>
+                    <a class="btn btn-primary" href="${commonURL}/">Logout</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="<%=request.getContextPath()%>/resources/admin/vendor/jquery/jquery.min.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="<%=request.getContextPath()%>/resources/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="<%=request.getContextPath()%>/resources/admin/js/sb-admin-2.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="<%=request.getContextPath()%>/resources/admin/vendor/chart.js/Chart.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="<%=request.getContextPath()%>/resources/admin/js/demo/chart-area-demo.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/admin/js/demo/chart-pie-demo.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/demo/chart-area-demo.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/demo/chart-pie-demo.js"></script>
 
 </body>
 
 </html>
 <script>
-function goMain()
-{
-	location.href="${commonURL}/admin/adminhome";	//페이지 이동	
-}
+	function goWrite()
+	{
+		var frm = document.myform;
+		if(frm.category_code.value.trim().length==0)
+		{
+			alert("카테고리를 작성하세요");
+			frm.category_code.focus();
+			return false;
+		}
+		if(frm.genre_code.value.trim().length==0)
+		{
+			alert("장르를 작성하세요");
+			frm.genre_code.focus();
+			return false;
+		}
+		if(frm.attendance.value.trim().length==0)
+		{
+			alert("관람객수를 작성하세요");
+			frm.attendance.focus();
+			return false;
+		}
+		if(frm.title.value.trim().length==0)
+		{
+			alert("제목을 작성하세요");
+			frm.title.focus();
+			return false;
+		}
+		if(frm.writer.value.trim().length==0)
+		{
+			alert("이름을 작성하세요");
+			frm.writer.focus();
+			return false;
+		}
+		if(frm.contents.value.trim().length==0)
+		{
+			alert("내용을 작성하세요");
+			frm.contents.focus();
+			return false;
+		}
+
+		frm.action="<%=request.getContextPath()%>/board/save";
+		frm.method="post";
+		frm.submit(); //서버로 전송하기
+	}
+	
+	function goMain()
+	{
+		location.href="${commonURL}/admin/home";	//페이지 이동	
+	}
+	
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function(e) {
+	      document.getElementById('preview').src = e.target.result;
+	    };
+	    reader.readAsDataURL(input.files[0]);
+	    } 
+		else {
+	    document.getElementById('preview').src = "";
+	    }
+	}
 </script>
