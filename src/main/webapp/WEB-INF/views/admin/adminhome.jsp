@@ -69,9 +69,11 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">게시판 관리:</h6>
+
                         <a class="collapse-item" href="${commonURL}/admin/board/writemain">게시글 업로드</a>
                         <a class="collapse-item" href="${commonURL}/admin/board/listmain">게시글 수정/삭제</a>
                         <a class="collapse-item" href="${commonURL}/admin/board/avgmain">평점 관리</a>
+
                     </div>
                 </div>
             </li>
@@ -555,7 +557,9 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+
                     <a class="btn btn-primary" href="${commonURL}/admin/adminindex">Logout</a>
+
                 </div>
             </div>
         </div>
