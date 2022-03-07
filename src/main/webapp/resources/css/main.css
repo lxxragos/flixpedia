@@ -68,12 +68,13 @@ a {
   -webkit-transition: 0.4s ease;
   -moz-transition: 0.4s ease;
   transition: 0.4s ease;
+  text-decoration:none !important 
 }
 a:hover,
 a:active,
 a:focus {
   outline: none;
-  text-decoration: none;
+  text-decoration:none !important 
 }
 input,
 textarea,

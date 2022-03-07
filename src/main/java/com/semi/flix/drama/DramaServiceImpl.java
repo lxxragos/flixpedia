@@ -29,6 +29,11 @@ public class DramaServiceImpl implements DramaService {
 		// TODO Auto-generated method stub
 		return dramaDao.getView(dto);
 	}
+
+	@Override
+	public DramaDto getDrama_Rank(DramaDto dto) {
+		return dramaDao.getDrama_Rank(dto);
+	}
 	
 	
 }

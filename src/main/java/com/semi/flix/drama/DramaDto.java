@@ -8,10 +8,14 @@ public class DramaDto extends BaseDto {
 	private String group_name="";
 	private String genre_code="";
 	private String drama_title="";
-	private String drama_author="";
+	private String drama_producer="";
 	private String drama_content="";
 	private String drama_images="";
 	private int drama_hit=0;
+	private String drama_youtube="";	// 220303�߰�
+	private int drama_avg_ratings=0;
+	private String drama_productionyear = "";
+	private String drama_agelimit ="";
 	
 	public String getBoard_seq() {
 		return board_seq;
@@ -37,11 +41,11 @@ public class DramaDto extends BaseDto {
 	public void setDrama_title(String drama_title) {
 		this.drama_title = drama_title;
 	}
-	public String getDrama_author() {
-		return drama_author;
+	public String getDrama_producer() {
+		return drama_producer;
 	}
-	public void setDrama_author(String drama_author) {
-		this.drama_author = drama_author;
+	public void setDrama_producer(String drama_producer) {
+		this.drama_producer = drama_producer;
 	}
 	public String getDrama_content() {
 		return drama_content;
@@ -61,6 +65,72 @@ public class DramaDto extends BaseDto {
 	public void setDrama_hit(int drama_hit) {
 		this.drama_hit = drama_hit;
 	}
+	public String getDrama_youtube() {
+		return drama_youtube;
+	}
+	public void setDrama_youtube(String drama_youtube) {
+		this.drama_youtube = drama_youtube;
+	}
+	public int getDrama_avg_ratings() {
+		return drama_avg_ratings;
+	}
+	public void setDrama_avg_ratings(int drama_avg_ratings) {
+		this.drama_avg_ratings = drama_avg_ratings;
+	}
+	public String getDrama_productionyear() {
+		return drama_productionyear;
+	}
+	public void setDrama_productionyear(String drama_productionyear) {
+		this.drama_productionyear = drama_productionyear;
+	}
+	public String getDrama_agelimit() {
+		return drama_agelimit;
+	}
+	public void setDrama_agelimit(String drama_agelimit) {
+		this.drama_agelimit = drama_agelimit;
+	}
+	public DramaDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public DramaDto(String board_seq, String group_name, String genre_code, String drama_title, String drama_producer,
+			String drama_content, String drama_images, int drama_hit, String drama_youtube, int drama_avg_ratings,
+			String drama_productionyear, String drama_agelimit) {
+		super();
+		this.board_seq = board_seq;
+		this.group_name = group_name;
+		this.genre_code = genre_code;
+		this.drama_title = drama_title;
+		this.drama_producer = drama_producer;
+		this.drama_content = drama_content;
+		this.drama_images = drama_images;
+		this.drama_hit = drama_hit;
+		this.drama_youtube = drama_youtube;
+		this.drama_avg_ratings = drama_avg_ratings;
+		this.drama_productionyear = drama_productionyear;
+		this.drama_agelimit = drama_agelimit;
+	}
+	@Override
+	public String toString() {
+		return "DramaDto [board_seq=" + board_seq + ", group_name=" + group_name + ", genre_code=" + genre_code
+				+ ", drama_title=" + drama_title + ", drama_producer=" + drama_producer + ", drama_content="
+				+ drama_content + ", drama_images=" + drama_images + ", drama_hit=" + drama_hit + ", drama_youtube="
+				+ drama_youtube + ", drama_avg_ratings=" + drama_avg_ratings + ", drama_productionyear="
+				+ drama_productionyear + ", drama_agelimit=" + drama_agelimit + "]";
+	}
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
 	
 	
 	

@@ -6,4 +6,5 @@ public interface DramaDao {
 	List<DramaDto> getList(DramaDto dto);
 	int getTotal(DramaDto dto);
 	DramaDto getView(DramaDto dto);
+	DramaDto getDrama_Rank(DramaDto dto);
 }
