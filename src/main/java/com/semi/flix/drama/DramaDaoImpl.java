@@ -28,4 +28,12 @@ public class DramaDaoImpl implements DramaDao {
 		return sm.selectOne("Drama_getView",dto);
 	}
 
+	@Override
+	public DramaDto getDrama_Rank(DramaDto dto) {
+		return sm.selectOne("Drama_Rank",dto);
+	}
+
+
+
+
 }

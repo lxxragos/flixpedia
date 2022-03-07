@@ -1,6 +1,6 @@
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="com.semi.flix.common.Pager"%>
-<%@page import="com.semi.flix.drama.DramaDto"%>
+<%@page import="com.semi.flix.drama.*"%>
 <%@page import="java.util.List"%>
 <%@page import="com.semi.flix.common.StringUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -104,8 +104,9 @@
 					
 					
 					<%for(DramaDto dto : list){
-					System.out.println("---------------------------------"+dto.getBoard_seq());
-					System.out.println("---------------------------------"+dto.getDrama_title());
+					System.out.println("-------------번 호-----------------"+dto.getBoard_seq());
+					System.out.println("-------------제 목------------------"+dto.getDrama_title());
+					System.out.println("-------------이미지----------------"+dto.getDrama_images());
 					%>
 					<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
 						<div class="card">

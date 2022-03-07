@@ -1,4 +1,4 @@
-<%@page import="com.semi.flix.drama.DramaDto"%>
+<%@page import="com.semi.flix.drama.*"%>
 <%@page import="com.semi.flix.common.StringUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<%@include file="../include/css.jsp" %>
-	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
+	<title>FlixPedia</title>
 </head>
 <body class="body">
 	<%
@@ -77,9 +77,11 @@
 													<%}else if(dto.getGenre_code().equals("06")){ %>
 													<a href="#">Drama</a>
 													<%}%>
+													
+												
 										</li>
 										<li><span>출시연도:</span> 출시년</li>
-										<li><span>연출/각본:</span> <%=dto.getDrama_author() %></li>
+										<li><span>연출/각본:</span> <%=dto.getDrama_producer() %></li>
 									</ul>
 
 									<div class="card__description card__description--details">
@@ -96,7 +98,7 @@
 
 				<!-- player -->
 				<div class="col-12 col-xl-6">
-					<iframe width="560" height="315" src="https://www.youtube.com/embed/V_QS0cLTBOg"
+					<iframe width="560" height="315" src="<%=dto.getDrama_youtube() %>"
 					title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				</div>
 				<!-- end player -->

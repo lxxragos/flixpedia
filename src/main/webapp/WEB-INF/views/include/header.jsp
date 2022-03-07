@@ -13,7 +13,7 @@ request.setAttribute("commonURL", request.getContextPath());
 					<div class="col-12">
 						<div class="header__content">
 							<!-- header logo -->
-							<a href="${commonURL}/views/home" class="header__logo">
+							<a href="${commonURL}/" class="header__logo">
 								<img src="${commonURL}/resources/img/logo.svg" alt="">
 							</a>
 							<!-- end header logo -->
@@ -38,9 +38,7 @@ request.setAttribute("commonURL", request.getContextPath());
 								<li class="header__nav-item">
 									<a href="faq.html" class="header__nav-link">웹툰</a>
 								</li>
-								<li class="header__nav-item">
-									<a href="faq.html" class="header__nav-link">도서</a>
-								</li>
+								
 
 								<!-- dropdown -->
 								<li class="dropdown header__nav-item">
@@ -51,6 +49,7 @@ request.setAttribute("commonURL", request.getContextPath());
 										<li><a href="about.html">공지사항</a></li> <!-- list,view작업 안됨 -->
 										<li><a href="signin.html">로그인</a></li>
 										<li><a href="signup.html">회원가입</a></li>
+										<li><a href="signin.html">관리자페이지</a></li>
 										
 									</ul>
 								</li>
@@ -101,3 +100,7 @@ request.setAttribute("commonURL", request.getContextPath());
 		<!-- end header search -->
 	</header>
 	<!-- end header -->
+	
+	<script>
+	
+	</script>
