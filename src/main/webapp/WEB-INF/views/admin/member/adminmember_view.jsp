@@ -22,8 +22,6 @@
 
     <!-- Custom styles for this template-->
     <link href="<%=request.getContextPath()%>/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="<%=request.getContextPath()%>/resources/admin/css/sb-admin-2.css" rel="stylesheet">
-    <link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
 </head>
 
@@ -31,7 +29,9 @@
 <%@include file="../include/adminnav.jsp" %>
 <%
 AdminMemberDto dto = (AdminMemberDto)request.getAttribute("adminmemberDto");
+    		dto = (dto == null) ? new AdminMemberDto() : dto;
 %>
+
 <form class="user" name="myform" id="myform" enctype="multipart/form-data">
 <input type="hidden" name="id" id="id" value="<%=dto.getId() %>"/>
     <div class="container">
@@ -68,16 +68,14 @@ AdminMemberDto dto = (AdminMemberDto)request.getAttribute("adminmemberDto");
                                 </div>
                              <%} %>
                              
-                                <div class="form-group row main">
-                                    <input type="password" class="form-control form-control-user" name="password" id="password" 
-                                        placeholder="password" value="<%=dto.getPassword()%>">
-                                        <i class="fa fa-eye fa-lg"></i>
+                                <div class="form-group row">
+                                    <input type="email" class="form-control form-control-user" name="password" id="password" 
+                                        placeholder="password">
                                     <p style="font-size: 11px">비밀번호는 영문 대소문자와 숫자 4~12자리로 입력하세요</p>
                                 </div>
-                                <div class="form-group row main">
-                                    <input type="password" class="form-control form-control-user" name="pwd_ck" id="pwd_ck" 
-                                        placeholder="password check" value="<%=dto.getPassword()%>">
-                                        <i class="fa fa-eye fa-lg"></i>
+                                <div class="form-group row">
+                                    <input type="email" class="form-control form-control-user" name="pwd_ck" id="pwd_ck" 
+                                        placeholder="password check">
                                 </div>
                                 <div class="form-group row">
                                         <input type="text" class="form-control form-control-user"
@@ -117,9 +115,6 @@ AdminMemberDto dto = (AdminMemberDto)request.getAttribute("adminmemberDto");
                                 <a onclick="goWrite()" class="btn btn-primary btn-user btn-block">
                                     등록
                                 </a>
-                                <a class="btn btn-primary btn-user btn-block" onclick="goCancel()">
-                                	취소
-                                </a>
                                 <hr>
                                 <a href="index.html" class="btn btn-google btn-user btn-block">
                                     <i class="fab fa-google fa-fw"></i> Register with Google
@@ -127,8 +122,11 @@ AdminMemberDto dto = (AdminMemberDto)request.getAttribute("adminmemberDto");
                                 <a href="index.html" class="btn btn-facebook btn-user btn-block">
                                     <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
                                 </a>
-                            	<hr>    
+                            <hr>
+                           <div class="text-center">
+                                <a class="small" onclick="goCancel()">취소</a>
                             </div>
+                            <hr>
                         </div>
                     </div>
                 </div>
@@ -298,21 +296,7 @@ function goModify()
 
 function goCancel()
 {	
-	history.back();
+	if(<%=dto.getId()%> == 
+	location.href="${commonURL}/admin/adminindex";
 }
-
-//패스워드 숨기기 보이기 기능구현
-$(document).ready(function(){
-    $('.main i').on('click',function(){
-        $('input').toggleClass('active');
-        if($('input').hasClass('active')){
-            $(this).attr('class',"fa fa-eye-slash fa-lg")
-            .prev('input').attr('type',"text");
-        }else{
-            $(this).attr('class',"fa fa-eye fa-lg")
-            .prev('input').attr('type','password');
-        }
-    });
-});
-
 </script>

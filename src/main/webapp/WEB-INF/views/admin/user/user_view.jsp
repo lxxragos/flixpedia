@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.semi.flix.admin.aniboard.*" %>
+<%@ page import="com.semi.flix.admin.user.*" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>FLIXMEDIA-ani write</title>
+    <title>FLIXMEDIA-user view</title>
 
     <!-- Custom fonts for this template-->
     <link href="<%=request.getContextPath()%>/resources/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -23,14 +23,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom styles for this template-->
     <link href="<%=request.getContextPath()%>/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
-	
+	<script src="https://cdn.ckeditor.com/ckeditor5/32.0.0/classic/ckeditor.js"></script>
 </head>
 
 <body id="page-top">
 	<%@include file="../include/adminnav.jsp" %>
 	<%
-	AniBoardDto dto = (AniBoardDto)request.getAttribute("aniboardDto");
+	String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
+	      String keyword = AdminStringUtil.nullToValue(request.getParameter("keyword"), "");
+	      String pg = AdminStringUtil.nullToValue(request.getParameter("pg"), "0");
 	%>
+    <%
+    UserDto dto = (UserDto)request.getAttribute("userDto");
+    	dto = (dto == null) ? new UserDto() : dto;
+    %>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -70,7 +76,7 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>게시판</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+              	<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">게시판 관리:</h6>
                         <a class="collapse-item" href="${commonURL}/admin/board/writemain">게시글 업로드</a>
@@ -343,83 +349,86 @@
 
 				<!-- Begin Page Content -->
 				<form id="myform" name="myform" enctype="multipart/form-data">
-				<input type="hidden" name="board_seq" id="board_seq" value="<%=dto.getBoard_seq() %>"/>
-				<input type="hidden" name="hit" id="hit" value="<%=dto.getAni_hit() %>"/>
+				<input type="hidden" name="user_seq" id="user_seq" value="<%=dto.getUser_seq() %>"/>
+				<input type="hidden" name="pg"      value="<%=pg%>" >
+      			<input type="hidden" name="key"     value="<%=key%>" >
+      			<input type="hidden" name="keyword" value="<%=keyword%>" >
 				
 				<div class="container rounded bg-white mt-5 mb-5">
 				    <div class="row">
-				        <div class="col-md-5 border-right">
-					            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-					                <img class="rounded mt-5" src="">       
-					                <input type="file" class="form-control" id="uplaod" name="upload" 
-					                        placeholder="이미지를 업로드하세요" value="<%=dto.getAni_images() %>" onchange="readURL(this);"/>
-					                        <br/><br/>
-									<img id="preview" src="../../upload/<%=dto.getAni_images() %>"style="width:50%; height:auto;"/>
-									<input type="hidden" name="ani_images" value="<%=dto.getAni_images() %>"/>
-					            </div>
+				        <div class="col-md-3 border-right">
+				            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+				                <img class="rounded mt-5" style="width:80%; height:auto;" id="uplaod" src="../../upload/<%=dto.getUser_images() %>">       
+				            </div>
 				        </div>
-				        <div class="col-md-7 border-right">
+				        <div class="col-md-5 border-right">
 				            <div class="p-3 py-5">
 				                <div class="d-flex justify-content-between align-items-center mb-3">
 				                    
 				                </div>
 				            <div class="row mt-2">
 				                <div class="col-md-6">
-				                <label class="labels">카테고리</label>
-				                <input type="text" class="form-control" placeholder="category" id="category_code" name="category_code"
-				                value="<%=dto.getCategory_code()%>">
+				                <label class="labels">아이디</label>
+				                <input readonly="readonly" type="text" class="form-control" placeholder="userid" id="user_id" name="user_id"
+				                value="<%=dto.getUser_id()%>" >
 				                </div>
 				                <div class="col-md-6">
-				                <label class="labels">장르</label>
-				                <input type="text" class="form-control" placeholder="genre" id="genre_code" name="genre_code"
-				                value="<%=dto.getGenre_code()%>" >
+				                <label class="labels">패스워드</label>
+				                <input readonly="readonly"type="text" class="form-control" placeholder="password" id="password" name="password"
+				                value="<%=dto.getPassword()%>" >
 				                </div>
 				            </div>
 				            <div class="row mt-2">
 				                <div class="col-md-6">
-				                <label class="labels">제목</label>
-				                <input type="text" class="form-control" placeholder="title" id="ani_title" name="ani_title"
-				                value="<%=dto.getAni_title()%>">
+				                <label class="labels">이름</label>
+				                <input readonly="readonly" type="text" class="form-control" placeholder="name" id="name" name="name"
+				                value="<%=dto.getName()%>">
 				                </div>
 				                <div class="col-md-6">
-				                <label class="labels">감독</label>
-				                <input type="text" class="form-control" placeholder="producer" id="ani_producer" name="ani_producer"
-				                value="<%=dto.getAni_producer()%>" >
+				                <label class="labels">닉네임</label>
+				                <input readonly="readonly" type="text" class="form-control" placeholder="nick_name" id="nick_name" name="nick_name"
+				                value="<%=dto.getNick_name()%>" >
 				                </div>
 				            </div>
 				            <div class="row mt-3">
 				                <div class="col-md-12">
-				                <label class="labels">줄거리</label>
-				                <textarea class="form-control" id="ani_content" name="ani_content" placeholder="enter contents" 
-				                ><%=dto.getAni_content()%></textarea>
-				                </div>
-				            </div>
-				            <div class="row mt-3">
-				                <div class="col-md-4">
-				                <label class="labels">관람객수</label>
-				                <input type="text" class="form-control" placeholder="attendance" id="ani_avg_ratings" name="ani_avg_ratings"
-				                value="<%=dto.getAni_avg_ratings()%>">
-				                </div>
-				                <div class="col-md-4">
-				                <label class="labels">제작년도</label>
-				                <input type="text" class="form-control" placeholder="productionyear" id="ani_productionyear" name="ani_productionyear"
-				                value="<%=dto.getAni_productionyear()%>">
-				                </div>
-				                <div class="col-md-4">
-				                <label class="labels">연령제한</label>
-				                <input type="text" class="form-control" placeholder="agelimit" id="ani_agelimit" name="ani_agelimit"
-				                value="<%=dto.getAni_agelimit()%>">
+				                <label class="labels">이메일</label>
+				                <input readonly="readonly" class="form-control" id="email" name="email" placeholder="email" 
+				                ><%=dto.getEmail()%></textarea>
 				                </div>
 				            </div>
 				            <div class="row mt-3">
 				                <div class="col-md-12">
-				                <label class="labels">예고편 url</label>
-				                <textarea class="form-control" id="ani_url" name="ani_url" placeholder="URL address" 
-				                ><%=dto.getAni_url()%></textarea>
+				                <label class="labels">휴대폰</label>
+				                <input readonly="readonly" class="form-control" id="phone" name="phone" placeholder="phone" 
+				                ><%=dto.getPhone()%></textarea>
 				                </div>
 				            </div>
+				            <div class="row mt-3">
+				                <div class="col-md-12">
+				                <label class="labels">도로명주소</label>
+				                <input readonly="readonly" class="form-control" id="address1" name="address1" placeholder="도로명주소" 
+				                ><%=dto.getAddress1()%></textarea>
+				                </div>
+				            </div>
+				            <div class="row mt-2">
+				                <div class="col-md-7">
+				                <label class="labels">상세주소</label>
+				                <input readonly="readonly" type="text" class="form-control" placeholder="상세주소" id="address2" name="address2"
+				                value="<%=dto.getAddress2()%>">
+				                </div>
+				                <div class="col-md-5">
+				                <label class="labels">우편번호</label>
+				                <input readonly="readonly" type="text" class="form-control" placeholder="우편번호" id="zipcode" name="zipcode"
+				                value="<%=dto.getZipcode()%>" >
+				                </div>
+				            </div>
+				            
+				             
 				            <div class="mt-5 text-center">
-				                <button class="btn btn-primary profile-button" type="button" onclick="goWrite()">등록</button>
+				                <button class="btn btn-primary profile-button" type="button" onclick="goModify()">수정</button>
+				                <button class="btn btn-primary profile-button" type="button" onclick="goDelete()">삭제</button>
+				                <button class="btn btn-primary profile-button" type="button" onclick="goList()">취소</button>
 				            </div>
 				            </div>
 				        </div>
@@ -466,7 +475,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="${commonURL}/admin/adminindex">Logout</a>
+                    <a class="btn btn-primary" href="${commonURL}/admin/daminindex">Logout</a>
                 </div>
             </div>
         </div>
@@ -476,7 +485,7 @@
     <script src="<%=request.getContextPath()%>/resources/admin/vendor/jquery/jquery.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
+    <!-- Core plugin  JavaScript-->
     <script src="<%=request.getContextPath()%>/resources/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
@@ -493,84 +502,33 @@
 
 </html>
 <script>
-	function goWrite()
-	{
-		var frm = document.myform;
-		if(frm.category_code.value.trim().length==0)
-		{
-			alert("카테고리를 작성하세요");
-			frm.category_code.focus();
-			return false;
-		}
-		if(frm.genre_code.value.trim().length==0)
-		{
-			alert("장르를 작성하세요");
-			frm.genre_code.focus();
-			return false;
-		}
-		if(frm.ani_avg_ratings.value.trim().length==0)
-		{
-			alert("평균 시청률을 작성하세요");
-			frm.ani_avg_ratings.focus();
-			return false;
-		}
-		if(frm.ani_title.value.trim().length==0)
-		{
-			alert("제목을 작성하세요");
-			frm.ani_title.focus();
-			return false;
-		}
-		if(frm.ani_producer.value.trim().length==0)
-		{
-			alert("이름을 작성하세요");
-			frm.ani_producer.focus();
-			return false;
-		}
-		if(frm.ani_content.value.trim().length==0)
-		{
-			alert("내용을 작성하세요");
-			frm.ani_content.focus();
-			return false;
-		}
-		if(frm.ani_url.value.trim().length==0)
-		{
-			alert("영상 주소를 작성하세요");
-			frm.ani_url.focus();
-			return false;
-		}
-		if(frm.ani_productionyear.value.trim().length==0)
-		{
-			alert("제작년도를 작성하세요");
-			frm.ani_productionyear.focus();
-			return false;
-		}
-		if(frm.ani_agelimit.value.trim().length==0)
-		{
-			alert("제한연령을 작성하세요");
-			frm.ani_agelimit.focus();
-			return false;
-		}
+function goList()
+{
+   var frm = document.myform;
+   frm.action="<%=request.getContextPath()%>/admin/user/list";
+   frm.submit();
+}
 
-		frm.action="<%=request.getContextPath()%>/admin/aniboard/save";
-		frm.method="post";
-		frm.submit(); //서버로 전송하기
-	}
-	
-	function goMain()
-	{
-		location.href="${commonURL}/admin/adminhome";		
-	}
-	
-	function readURL(input) {
-		if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function(e) {
-	      document.getElementById('preview').src = e.target.result;
-	    };
-	    reader.readAsDataURL(input.files[0]);
-	    } 
-		else {
-	    document.getElementById('preview').src = "";
-	    }
-	}
+function goModify()
+{
+   var frm = document.myform;
+   frm.action="<%=request.getContextPath()%>/admin/user/modify";
+   frm.submit();
+}
+
+
+function goDelete()
+{
+   if( confirm("삭제하시겠습니까?"))
+   {
+      var frm = document.myform;
+      frm.action="<%=request.getContextPath()%>/admin/user/delete";
+      frm.submit();
+   }
+}
+
+function goMain()
+{
+	location.href="${commonURL}/admin/adminhome";	//페이지 이동	
+}
 </script>

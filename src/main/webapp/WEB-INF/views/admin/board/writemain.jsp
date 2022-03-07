@@ -88,9 +88,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">회원 관리:</h6>
-                        <a class="collapse-item" href="utilities-color.html">회원정보관리</a>
-                        <a class="collapse-item" href="utilities-border.html">회원조회</a>
-                        <a class="collapse-item" href="utilities-animation.html">회원탈퇴</a>
+                        <a class="collapse-item" href="${commonURL}/admin/user/list">회원정보관리</a>
                         <a class="collapse-item" href="utilities-other.html">고객센터</a>
                     </div>
                 </div>
@@ -362,7 +360,7 @@
 
                             <div class="card mb-4 py-3 border-left-secondary">
                                 <div class="card-body">
-                                    <a href="${commonURL}/admin/tvboard/write">TV</a>
+                                    <a href="${commonURL}/admin/dramaboard/write">드라마</a>
                                 </div>
                             </div>
 
@@ -384,7 +382,7 @@
 
                             <div class="card mb-4 py-3 border-bottom-secondary">
                                 <div class="card-body">
-                                    <a href="${commonURL}/admin/bookboard/write">책</a>
+                                    <a href="${commonURL}/admin/enterboard/write">예능</a>
                                 </div>
                             </div>
 

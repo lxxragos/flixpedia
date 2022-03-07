@@ -12,6 +12,14 @@ public class AdminMemberDto {
 	private String zipcode="";
 	private String address1="";
 	private String address2="";
+	private String user_images="";
+	
+	public String getUser_images() {
+		return user_images;
+	}
+	public void setUser_images(String user_images) {
+		this.user_images = user_images;
+	}
 	public String getId() {
 		return id;
 	}
@@ -78,10 +86,31 @@ public class AdminMemberDto {
 	public void setAddress2(String address2) {
 		this.address2 = address2;
 	}
+	public AdminMemberDto(String id, String userid, String password, String username, String email, String wdate,
+			String nickname, String phone, String zipcode, String address1, String address2, String user_images) {
+		super();
+		this.id = id;
+		this.userid = userid;
+		this.password = password;
+		this.username = username;
+		this.email = email;
+		this.wdate = wdate;
+		this.nickname = nickname;
+		this.phone = phone;
+		this.zipcode = zipcode;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.user_images = user_images;
+	}
+	public AdminMemberDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	public String toString() {
-		return "AdminMemberDto [id=" + id + ", userid=" + userid + ", username=" + username + ", email=" + email
-				+ ", phone=" + phone + "]";
+		return "AdminMemberDto [id=" + id + ", userid=" + userid + ", password=" + password + ", username=" + username
+				+ ", email=" + email + ", wdate=" + wdate + ", nickname=" + nickname + ", phone=" + phone + ", zipcode="
+				+ zipcode + ", address1=" + address1 + ", address2=" + address2 + ", user_images=" + user_images + "]";
 	}
 	
 	

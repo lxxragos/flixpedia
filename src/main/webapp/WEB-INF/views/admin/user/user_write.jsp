@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.semi.flix.admin.aniboard.*" %>
+<%@ page import="com.semi.flix.admin.user.*" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>FLIXMEDIA-ani write</title>
+    <title>FLIXMEDIA-user write</title>
 
     <!-- Custom fonts for this template-->
     <link href="<%=request.getContextPath()%>/resources/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -29,7 +29,7 @@
 <body id="page-top">
 	<%@include file="../include/adminnav.jsp" %>
 	<%
-	AniBoardDto dto = (AniBoardDto)request.getAttribute("aniboardDto");
+	UserDto dto = (UserDto)request.getAttribute("userDto");
 	%>
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -343,8 +343,7 @@
 
 				<!-- Begin Page Content -->
 				<form id="myform" name="myform" enctype="multipart/form-data">
-				<input type="hidden" name="board_seq" id="board_seq" value="<%=dto.getBoard_seq() %>"/>
-				<input type="hidden" name="hit" id="hit" value="<%=dto.getAni_hit() %>"/>
+				<input type="hidden" name="user_seq" id="user_seq" value="<%=dto.getUser_seq() %>"/>
 				
 				<div class="container rounded bg-white mt-5 mb-5">
 				    <div class="row">
@@ -352,10 +351,10 @@
 					            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
 					                <img class="rounded mt-5" src="">       
 					                <input type="file" class="form-control" id="uplaod" name="upload" 
-					                        placeholder="이미지를 업로드하세요" value="<%=dto.getAni_images() %>" onchange="readURL(this);"/>
+					                        placeholder="이미지를 업로드하세요" value="<%=dto.getUser_images() %>" onchange="readURL(this);"/>
 					                        <br/><br/>
-									<img id="preview" src="../../upload/<%=dto.getAni_images() %>"style="width:50%; height:auto;"/>
-									<input type="hidden" name="ani_images" value="<%=dto.getAni_images() %>"/>
+									<img id="preview" src="../../upload/<%=dto.getUser_images() %>"style="width:50%; height:auto;"/>
+									<input type="hidden" name="user_images" value="<%=dto.getUser_images() %>"/>
 					            </div>
 				        </div>
 				        <div class="col-md-7 border-right">
@@ -363,63 +362,97 @@
 				                <div class="d-flex justify-content-between align-items-center mb-3">
 				                    
 				                </div>
-				            <div class="row mt-2">
+				           	<div class="row mt-3">
+				            <% if(dto.getUser_id().equals("")) {%>
+				                <div class="col-md-12">
+				                	<label class="labels">아이디</label>
+				                	<input type="hidden" name="idcheck" id="idcheck" value="N"/>
+				                	<input type="text" class="form-control" placeholder="userid" id="user_id" name="user_id"
+				                	value="<%=dto.getUser_id()%>" >
+				                	<p style="font-size: 11px">아이디는 영문 대소문자와 숫자 4~12자리로 입력하세요</p>
+				                </div>
+				                <div class="input-group-append">
+									<button class="btn btn-success" type="button" id="btnDuplicate">중복체크</button>  
+								</div>
+				            <% }else{ %>
+				                <div class="col-md-12">
+				                	<label class="labels">아이디</label>
+				                	<input type="hidden" name="idcheck" id="idcheck" value="N"/>
+				                	<input type="text" class="form-control" placeholder="userid" id="user_id" name="user_id"
+				                	value="<%=dto.getUser_id()%>" readonly>
+				                </div>
+				                <div class="input-group-append">
+									<button class="btn btn-success" type="button" id="btnDuplicate"></button>  
+								</div>
+				             <%} %>
+				             </div>
+				             <div class="row mt-2">
 				                <div class="col-md-6">
-				                <label class="labels">카테고리</label>
-				                <input type="text" class="form-control" placeholder="category" id="category_code" name="category_code"
-				                value="<%=dto.getCategory_code()%>">
+				                <label class="labels">패스워드</label>
+				                <input type="text" class="form-control" placeholder="password" id="password" name="password"
+				                value="<%=dto.getPassword()%>" >
+				                <p style="font-size: 11px">비밀번호는 영문 대소문자와 숫자 4~12자리로 입력하세요</p>
 				                </div>
 				                <div class="col-md-6">
-				                <label class="labels">장르</label>
-				                <input type="text" class="form-control" placeholder="genre" id="genre_code" name="genre_code"
-				                value="<%=dto.getGenre_code()%>" >
+				                <label class="labels">패스워드</label>
+				                <input type="text" class="form-control" placeholder="password check" id="pwd_ck" name="pwd_ck"
+				                value="<%=dto.getPassword()%>" >
 				                </div>
 				            </div>
 				            <div class="row mt-2">
 				                <div class="col-md-6">
-				                <label class="labels">제목</label>
-				                <input type="text" class="form-control" placeholder="title" id="ani_title" name="ani_title"
-				                value="<%=dto.getAni_title()%>">
+				                <label class="labels">이름</label>
+				                <input type="text" class="form-control" placeholder="name" id="name" name="name"
+				                value="<%=dto.getName()%>">
 				                </div>
 				                <div class="col-md-6">
-				                <label class="labels">감독</label>
-				                <input type="text" class="form-control" placeholder="producer" id="ani_producer" name="ani_producer"
-				                value="<%=dto.getAni_producer()%>" >
+				                <label class="labels">닉네임</label>
+				                <input type="text" class="form-control" placeholder="nick_name" id="nick_name" name="nick_name"
+				                value="<%=dto.getNick_name()%>" >
 				                </div>
 				            </div>
 				            <div class="row mt-3">
 				                <div class="col-md-12">
-				                <label class="labels">줄거리</label>
-				                <textarea class="form-control" id="ani_content" name="ani_content" placeholder="enter contents" 
-				                ><%=dto.getAni_content()%></textarea>
-				                </div>
-				            </div>
-				            <div class="row mt-3">
-				                <div class="col-md-4">
-				                <label class="labels">관람객수</label>
-				                <input type="text" class="form-control" placeholder="attendance" id="ani_avg_ratings" name="ani_avg_ratings"
-				                value="<%=dto.getAni_avg_ratings()%>">
-				                </div>
-				                <div class="col-md-4">
-				                <label class="labels">제작년도</label>
-				                <input type="text" class="form-control" placeholder="productionyear" id="ani_productionyear" name="ani_productionyear"
-				                value="<%=dto.getAni_productionyear()%>">
-				                </div>
-				                <div class="col-md-4">
-				                <label class="labels">연령제한</label>
-				                <input type="text" class="form-control" placeholder="agelimit" id="ani_agelimit" name="ani_agelimit"
-				                value="<%=dto.getAni_agelimit()%>">
+				                <label class="labels">이메일</label>
+				                <input class="form-control" id="email" name="email" placeholder="email" 
+				                ><%=dto.getEmail()%></textarea>
 				                </div>
 				            </div>
 				            <div class="row mt-3">
 				                <div class="col-md-12">
-				                <label class="labels">예고편 url</label>
-				                <textarea class="form-control" id="ani_url" name="ani_url" placeholder="URL address" 
-				                ><%=dto.getAni_url()%></textarea>
+				                <label class="labels">휴대폰</label>
+				                <input class="form-control" id="phone" name="phone" placeholder="phone" 
+				                ><%=dto.getPhone()%></textarea>
+				                </div>
+				            </div>
+				            <button type="button"
+									onClick="goPopup();" value="팝업_domainChk"
+									style="width:100px; height: 30px; margin:2px;">주소 검색</button>
+							<div class="form-group row">
+								<p style="font-size: 11px">주소는 검색을 이용해주세요</p>
+							</div>
+				            <div class="row mt-3">
+				                <div class="col-md-12">
+				                <label class="labels">도로명주소</label>
+				                <input class="form-control" readonly="readonly" id="address1" name="address1" placeholder="도로명주소" 
+				                ><%=dto.getAddress1()%></textarea>
+				                </div>
+				            </div>
+				            <div class="row mt-2">
+				                <div class="col-md-7">
+				                <label class="labels">상세주소</label>
+				                <input type="text" class="form-control"readonly="readonly" placeholder="상세주소" id="address2" name="address2"
+				                value="<%=dto.getAddress2()%>">
+				                </div>
+				                <div class="col-md-5">
+				                <label class="labels">우편번호</label>
+				                <input type="text" class="form-control"readonly="readonly" placeholder="우편번호" id="zipcode" name="zipcode"
+				                value="<%=dto.getZipcode()%>" >
 				                </div>
 				            </div>
 				            <div class="mt-5 text-center">
-				                <button class="btn btn-primary profile-button" type="button" onclick="goWrite()">등록</button>
+				                <button class="btn btn-primary profile-button" type="button" onclick="goWrite()">수정</button>
+				                <button class="btn btn-primary profile-button" type="button" onclick="goCancle()">취소</button>
 				            </div>
 				            </div>
 				        </div>
@@ -493,67 +526,143 @@
 
 </html>
 <script>
+function goPopup()
+{
+	var pop = window.open("juso","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+	
+}
+function jusoCallBack(address1,address2,zipcode)
+{
+		document.myform.address1.value = address1;
+		document.myform.address2.value = address2;
+		document.myform.zipcode.value = zipcode;
+}
+$(()=>{
+	$("#btnDuplicate").click(()=>{
+		$.ajax({
+			url:"${commonURL}/admin/user/isDuplicate",	//요청 url정보
+			data:{user_id:$("#user_id").val()},	//서버로 전달할 데이터 정보 : JSON형태
+			dataType:"json",	//결과를 json으로 받겠다. 이렇게 안하면 결과값이 text로 온다.
+			type:"POST"
+		})
+		.done((data)=>{
+			//데이터가 정상적으로 수신되면 done이라는 메서드가 호출되면서 매개변수는 전달받은 값
+			//값은 dataType 속성을 안주면 text로 온다.
+			console.log(data.result);
+			if(data.result == "true")	//중복
+			{
+				alert("이미 사용중인 아이디 입니다.")
+			}
+			else
+			{
+				alert("사용 가능합니다.")
+				$("#idcheck").val("Y");
+				$("#user_id").prop("readonly", true);	//수정못하게 막는 기능
+			}
+		})
+		.fail((error)=>{
+			//통신에러, 오류에 대한 것
+			console.log(error)
+		})
+	})
+})
 	function goWrite()
 	{
-		var frm = document.myform;
-		if(frm.category_code.value.trim().length==0)
-		{
-			alert("카테고리를 작성하세요");
-			frm.category_code.focus();
-			return false;
-		}
-		if(frm.genre_code.value.trim().length==0)
-		{
-			alert("장르를 작성하세요");
-			frm.genre_code.focus();
-			return false;
-		}
-		if(frm.ani_avg_ratings.value.trim().length==0)
-		{
-			alert("평균 시청률을 작성하세요");
-			frm.ani_avg_ratings.focus();
-			return false;
-		}
-		if(frm.ani_title.value.trim().length==0)
-		{
-			alert("제목을 작성하세요");
-			frm.ani_title.focus();
-			return false;
-		}
-		if(frm.ani_producer.value.trim().length==0)
-		{
-			alert("이름을 작성하세요");
-			frm.ani_producer.focus();
-			return false;
-		}
-		if(frm.ani_content.value.trim().length==0)
-		{
-			alert("내용을 작성하세요");
-			frm.ani_content.focus();
-			return false;
-		}
-		if(frm.ani_url.value.trim().length==0)
-		{
-			alert("영상 주소를 작성하세요");
-			frm.ani_url.focus();
-			return false;
-		}
-		if(frm.ani_productionyear.value.trim().length==0)
-		{
-			alert("제작년도를 작성하세요");
-			frm.ani_productionyear.focus();
-			return false;
-		}
-		if(frm.ani_agelimit.value.trim().length==0)
-		{
-			alert("제한연령을 작성하세요");
-			frm.ani_agelimit.focus();
-			return false;
-		}
-
-		frm.action="<%=request.getContextPath()%>/admin/aniboard/save";
-		frm.method="post";
-		frm.submit(); //서버로 전송하기
+	var queryString = $("form[name=myform]").serialize();
+	console.log( queryString );
+	var user_id='<%=dto.getUser_id()%>';
+	var frm = document.myform;
+	if( frm.name.value.trim()==""){
+		alert("이름을 입력하세요");
+		frm.name.focus();
+		return false;
+	};
+	
+	 if( frm.user_id.value.trim()==""){
+   		alert("아이디를 입력하세요");
+   		frm.user_id.focus();
+   		return false;
+   		} 
+	if( frm.password.value.trim()=="")
+	{
+		alert("비밀번호를 입력하세요");
+		frm.password.focus();
+		return false;
+	}
+	 var password1RegExp = /^[a-zA-z0-9]{4,12}$/; //비밀번호 유효성 검사
+     if (!password1RegExp.test(frm.password.value.trim())) {
+         alert("비밀번호는 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
+         form.password.value = "";
+         form.password.focus();
+         return false;
+     }
+	if( frm.password.value.trim()!=frm.pwd_ck.value.trim())
+	{
+		alert("비밀번호가 다릅니다");
+		frm.pwd_ck.focus();
+		return false;
+	};
+	if( frm.nick_name.value.trim()=="")
+	{
+		alert("닉네임을 입력하세요");
+		frm.nick_name.focus();
+		return false;
+	};
+	if( frm.email.value.trim()=="")
+	{
+		alert("이메일을 입력하세요");
+		frm.email.focus();
+		return false;
+	};
+	if( frm.phone.value.trim()=="")
+	{
+		alert("전화번호를 입력하세요");
+		frm.phone.focus();
+		return false;
+	};
+	if( frm.zipcode.value.trim()=="")
+	{
+		alert("우편번호를 입력하세요");
+		frm.zipcode.focus();
+		return false;
+	};
+	if( frm.address1.value.trim()=="")
+	{
+		alert("도로명 주소를 입력하세요");
+		frm.address1.focus();
+		return false;
+	};
+	if( frm.address2.value.trim()=="")
+	{
+		alert("상세 주소를 입력하세요");
+		frm.address2.focus();
+		return false;
+	};
+	
+	if(userid=='')
+	{
+		url="${commonURL}/admin/user/insert",
+		msg="회원가입이 되었습니다.";
+	}
+	else
+	{
+		url="${commonURL}/admin/user/update",
+		msg="회원 정보가 수정되었습니다."
+	}
+		
+	$.ajax({
+		url:url,
+		data:queryString,
+		type:"POST",
+	})
+	.done( (result)=>{
+		console.log( result );
+		alert(msg);
+		location.href="${commonURL}/admin/user/list";
+	})
+	.fail( (error)=>{
+		console.log(error);
+	})
 	}
 	
 	function goMain()
@@ -572,5 +681,10 @@
 		else {
 	    document.getElementById('preview').src = "";
 	    }
+	}
+	
+	function goCancel()
+	{
+		location.href="${commonURL}/admin/user/list";
 	}
 </script>

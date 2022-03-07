@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.semi.flix.admin.aniboard.*" %>
+<%@ page import="com.semi.flix.admin.dramaboard.*" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>FLIXMEDIA-ani write</title>
+    <title>FLIXMEDIA-drama write</title>
 
     <!-- Custom fonts for this template-->
     <link href="<%=request.getContextPath()%>/resources/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -29,7 +29,7 @@
 <body id="page-top">
 	<%@include file="../include/adminnav.jsp" %>
 	<%
-	AniBoardDto dto = (AniBoardDto)request.getAttribute("aniboardDto");
+	DramaBoardDto dto = (DramaBoardDto)request.getAttribute("dramaboardDto");
 	%>
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -344,7 +344,7 @@
 				<!-- Begin Page Content -->
 				<form id="myform" name="myform" enctype="multipart/form-data">
 				<input type="hidden" name="board_seq" id="board_seq" value="<%=dto.getBoard_seq() %>"/>
-				<input type="hidden" name="hit" id="hit" value="<%=dto.getAni_hit() %>"/>
+				<input type="hidden" name="hit" id="hit" value="<%=dto.getDrama_hit() %>"/>
 				
 				<div class="container rounded bg-white mt-5 mb-5">
 				    <div class="row">
@@ -352,10 +352,10 @@
 					            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
 					                <img class="rounded mt-5" src="">       
 					                <input type="file" class="form-control" id="uplaod" name="upload" 
-					                        placeholder="이미지를 업로드하세요" value="<%=dto.getAni_images() %>" onchange="readURL(this);"/>
+					                        placeholder="이미지를 업로드하세요" value="<%=dto.getDrama_images() %>" onchange="readURL(this);"/>
 					                        <br/><br/>
-									<img id="preview" src="../../upload/<%=dto.getAni_images() %>"style="width:50%; height:auto;"/>
-									<input type="hidden" name="ani_images" value="<%=dto.getAni_images() %>"/>
+									<img id="preview" src="../../upload/<%=dto.getDrama_images() %>"style="width:50%; height:auto;"/>
+									<input type="hidden" name="drama_images" value="<%=dto.getDrama_images() %>"/>
 					            </div>
 				        </div>
 				        <div class="col-md-7 border-right">
@@ -378,44 +378,44 @@
 				            <div class="row mt-2">
 				                <div class="col-md-6">
 				                <label class="labels">제목</label>
-				                <input type="text" class="form-control" placeholder="title" id="ani_title" name="ani_title"
-				                value="<%=dto.getAni_title()%>">
+				                <input type="text" class="form-control" placeholder="title" id="drama_title" name="drama_title"
+				                value="<%=dto.getDrama_title()%>">
 				                </div>
 				                <div class="col-md-6">
 				                <label class="labels">감독</label>
-				                <input type="text" class="form-control" placeholder="producer" id="ani_producer" name="ani_producer"
-				                value="<%=dto.getAni_producer()%>" >
+				                <input type="text" class="form-control" placeholder="producer" id="drama_producer" name="drama_producer"
+				                value="<%=dto.getDrama_producer()%>" >
 				                </div>
 				            </div>
 				            <div class="row mt-3">
 				                <div class="col-md-12">
 				                <label class="labels">줄거리</label>
-				                <textarea class="form-control" id="ani_content" name="ani_content" placeholder="enter contents" 
-				                ><%=dto.getAni_content()%></textarea>
+				                <textarea class="form-control" id="drama_content" name="drama_content" placeholder="drama contents" 
+				                ><%=dto.getDrama_content()%></textarea>
 				                </div>
 				            </div>
 				            <div class="row mt-3">
 				                <div class="col-md-4">
 				                <label class="labels">관람객수</label>
-				                <input type="text" class="form-control" placeholder="attendance" id="ani_avg_ratings" name="ani_avg_ratings"
-				                value="<%=dto.getAni_avg_ratings()%>">
+				                <input type="text" class="form-control" placeholder="attendance" id="drama_avg_ratings" name="drama_avg_ratings"
+				                value="<%=dto.getDrama_avg_ratings()%>">
 				                </div>
 				                <div class="col-md-4">
 				                <label class="labels">제작년도</label>
-				                <input type="text" class="form-control" placeholder="productionyear" id="ani_productionyear" name="ani_productionyear"
-				                value="<%=dto.getAni_productionyear()%>">
+				                <input type="text" class="form-control" placeholder="productionyear" id="drama_productionyear" name="drama_productionyear"
+				                value="<%=dto.getDrama_productionyear()%>">
 				                </div>
 				                <div class="col-md-4">
 				                <label class="labels">연령제한</label>
-				                <input type="text" class="form-control" placeholder="agelimit" id="ani_agelimit" name="ani_agelimit"
-				                value="<%=dto.getAni_agelimit()%>">
+				                <input type="text" class="form-control" placeholder="agelimit" id="drama_agelimit" name="drama_agelimit"
+				                value="<%=dto.getDrama_agelimit()%>">
 				                </div>
 				            </div>
 				            <div class="row mt-3">
 				                <div class="col-md-12">
 				                <label class="labels">예고편 url</label>
-				                <textarea class="form-control" id="ani_url" name="ani_url" placeholder="URL address" 
-				                ><%=dto.getAni_url()%></textarea>
+				                <textarea class="form-control" id="drama_url" name="drama_url" placeholder="URL address" 
+				                ><%=dto.getDrama_url()%></textarea>
 				                </div>
 				            </div>
 				            <div class="mt-5 text-center">
@@ -508,50 +508,50 @@
 			frm.genre_code.focus();
 			return false;
 		}
-		if(frm.ani_avg_ratings.value.trim().length==0)
+		if(frm.drama_avg_ratings.value.trim().length==0)
 		{
-			alert("평균 시청률을 작성하세요");
-			frm.ani_avg_ratings.focus();
+			alert("관람객수를 작성하세요");
+			frm.drama_avg_ratings.focus();
 			return false;
 		}
-		if(frm.ani_title.value.trim().length==0)
+		if(frm.drama_title.value.trim().length==0)
 		{
 			alert("제목을 작성하세요");
-			frm.ani_title.focus();
+			frm.drama_title.focus();
 			return false;
 		}
-		if(frm.ani_producer.value.trim().length==0)
+		if(frm.drama_producer.value.trim().length==0)
 		{
 			alert("이름을 작성하세요");
-			frm.ani_producer.focus();
+			frm.drama_producer.focus();
 			return false;
 		}
-		if(frm.ani_content.value.trim().length==0)
+		if(frm.drama_content.value.trim().length==0)
 		{
 			alert("내용을 작성하세요");
-			frm.ani_content.focus();
+			frm.drama_content.focus();
 			return false;
 		}
-		if(frm.ani_url.value.trim().length==0)
+		if(frm.drama_url.value.trim().length==0)
 		{
 			alert("영상 주소를 작성하세요");
-			frm.ani_url.focus();
+			frm.drama_url.focus();
 			return false;
 		}
-		if(frm.ani_productionyear.value.trim().length==0)
+		if(frm.drama_productionyear.value.trim().length==0)
 		{
 			alert("제작년도를 작성하세요");
-			frm.ani_productionyear.focus();
+			frm.drama_productionyear.focus();
 			return false;
 		}
-		if(frm.ani_agelimit.value.trim().length==0)
+		if(frm.drama_agelimit.value.trim().length==0)
 		{
 			alert("제한연령을 작성하세요");
-			frm.ani_agelimit.focus();
+			frm.drama_agelimit.focus();
 			return false;
 		}
 
-		frm.action="<%=request.getContextPath()%>/admin/aniboard/save";
+		frm.action="<%=request.getContextPath()%>/admin/dramaboard/save";
 		frm.method="post";
 		frm.submit(); //서버로 전송하기
 	}

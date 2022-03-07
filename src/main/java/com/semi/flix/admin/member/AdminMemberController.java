@@ -34,14 +34,14 @@ public class AdminMemberController {
 		
 		String userid = (String)session.getAttribute("userid");
 		if(userid==null)
-			return "redirect:admin/adminmember/login";
+			return "redirect:/admin/adminindex";
 		
 		AdminMemberDto dto = new AdminMemberDto();
 		dto.setUserid(userid);
 		
 		AdminMemberDto resultDto = adminmemberService.getInfo(dto);
 		model.addAttribute("adminmemberDto", resultDto);
-		return "admin/adminmember/member_register";
+		return "admin/member/adminmember_register";
 	}
 	
 	@RequestMapping("/admin/adminmember/isDuplicate")
@@ -63,15 +63,15 @@ public class AdminMemberController {
 	{
 		System.out.println("userid : " + dto.getUserid());
 		adminmemberService.insert(dto);
+		
+		if( dto.getId().equals("") )
+			adminmemberService.insert(dto);
+		else
+			adminmemberService.update(dto);
+		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("result", "success");
 		return map;
-	}
-	
-	@RequestMapping(value="/admin/adminmember/login")
-	public String adminmember_login()
-	{
-		return "admin/adminmember/member_login";
 	}
 	
 	@RequestMapping(value="/admin/adminmember/login_proc")

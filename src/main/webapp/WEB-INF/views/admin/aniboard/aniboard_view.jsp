@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.semi.flix.admin.aniboard.*" %>
+<%@ page import="com.semi.flix.admin.member.*" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,6 +38,7 @@
     AniBoardDto dto = (AniBoardDto)request.getAttribute("aniboardDto");
     	dto = (dto == null) ? new AniBoardDto() : dto;
     %>
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -97,9 +99,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">회원 관리:</h6>
-                        <a class="collapse-item" href="utilities-color.html">회원정보관리</a>
-                        <a class="collapse-item" href="utilities-border.html">회원조회</a>
-                        <a class="collapse-item" href="utilities-animation.html">회원탈퇴</a>
+                        <a class="collapse-item" href="${commonURL}/admin/user/list">회원정보관리</a>
                         <a class="collapse-item" href="utilities-other.html">고객센터</a>
                     </div>
                 </div>

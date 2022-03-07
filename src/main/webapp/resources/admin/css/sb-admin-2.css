@@ -2943,7 +2943,9 @@ fieldset:disabled a.btn {
 
 .btn-block {
   display: block;
-  width: 100%;
+  width: 93%;
+  margin: auto;
+  
 }
 
 .btn-block + .btn-block {
@@ -11319,4 +11321,20 @@ body.sidebar-toggled footer.sticky-footer {
     color: #fff;
     cursor: pointer;
     border: solid 1px #BA68C8
+}
+
+div.main{
+	position: relative;
+	margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -0.75rem;
+    margin-left: -0.75rem;
+}
+div.main input{
+    text-indent: 10px;
+}
+div.main i{
+    position: absolute;
+    top: 27px;
 }

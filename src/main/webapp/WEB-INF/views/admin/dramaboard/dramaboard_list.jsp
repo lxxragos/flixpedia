@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.semi.flix.admin.aniboard.*" %>
+<%@page import="java.util.*"%>
+<%@page import="com.semi.flix.admin.common.*"%>
+<%@page import="com.semi.flix.admin.dramaboard.*"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,25 +15,33 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>FLIXMEDIA-ani write</title>
+    <title>FLIXMEDIA-drama list</title>
 
-    <!-- Custom fonts for this template-->
+    <!-- Custom fonts for this template -->
     <link href="<%=request.getContextPath()%>/resources/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom styles for this template-->
+
+    <!-- Custom styles for this template -->
     <link href="<%=request.getContextPath()%>/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
-	
+
+    <!-- Custom styles for this page -->
+    <link href="<%=request.getContextPath()%>/resources/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
-	<%@include file="../include/adminnav.jsp" %>
-	<%
-	AniBoardDto dto = (AniBoardDto)request.getAttribute("aniboardDto");
-	%>
+<%
+String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
+	String keyword = AdminStringUtil.nullToValue(request.getParameter("keyword"), "");
+	String pg = AdminStringUtil.nullToValue(request.getParameter("pg"), "0");
+	int totalCnt = (Integer)request.getAttribute("totalCnt");
+%>
+    <%@include file="../include/adminnav.jsp" %>
+    
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -341,95 +352,78 @@
                 </nav>
                 <!-- End of Topbar -->
 
-				<!-- Begin Page Content -->
-				<form id="myform" name="myform" enctype="multipart/form-data">
-				<input type="hidden" name="board_seq" id="board_seq" value="<%=dto.getBoard_seq() %>"/>
-				<input type="hidden" name="hit" id="hit" value="<%=dto.getAni_hit() %>"/>
-				
-				<div class="container rounded bg-white mt-5 mb-5">
-				    <div class="row">
-				        <div class="col-md-5 border-right">
-					            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-					                <img class="rounded mt-5" src="">       
-					                <input type="file" class="form-control" id="uplaod" name="upload" 
-					                        placeholder="이미지를 업로드하세요" value="<%=dto.getAni_images() %>" onchange="readURL(this);"/>
-					                        <br/><br/>
-									<img id="preview" src="../../upload/<%=dto.getAni_images() %>"style="width:50%; height:auto;"/>
-									<input type="hidden" name="ani_images" value="<%=dto.getAni_images() %>"/>
-					            </div>
-				        </div>
-				        <div class="col-md-7 border-right">
-				            <div class="p-3 py-5">
-				                <div class="d-flex justify-content-between align-items-center mb-3">
-				                    
-				                </div>
-				            <div class="row mt-2">
-				                <div class="col-md-6">
-				                <label class="labels">카테고리</label>
-				                <input type="text" class="form-control" placeholder="category" id="category_code" name="category_code"
-				                value="<%=dto.getCategory_code()%>">
-				                </div>
-				                <div class="col-md-6">
-				                <label class="labels">장르</label>
-				                <input type="text" class="form-control" placeholder="genre" id="genre_code" name="genre_code"
-				                value="<%=dto.getGenre_code()%>" >
-				                </div>
-				            </div>
-				            <div class="row mt-2">
-				                <div class="col-md-6">
-				                <label class="labels">제목</label>
-				                <input type="text" class="form-control" placeholder="title" id="ani_title" name="ani_title"
-				                value="<%=dto.getAni_title()%>">
-				                </div>
-				                <div class="col-md-6">
-				                <label class="labels">감독</label>
-				                <input type="text" class="form-control" placeholder="producer" id="ani_producer" name="ani_producer"
-				                value="<%=dto.getAni_producer()%>" >
-				                </div>
-				            </div>
-				            <div class="row mt-3">
-				                <div class="col-md-12">
-				                <label class="labels">줄거리</label>
-				                <textarea class="form-control" id="ani_content" name="ani_content" placeholder="enter contents" 
-				                ><%=dto.getAni_content()%></textarea>
-				                </div>
-				            </div>
-				            <div class="row mt-3">
-				                <div class="col-md-4">
-				                <label class="labels">관람객수</label>
-				                <input type="text" class="form-control" placeholder="attendance" id="ani_avg_ratings" name="ani_avg_ratings"
-				                value="<%=dto.getAni_avg_ratings()%>">
-				                </div>
-				                <div class="col-md-4">
-				                <label class="labels">제작년도</label>
-				                <input type="text" class="form-control" placeholder="productionyear" id="ani_productionyear" name="ani_productionyear"
-				                value="<%=dto.getAni_productionyear()%>">
-				                </div>
-				                <div class="col-md-4">
-				                <label class="labels">연령제한</label>
-				                <input type="text" class="form-control" placeholder="agelimit" id="ani_agelimit" name="ani_agelimit"
-				                value="<%=dto.getAni_agelimit()%>">
-				                </div>
-				            </div>
-				            <div class="row mt-3">
-				                <div class="col-md-12">
-				                <label class="labels">예고편 url</label>
-				                <textarea class="form-control" id="ani_url" name="ani_url" placeholder="URL address" 
-				                ><%=dto.getAni_url()%></textarea>
-				                </div>
-				            </div>
-				            <div class="mt-5 text-center">
-				                <button class="btn btn-primary profile-button" type="button" onclick="goWrite()">등록</button>
-				            </div>
-				            </div>
-				        </div>
-				    </div>
-				</div>
-				</form>
-<!-- /.container-fluid -->
+                <!-- Begin Page Content -->
+                
+                    <!-- DataTales Example -->
+                    <form name="myform" method="post">
+                        <input type="hidden" name="key" id="key" value="<%=key%>"/>
+                        <input type="hidden" name="pg" id="pg" value="<%=pg%>"/>
+                        <input type="hidden" name="board_seq" id="board_seq" value=""/>
+                    
+                        <div class="container" style="margin-top:80px">
+                            <h2>게시판 목록 (${totalCnt})</h2>
+                    
+                            <div class="input-group mb-3" style="margin-top:20px;">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" id="searchItem">
+                                    전체
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('1')">전체</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('2')">제목</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('3')">감독</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('4')">장르</a></li>
+                                </ul>
+                                <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword" value="<%=keyword%>">
+                                <button class="btn btn-secondary" type="button" onclick="goSearch()">Go</button>
+                              </div>
+                    
+                            <table class="table table-hover ">
+                                <colgroup>
+                                    <col width="8%">
+                                    <col width="10%">
+                                    <col width="10%">
+                                    <col width="*">
+                                    <col width="12%">
+                                    <col width="12%">
+                                </colgroup>
+                                <thead class="table-secondary">
+                                  <tr>
+                                    <th>번호</th>
+                                    <th>카테고리</th>
+                                    <th>장르</th>
+                                    <th>제목</th>
+                                    <th>감독</th>
+                                    <th>작성일</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                <%
+                                List<DramaBoardDto> list = (List<DramaBoardDto>)request.getAttribute("dramaboardList");
+                                                                for(DramaBoardDto tempDto : list){
+                                %>
+                                  <tr>
+                                    <td><%=totalCnt - tempDto.getRnum()+1%></td>
+                                    <td><%=tempDto.getCategory_code()%></td>
+                                    <td><%=tempDto.getGenre_code()%></td>
+                                    <td><a href="#none" onclick="goView('<%=tempDto.getBoard_seq()%>')"><%=tempDto.getDrama_title()%></a></td>
+                                    <td><%=tempDto.getDrama_producer()%></td>
+                                    <td><%=tempDto.getWdate()%></td>
+                                  </tr>
+                                <%} %>
+                                </tbody>
+                              </table>
+                              
+                              <div class="container mt-3" style="text-align:right;"> 
+                                  <%=AdminPager.makeTag(request, 10, totalCnt)%>
+                              </div>
+               
+                        </div>
+                    </form>
 
-</div>
-<!-- End of Main Content -->
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -471,7 +465,7 @@
             </div>
         </div>
     </div>
-
+    
     <!-- Bootstrap core JavaScript-->
     <script src="<%=request.getContextPath()%>/resources/admin/vendor/jquery/jquery.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -483,94 +477,54 @@
     <script src="<%=request.getContextPath()%>/resources/admin/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="<%=request.getContextPath()%>/resources/admin/vendor/chart.js/Chart.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="<%=request.getContextPath()%>/resources/admin/js/demo/chart-area-demo.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/admin/js/demo/chart-pie-demo.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/admin/js/demo/datatables-demo.js"></script>
 
 </body>
 
 </html>
 <script>
-	function goWrite()
+	window.onload = function(){
+		let key = '<%=key%>';
+		var texts=["","전체","제목","감독","장르"];
+		document.getElementById("searchItem").innerHTML=texts[key];	
+	}
+	function changeSearch(board_seq)
 	{
-		var frm = document.myform;
-		if(frm.category_code.value.trim().length==0)
-		{
-			alert("카테고리를 작성하세요");
-			frm.category_code.focus();
-			return false;
-		}
-		if(frm.genre_code.value.trim().length==0)
-		{
-			alert("장르를 작성하세요");
-			frm.genre_code.focus();
-			return false;
-		}
-		if(frm.ani_avg_ratings.value.trim().length==0)
-		{
-			alert("평균 시청률을 작성하세요");
-			frm.ani_avg_ratings.focus();
-			return false;
-		}
-		if(frm.ani_title.value.trim().length==0)
-		{
-			alert("제목을 작성하세요");
-			frm.ani_title.focus();
-			return false;
-		}
-		if(frm.ani_producer.value.trim().length==0)
-		{
-			alert("이름을 작성하세요");
-			frm.ani_producer.focus();
-			return false;
-		}
-		if(frm.ani_content.value.trim().length==0)
-		{
-			alert("내용을 작성하세요");
-			frm.ani_content.focus();
-			return false;
-		}
-		if(frm.ani_url.value.trim().length==0)
-		{
-			alert("영상 주소를 작성하세요");
-			frm.ani_url.focus();
-			return false;
-		}
-		if(frm.ani_productionyear.value.trim().length==0)
-		{
-			alert("제작년도를 작성하세요");
-			frm.ani_productionyear.focus();
-			return false;
-		}
-		if(frm.ani_agelimit.value.trim().length==0)
-		{
-			alert("제한연령을 작성하세요");
-			frm.ani_agelimit.focus();
-			return false;
-		}
-
-		frm.action="<%=request.getContextPath()%>/admin/aniboard/save";
-		frm.method="post";
-		frm.submit(); //서버로 전송하기
+		var texts=["","전체","제목","감독","장르"];
+		document.getElementById("searchItem").innerHTML=texts[board_seq]; //화면에 보이기 위해서
+		document.getElementById("key").value=board_seq; //컨트롤러로 넘기기 위해서
+		document.getElementById("keyword").value="";
 	}
 	
+	function goSearch(){
+		let frm = document.myform;
+		frm.pg.value=0;
+		frm.action = "<%=request.getContextPath()%>/admin/dramaboard/list";
+		frm.method = "get";
+		frm.submit();
+	}
+	
+	function goPage(pg){
+		let frm = document.myform;
+		frm.pg.value = pg;
+		frm.method = "get";
+		frm.action = "${pageContext.request.contextPath}/admin/dramaboard/list";
+		frm.submit();
+	}
+	
+	function goView(board_seq){
+		let frm = document.myform;
+		frm.board_seq.value = board_seq;
+		frm.method = "get";
+		frm.action = "<%=request.getContextPath()%>/admin/dramaboard/view";
+		frm.submit();
+	}
 	function goMain()
 	{
-		location.href="${commonURL}/admin/adminhome";		
-	}
-	
-	function readURL(input) {
-		if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function(e) {
-	      document.getElementById('preview').src = e.target.result;
-	    };
-	    reader.readAsDataURL(input.files[0]);
-	    } 
-		else {
-	    document.getElementById('preview').src = "";
-	    }
+		location.href="${commonURL}/admin/adminhome";	//페이지 이동	
 	}
 </script>
