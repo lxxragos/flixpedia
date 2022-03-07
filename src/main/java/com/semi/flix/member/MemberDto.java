@@ -10,11 +10,9 @@ public class MemberDto {
 	private String email ="";	
 	private String phone ="";	
 	private String wdate ="";	
-	private String roadAddrPart1 ="";	
-	private String addrDetail ="";
-	private int zipNo =0;
-	
-	
+	private String address1 ="";	
+	private String address2 ="";
+	private int zipcode =0;
 	public String getUser_seq() {
 		return user_seq;
 	}
@@ -63,28 +61,42 @@ public class MemberDto {
 	public void setWdate(String wdate) {
 		this.wdate = wdate;
 	}
-	public String getRoadAddrPart1() {
-		return roadAddrPart1;
+	public String getAddress1() {
+		return address1;
 	}
-	public void setRoadAddrPart1(String roadAddrPart1) {
-		this.roadAddrPart1 = roadAddrPart1;
+	public void setAddress1(String address1) {
+		this.address1 = address1;
 	}
-	public String getAddrDetail() {
-		return addrDetail;
+	public String getAddress2() {
+		return address2;
 	}
-	public void setAddrDetail(String addrDetail) {
-		this.addrDetail = addrDetail;
+	public void setAddress2(String address2) {
+		this.address2 = address2;
 	}
-	public int getZipNo() {
-		return zipNo;
+	public int getZipcode() {
+		return zipcode;
 	}
-	public void setZipNo(int zipNo) {
-		this.zipNo = zipNo;
+	public void setZipcode(int zipcode) {
+		this.zipcode = zipcode;
 	}
-	
-	
-	
-	
-	
+	public MemberDto(String user_seq, String name, String user_id, String password, String nick_name, String email,
+			String phone, String wdate, String address1, String address2, int zipcode) {
+		super();
+		this.user_seq = user_seq;
+		this.name = name;
+		this.user_id = user_id;
+		this.password = password;
+		this.nick_name = nick_name;
+		this.email = email;
+		this.phone = phone;
+		this.wdate = wdate;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.zipcode = zipcode;
+	}
+	public MemberDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 }

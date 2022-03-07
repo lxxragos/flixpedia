@@ -34,9 +34,9 @@
 		#{email},
 		#{phone},
 		now(),
-		#{zipNo},
-		#{roadAddrPart1},
-		#{addrDetail}
+		#{zipcode},
+		#{address1},
+		#{address2}
 	)
 	</insert>
 	
@@ -50,9 +50,9 @@
 			,A.email
 			,A.phone
 			,A.name 
-			,A.roadAddrPart1
-			,A.addrDetail
-			,A.zipNo
+			,A.address1
+			,A.address2
+			,A.zipcode
 			,A.nick_name
 		from user A
 		where email=#{email} and user_id=#{user_id} 

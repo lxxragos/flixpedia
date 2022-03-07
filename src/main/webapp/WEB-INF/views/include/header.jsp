@@ -51,6 +51,7 @@ request.setAttribute("commonURL", request.getContextPath());
 										<li><a href="about.html">공지사항</a></li> <!-- list,view작업 안됨 -->
 										<li><a href="signin.html">로그인</a></li>
 										<li><a href="signup.html">회원가입</a></li>
+										<li><a href="${commonURL}/admin/adminindex">관리자페이지</a></li>
 										
 									</ul>
 								</li>
