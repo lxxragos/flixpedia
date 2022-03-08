@@ -26,10 +26,10 @@
     <link href="<%=request.getContextPath()%>/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
       
 	<style>
-		.image_test {
-			background-repeat: no-repeat; 
-			background-position: center;
-			background-image: url(<%=request.getContextPath()%>/resources/images/chicago.jpg);
+		.bg-admin-image {
+			  background-position: center;
+			  background-size: cover;
+			  background-image: url(<%=request.getContextPath()%>/resources/admin/img/admin.png);
 		}
 	</style>
 </head>
@@ -49,8 +49,7 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block image_test">
-                            </div>
+                            <div class="col-lg-6 d-none d-lg-block bg-admin-image"></div> 
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
@@ -72,26 +71,21 @@
                                                     Me</label>
                                             </div>
                                         </div>
+                                        <div class="mt-1 text-center">
                                         <a onclick="goWrite()" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </a>
-                                        <hr>
+                                        <a class="small" style="float:left; margin-top:4px;" onclick="goFindId()">아이디 찾기</a> 
+                                        <a class="small" style="padding-right:14px;"onclick="goFindPassword()">패스워드 찾기</a>
+                                        <a class="small" style="float:right; margin-top:4px;" onclick="goRegister()">회원가입</a>
+                                        </div>
                                         <a href="index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
                                         </a>
                                         <a href="index.html" class="btn btn-facebook btn-user btn-block">
                                             <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                                         </a>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" onclick="goFindId()">아이디 찾기</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" onclick="goFindPassword()">패스워드 찾기</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" onclick="goRegister()">회원가입</a>
-                                    </div>
+                                        <hr>
                                 </div>
                             </div>
                         </div>

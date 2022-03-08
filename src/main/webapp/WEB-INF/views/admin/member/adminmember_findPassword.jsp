@@ -21,15 +21,20 @@
 
     <!-- Custom styles for this template-->
     <link href="<%=request.getContextPath()%>/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
-
+	<style>
+		.bg-admin-image {
+			  background-position: center;
+			  background-size: cover;
+			  background-image: url(<%=request.getContextPath()%>/resources/admin/img/admin.png);
+		}
+	</style>
 </head>
 
 <body class="bg-gradient-primary">
 <%@include file="../include/adminnav.jsp" %>
 <form class="user" name="myform" id="myform">
 	<input type="hidden" name="idcheck" id="idcheck" value="N"/>
-
-    <div class="container">
+    <div class="container" style="margin-top:70px">
 
         <!-- Outer Row -->
         <div class="row justify-content-center">
@@ -40,12 +45,11 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
+                            <div class="col-lg-6 d-none d-lg-block bg-admin-image"></div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-2">패스워드 찾기</h1>
-                                        <p class="mb-4">비밀번호를 찾고자 하는 아이디를 입력해 주세요.</p>
+                                        <h1 class="h4 text-gray-900 mb-4"><strong>패스워드 찾기</strong></h1>
                                     </div>
                                     	<div class="form-group">
 		                                    <input type="text" class="form-control form-control-user" name="userid" id="userid"
@@ -63,17 +67,13 @@
 		    								<input type="text" class="form-control form-control-user" name="phone" id="phone" 
 		    									placeholder="phone number">
 		  								</div>
-		  								<div id="result"></div>
+		  								<div class="mt-1 text-center" id="result">
                                         <a onclick="goFindPassword()" class="btn btn-primary btn-user btn-block">
                                             패스워드 찾기
                                         </a>
-                                    <hr>
-                                     <div class="text-center">
-                                		<a class="small" onclick="goRegister()">회원가입</a>
-                            		 </div>
-                            		<div class="text-center">
-                                		<a class="small" onclick="goCancel()">취소</a>
-                            		</div>
+                                        <a class="small" style="float:left; margin-top:4px;"onclick="goRegister()">회원가입</a>
+                                        <a class="small" style="float:right; margin-top:4px;"onclick="goCancel()">취소</a>
+                                        </div>
                                 </div>
                             </div>
                         </div>

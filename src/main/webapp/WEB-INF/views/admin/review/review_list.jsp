@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.semi.flix.admin.movieboard.*" %>
+<%@page import="java.util.*"%>
+<%@page import="com.semi.flix.admin.common.*"%>
+<%@page import="com.semi.flix.admin.review.*"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,31 +15,33 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>FLIXMEDIA-toon view</title>
+    <title>FLIXMEDIA-movie list</title>
 
-    <!-- Custom fonts for this template-->
+    <!-- Custom fonts for this template -->
     <link href="<%=request.getContextPath()%>/resources/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom styles for this template-->
+
+    <!-- Custom styles for this template -->
     <link href="<%=request.getContextPath()%>/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
-	<script src="https://cdn.ckeditor.com/ckeditor5/32.0.0/classic/ckeditor.js"></script>
+
+    <!-- Custom styles for this page -->
+    <link href="<%=request.getContextPath()%>/resources/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
-	<%@include file="../include/adminnav.jsp" %>
-	<%
-	String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
-	      String keyword = AdminStringUtil.nullToValue(request.getParameter("keyword"), "");
-	      String pg = AdminStringUtil.nullToValue(request.getParameter("pg"), "0");
-	%>
-    <%
-    MovieBoardDto dto = (MovieBoardDto)request.getAttribute("movieboardDto");
-    	dto = (dto == null) ? new MovieBoardDto() : dto;
-    %>
+<%
+String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
+	String keyword = AdminStringUtil.nullToValue(request.getParameter("keyword"), "");
+	String pg = AdminStringUtil.nullToValue(request.getParameter("pg"), "0");
+	int totalCnt = (Integer)request.getAttribute("totalCnt");
+%>
+    <%@include file="../include/adminnav.jsp" %>
+    
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -76,7 +81,7 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>게시판</span>
                 </a>
-              	<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">게시판 관리:</h6>
                         <a class="collapse-item" href="${commonURL}/admin/board/writemain">게시글 업로드</a>
@@ -347,94 +352,79 @@
                 </nav>
                 <!-- End of Topbar -->
 
-				<!-- Begin Page Content -->
-				<form id="myform" name="myform" enctype="multipart/form-data">
-				<input type="hidden" name="board_seq" id="board_seq" value="<%=dto.getBoard_seq() %>"/>
-				<input type="hidden" name="pg"      value="<%=pg%>" >
-      			<input type="hidden" name="key"     value="<%=key%>" >
-      			<input type="hidden" name="keyword" value="<%=keyword%>" >
-				
-				<div class="container rounded bg-white mt-5 mb-5">
-				    <div class="row">
-				        <div class="col-md-3 border-right">
-				            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-				                <img class="rounded mt-5" style="width:80%; height:auto;" id="uplaod" src="../../upload/<%=dto.getMovie_images() %>">       
-				            </div>
-				        </div>
-				        <div class="col-md-5 border-right">
-				            <div class="p-3 py-5">
-				                <div class="d-flex justify-content-between align-items-center mb-3">
-				                    
-				                </div>
-				            <div class="row mt-2">
-				                <div class="col-md-6">
-				                <label class="labels">카테고리</label>
-				                <input readonly="readonly" type="text" class="form-control" placeholder="category" id="category_code" name="category_code"
-				                value="<%=dto.getCategory_code()%>" >
-				                </div>
-				                <div class="col-md-6">
-				                <label class="labels">장르</label>
-				                <input readonly="readonly" type="text" class="form-control" placeholder="genre" id="genre_code" name="genre_code"
-				                value="<%=dto.getGenre_code()%>" >
-				                </div>
-				            </div>
-				            <div class="row mt-2">
-				                <div class="col-md-6">
-				                <label class="labels">제목</label>
-				                <input readonly="readonly" type="text" class="form-control" placeholder="title" id="title" name="title"
-				                value="<%=dto.getMovie_title()%>">
-				                </div>
-				                <div class="col-md-6">
-				                <label class="labels">감독</label>
-				                <input readonly="readonly" type="text" class="form-control" placeholder="producer" id="writer" name="writer"
-				                value="<%=dto.getMovie_producer()%>" >
-				                </div>
-				            </div>
-				            <div class="row mt-3">
-				                <div class="col-md-12">
-				                <label class="labels">줄거리</label>
-				                <textarea readonly="readonly" class="form-control" id="contents" name="contents" placeholder="enter contents" 
-				                ><%=dto.getMovie_content()%></textarea>
-				                </div>
-				            </div>
-				             <div class="row mt-3">
-				                <div class="col-md-4">
-				                <label class="labels">관람객수</label>
-				                <input readonly="readonly" type="text" class="form-control" placeholder="attendance" id="movie_attendance" name="movie_attendance"
-				                value="<%=dto.getMovie_attendance()%>">
-				                </div>
-				                <div class="col-md-4">
-				                <label class="labels">제작년도</label>
-				                <input readonly="readonly" type="text" class="form-control" placeholder="productionyear" id="movie_productionyear" name="movie_productionyear"
-				                value="<%=dto.getMovie_productionyear()%>">
-				                </div>
-				                <div class="col-md-4">
-				                <label class="labels">연령제한</label>
-				                <input readonly="readonly" type="text" class="form-control" placeholder="agelimit" id="movie_agelimit" name="movie_agelimit"
-				                value="<%=dto.getMovie_agelimit()%>">
-				                </div>
-				            </div>
-				            <div class="row mt-3">
-				                <div class="col-md-12">
-				                <label class="labels">예고편 url</label>
-				                <textarea readonly="readonly" class="form-control" id="movie_url" name="movie_url" placeholder="URL address" 
-				                ><%=dto.getMovie_url()%></textarea>
-				                </div>
-				            </div>
-				            <div class="mt-5 text-center">
-				                <button class="btn btn-primary profile-button" type="button" onclick="goModify()">수정</button>
-				                <button class="btn btn-primary profile-button" type="button" onclick="goDelete()">삭제</button>
-				                <button class="btn btn-primary profile-button" type="button" onclick="goList()">취소</button>
-				            </div>
-				            </div>
-				        </div>
-				    </div>
-				</div>
-				</form>
-<!-- /.container-fluid -->
+                <!-- Begin Page Content -->
+                
+                    <!-- DataTales Example -->
+                    <form name="myform" method="post">
+                        <input type="hidden" name="key" id="key" value="<%=key%>"/>
+                        <input type="hidden" name="pg" id="pg" value="<%=pg%>"/>
+                        <input type="hidden" name="board_seq" id="board_seq" value=""/>
+                    
+                        <div class="container" style="margin-top:80px">
+                            <h2>게시판 목록 (${totalCnt})</h2>
+                    
+                            <div class="input-group mb-3" style="margin-top:20px;">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" id="searchItem">
+                                    전체
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('1')">전체</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('2')">제목</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('3')">작성자</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('4')">장르</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('5')">카테고리</a></li>
+                                </ul>
+                                <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword" value="<%=keyword%>">
+                                <button class="btn btn-secondary" type="button" onclick="goSearch()">Go</button>
+                              </div>
+                    
+                            <table class="table table-hover ">
+                                <colgroup>
+                                    <col width="8%">
+                                    <col width="12%">
+                                    <col width="12%">
+                                    <col width="12%">
+                                    <col width="*">
+                                    <col width="12%">
+                                </colgroup>
+                                <thead class="table-secondary">
+                                  <tr>
+                                    <th>번호</th>
+                                    <th>카테고리</th>
+                                    <th>장르</th>
+                                    <th>제목</th>
+                                    <th>내용</th>
+                                    <th>작성자</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                <%
+                                List<ReviewDto> list = (List<ReviewDto>)request.getAttribute("reviewList");
+                                                                for(ReviewDto tempDto : list){
+                                %>
+                                  <tr>
+                                    <td><%=totalCnt - tempDto.getRnum()+1%></td>
+                                    <td><%=tempDto.getCategory_name()%></td>
+                                    <td><%=tempDto.getGenre_name()%></td>
+                                    <td><a href="#none" onclick="goView('<%=tempDto.getSeq()%>')"><%=tempDto.getTitle()%></a></td>
+                                    <td><%=tempDto.getContent()%></td>
+                                    <td><%=tempDto.getName()%></td>
+                                  </tr>
+                                <%} %>
+                                </tbody>
+                              </table>
+                              
+                              <div class="container mt-3" style="text-align:right;"> 
+                                  <%=AdminPager.makeTag(request, 10, totalCnt)%>
+                              </div>
+               
+                        </div>
+                    </form>
 
-</div>
-<!-- End of Main Content -->
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -478,55 +468,66 @@
             </div>
         </div>
     </div>
-
+    
     <!-- Bootstrap core JavaScript-->
     <script src="<%=request.getContextPath()%>/resources/admin/vendor/jquery/jquery.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin  JavaScript-->
+    <!-- Core plugin JavaScript-->
     <script src="<%=request.getContextPath()%>/resources/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="<%=request.getContextPath()%>/resources/admin/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="<%=request.getContextPath()%>/resources/admin/vendor/chart.js/Chart.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="<%=request.getContextPath()%>/resources/admin/js/demo/chart-area-demo.js"></script>
-    <script src="<%=request.getContextPath()%>/resources/admin/js/demo/chart-pie-demo.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/admin/js/demo/datatables-demo.js"></script>
 
 </body>
 
 </html>
 <script>
-function goList()
-{
-   var frm = document.myform;
-   frm.action="<%=request.getContextPath()%>/admin/movieboard/list";
-   frm.submit();
-}
-
-function goModify()
-{
-   var frm = document.myform;
-   frm.action="<%=request.getContextPath()%>/admin/movieboard/modify";
-   frm.submit();
-}
-
-
-function goDelete()
-{
-   if( confirm("삭제하시겠습니까?"))
-   {
-      var frm = document.myform;
-      frm.action="<%=request.getContextPath()%>/admin/movieboard/delete";
-      frm.submit();
-   }
-}
-
-function goMain()
-{
-	location.href="${commonURL}/admin/adminhome";	//페이지 이동	
-}
+	window.onload = function(){
+		let key = '<%=key%>';
+		var texts=["","전체","제목","감독","장르"];
+		document.getElementById("searchItem").innerHTML=texts[key];	
+	}
+	function changeSearch(seq)
+	{
+		var texts=["","전체","제목","감독","장르"];
+		document.getElementById("searchItem").innerHTML=texts[seq]; //화면에 보이기 위해서
+		document.getElementById("key").value=seq; //컨트롤러로 넘기기 위해서
+		document.getElementById("keyword").value="";
+	}
+	
+	function goSearch(){
+		let frm = document.myform;
+		frm.pg.value=0;
+		frm.action = "<%=request.getContextPath()%>/admin/review/list";
+		frm.method = "get";
+		frm.submit();
+	}
+	
+	function goPage(pg){
+		let frm = document.myform;
+		frm.pg.value = pg;
+		frm.method = "get";
+		frm.action = "${pageContext.request.contextPath}/admin/review/list";
+		frm.submit();
+	}
+	
+	function goView(seq){
+		let frm = document.myform;
+		frm.board_seq.value = board_seq;
+		frm.method = "get";
+		frm.action = "<%=request.getContextPath()%>/admin/review/view";
+		frm.submit();
+	}
+	function goMain()
+	{
+		location.href="${commonURL}/admin/adminhome";	//페이지 이동	
+	}
 </script>

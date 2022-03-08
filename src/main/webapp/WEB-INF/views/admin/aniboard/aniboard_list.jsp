@@ -42,8 +42,8 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
 %>
     <%@include file="../include/adminnav.jsp" %>
     <%
-	AdminMemberDto dto = (AdminMemberDto)request.getAttribute("adminmemberDto");
-    		dto = (dto == null) ? new AdminMemberDto() : dto;
+	AniBoardDto dto = (AniBoardDto)request.getAttribute("aniboardDto");
+    		dto = (dto == null) ? new AniBoardDto() : dto;
 	%>
     <!-- Page Wrapper -->
     <div id="wrapper">
