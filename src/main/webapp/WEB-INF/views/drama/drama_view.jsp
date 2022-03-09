@@ -1,7 +1,10 @@
+<%@page import="java.util.List"%>
+<%@page import="com.semi.flix.comment.CommentDto"%>
+<%@page import="com.semi.flix.common.Pager"%>
 <%@page import="com.semi.flix.drama.DramaDto"%>
 <%@page import="com.semi.flix.common.StringUtil"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
@@ -13,7 +16,10 @@
 <body class="body">
 	<%
 	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
-	DramaDto dto = (DramaDto)request.getAttribute("dramaDto"); %>
+	int commentTotalCnt = (Integer)request.getAttribute("commentTotalCnt");
+	DramaDto dto = (DramaDto)request.getAttribute("dramaDto"); 
+	List<CommentDto> list =(List<CommentDto>)request.getAttribute("commentList");
+	%>
 	<%@include file="../include/header.jsp" %>
 
 		
@@ -51,11 +57,10 @@
 							<div class="col-12 col-sm-8 col-md-8 col-lg-9 col-xl-7">
 								<div class="card__content">
 									<div class="card__wrap">
-										<span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+										<span class="card__rate"><i class="icon ion-ios-star"></i><%=dto.getStar_avg() %></span>
 
 										<ul class="card__list">
-											<li>화질정보 기능</li>
-											<li>연령등급 기능</li>
+											<li><%=dto.getDrama_agelimit() %></li>
 										</ul>
 									</div>
 
@@ -136,6 +141,98 @@
 	</section>
 	<!-- end details -->
 	
+<!-- content -->
+	<section class="content">
+		<div class="content__head">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<!-- content title -->
+						<h2 class="content__title">Discover</h2>
+						<!-- end content title -->
+
+						<!-- content tabs nav -->
+						<ul class="nav nav-tabs content__tabs" id="content__tabs" role="tablist">
+							
+
+							<li class="nav-item">
+								<a class="nav-link active" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="true">Reviews(${commentTotalCnt}건)</a>
+							</li>
+
+							
+						</ul>
+						<!-- end content tabs nav -->
+							
+			
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-lg-8 col-xl-8">
+					<!-- content tabs -->
+					<div class="tab-content" id="myTabContent">
+						
+
+						<div class="tab-pane fade show active" id="tab-2" role="tabpanel" aria-labelledby="2-tab">
+							<div class="row">
+								<!-- reviews -->
+								<div class="col-12">
+									<div class="reviews">
+						<form name="commentForm" method="get">
+							<input type="hidden" name="pg"  id="pg" value="<%=pg%>"/>
+							
+							<input type="hidden" id="board_seq" name="board_seq" value="<%=dto.getBoard_seq()%>">
+							<input type="hidden" id="category_code" name="category_code" value="<%=dto.getCategory_code()%>">
+							<ul class="reviews__list">
+										
+							<% for(CommentDto Cdto : list){ %>
+										<!--댓글 한칸 시작  -->
+										<li class="reviews__item">
+												<div class="reviews__autor">
+													<img class="reviews__avatar" src="${commonURL}/resources/user_img/<%=Cdto.getUser_images() %>" alt=""> 
+													<span class="reviews__name">닉네임 : <%=Cdto.getNick_name() %></span>
+													<span class="reviews__time">작성일 : <%=Cdto.getWdate() %></span>
+
+													<span class="reviews__rating"><i class="icon ion-ios-star"></i><%=Cdto.getStar_point() %></span>
+												</div>
+												<p class="reviews__text"><%=Cdto.getContent() %></p>
+											</li> 
+							<%} %>
+										<!--댓글 한칸 끝  -->
+										
+							</ul>
+										<div class="col-12">
+												<%=Pager.makeTag(request, 4, commentTotalCnt) %>
+											</div>
+							</form>			
+
+										<form action="#" class="form" name="myform2">
+											<input type="hidden" id="board_seq" name="board_seq" value="<%=dto.getBoard_seq()%>">
+											<input type="hidden" id="category_code" name="category_code" value="<%=dto.getCategory_code()%>">
+											<input type="hidden" id="star_point" name="star_point" value="">
+											
+											<input type="text" class="form__input" placeholder="Title" name="nick_name" id="nick_name" value="<%=nickname%>">
+											<textarea class="form__textarea" placeholder="Review" name="content" id="content" ></textarea>
+											<div class="form__slider" >
+												<div class="form__slider-rating" id="slider__rating"></div>
+												<div class="form__slider-value" id="form__slider-value" ></div>
+											</div>
+											
+											<button type="button" class="form__btn" onclick="goCommentWrite()">Send</button>
+											
+										</form>
+									</div>
+								</div>
+								<!-- end reviews -->
+							</div>
+						</div>
+		</div></div></div></div>
+	</section>
+	<!-- end details -->
+	
 
 	
 	 <%@include file="../include/footer.jsp" %>
@@ -143,3 +240,48 @@
 
 </body>
 </html>
+<script>
+
+
+function goCommentWrite()
+{
+	var star_point = document.getElementById('form__slider-value').value;
+	frm2 = document.myform2;
+	frm2.star_point.value=star_point;
+	
+	var userid='<%=userid%>';
+	if(userid=="")
+	{
+		alert("로그인하세요");
+		location.href="${commonURL}/member/signin";
+	}
+	
+	var queryString = $("form[name=myform2]").serialize();
+   $.ajax({
+	   url:"${commonURL}/comment/write",
+      data:queryString,
+      type:"POST",
+      dataType:"json"
+   })
+   .done( (result)=>{
+	    $("#content").val("");
+	    //$("#btnCommentSave").html("답글등록");
+	    //$("#comment_id").val("");
+      	alert("등록완료");
+      	location.reload()
+   })
+   .fail( (error)=>{
+      console.log(error);
+   })
+} 
+function goPage(pg)
+{
+	frm = document.commentForm;
+	frm.pg.value=pg;///////////
+	frm.method="get";
+	frm.action="${pageContext.request.contextPath}/drama/view";
+	frm.submit();
+}
+
+</script>
+

@@ -6,12 +6,16 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.semi.flix.comment.CommentDao;
+import com.semi.flix.comment.CommentDto;
+
 @Service("dramaService")
 public class DramaServiceImpl implements DramaService {
 	
 	@Resource(name="dramaDao")
 	DramaDao dramaDao;
-
+	@Resource(name="commentDao")
+	CommentDao commentDao;
 	@Override
 	public List<DramaDto> getList(DramaDto dto) {
 		// TODO Auto-generated method stub
@@ -30,5 +34,26 @@ public class DramaServiceImpl implements DramaService {
 		return dramaDao.getView(dto);
 	}
 	
+	
+	//----여기부터댓글----
+	@Override
+	public void commentinsert(CommentDto dto) {
+		commentDao.commentinsert(dto);
+		
+	}
+
+	
+
+	@Override
+	public int commentTotal(CommentDto dto) {
+		return commentDao.commentTotal(dto);
+		
+	}
+
+	@Override
+	public List<CommentDto> commentList(CommentDto dto) {
+		// TODO Auto-generated method stub
+		return commentDao.commentList(dto);
+	}
 	
 }

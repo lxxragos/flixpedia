@@ -6,17 +6,19 @@
 <mapper namespace="Drama">
 
 	<select id="Drama_getList" parameterType="DramaDto" resultType="DramaDto">
-		select * from 
+		select A.*, 
+				ifnull((select round(avg(star_point),2) from review_tbl B where A.board_seq =B.board_seq and A.category_code=B.category_code),0) as star_avg 
+		from 
  		(
 	 		select
 				board_seq,
-				group_name,
-				genre_code,
-				drama_title,
-				drama_author,
-				drama_content,
-				drama_images,
-				drama_hit,
+				A.category_code,
+				A.genre_code,
+				A.drama_title,
+				A.drama_producer,
+				A.drama_content,
+				A.drama_images,
+				A.drama_hit,
 			    @rownum := @rownum+1 AS rnum
 				from drama_tbl A, (select @rownum:=0) B
 				
@@ -87,7 +89,10 @@
 	</select>
 	
 	<select id="Drama_getView" parameterType="DramaDto" resultType="DramaDto">
-	 	select * from drama_tbl where board_seq=#{board_seq}
+	 	select A.*,
+	 	ifnull((select round(avg(star_point),2) from review_tbl B where A.board_seq =B.board_seq and A.category_code=B.category_code),0) as star_avg
+	 	
+	 	 from drama_tbl A  where board_seq=#{board_seq}
 	 </select>
 	
 </mapper>
