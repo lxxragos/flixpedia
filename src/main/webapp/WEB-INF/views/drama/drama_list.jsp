@@ -3,8 +3,8 @@
 <%@page import="com.semi.flix.drama.DramaDto"%>
 <%@page import="java.util.List"%>
 <%@page import="com.semi.flix.common.StringUtil"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
@@ -49,6 +49,9 @@
 	<input type="hidden" name="pg"  id="pg" value="<%=pg%>"/>
 	<input type="hidden" name="key" id="key" value="<%=key%>"/>
 	<input type="hidden" name="board_seq"  id="board_seq" value=""/>
+	<input type="hidden" name="category_code"  id="category_code" value=""/>
+	
+	
 		<!-- filter -->
 		<div class="filter">
 			<div class="container">
@@ -77,8 +80,7 @@
 										<li><a onclick="changeSearch('6')">Drama</a></li>
 										
 									</ul>
-									<button class="sign__btn" type="button" onclick="goSearch()" 
-											style="width:100px; height: 30px; margin:2px;">검색</button>
+									
 								</div>
 								<!-- end filter item -->
 	
@@ -86,8 +88,8 @@
 								
 							</div>
 							
-							<!-- filter btn -->
-							<button class="filter__btn" type="button">apply filter</button>
+								<!-- filter btn -->
+							<button class="filter__btn" type="button" onclick="goSearch()">apply filter</button>
 							<!-- end filter btn -->
 						</div>
 					</div>
@@ -103,10 +105,7 @@
 					<!-- card -->
 					
 					
-					<%for(DramaDto dto : list){
-					System.out.println("---------------------------------"+dto.getBoard_seq());
-					System.out.println("---------------------------------"+dto.getDrama_title());
-					%>
+					<%for(DramaDto dto : list){%>
 					<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
 						<div class="card">
 							<div class="card__cover">
@@ -140,7 +139,7 @@
 									<%}%>
 									
 								</span>
-								<span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+								<span class="card__rate"><i class="icon ion-ios-star"></i><%=dto.getStar_avg() %></span>
 							</div>
 						</div>
 					</div>
@@ -197,6 +196,7 @@ function goView(id)
 	
 	frm = document.myform;
 	frm.board_seq.value=id;///////////
+	frm.category_code.value="02";
 	frm.method="get";
 	frm.action="${pageContext.request.contextPath}/drama/view";
 	frm.submit();

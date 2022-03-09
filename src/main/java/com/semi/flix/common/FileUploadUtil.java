@@ -23,8 +23,8 @@ public class FileUploadUtil {
 			List<String> fileNameList)
 	{
 	
-		String filePath = contextPath + CommonConst.FilePath;
-		System.out.println("�쁽�옱寃쎈줈 : " + filePath);
+		String filePath = CommonConst.FilePath;
+		System.out.println("현재경로 : " + filePath);
 		//java.io.File
 		File file = new File(filePath);
 		if( !file.exists())
@@ -39,37 +39,37 @@ public class FileUploadUtil {
 		{
 			 for(MultipartFile multipartFile : fileList)
 			 {		
-				 if( multipartFile.getOriginalFilename().length()==0)//�뙆�씪�씠 �뾾�떎  
+				 if( multipartFile.getOriginalFilename().length()==0)//파일이 없다  
 					   break;
 				
 				 
-				 String orifilename = multipartFile.getOriginalFilename(); //�뾽濡쒕뱶�맂 �뙆�씪紐낆쓣 媛��졇�삩�떎 
+				 String orifilename = multipartFile.getOriginalFilename(); //업로드된 파일명을 가져온다 
+	             
+	             //파일명이 중복되는걸 방지하기위해서 , 1. 날짜시간분초 +랜덤값 해서 파일명을 만든다
+	             //                             2. a(1).jpg, a(2).jpg ........
+	             //파일명과 확장자를 분리해야 한다  
 				 
-				 //�뙆�씪紐낆씠 以묐났�릺�뒗嫄� 諛⑹��븯湲곗쐞�빐�꽌 , 1. �궇吏쒖떆媛꾨텇珥� +�옖�뜡媛� �빐�꽌 �뙆�씪紐낆쓣 留뚮뱺�떎
-				 //                             2. a(1).jpg, a(2).jpg ........
-				 //�뙆�씪紐낃낵 �솗�옣�옄瑜� 遺꾨━�빐�빞 �븳�떎 
-				 
-				 int pos = orifilename.lastIndexOf(".");       //留⑤뮘履쎌쓽 . �쐞移섎�� �뙆�븙�븳�떎. 
-				 String ext = orifilename.substring(pos+1);    //�솗�옣�옄
-				 String oriFile = orifilename.substring(0, pos); //�뙆�씪紐낅쭔 
+				 int pos = orifilename.lastIndexOf(".");       //맨뒤쪽의 . 위치를 파악한다. 
+				 String ext = orifilename.substring(pos+1);    //확장자
+				 String oriFile = orifilename.substring(0, pos); //파일명만
 							 
-				 String filename = multipartFile.getOriginalFilename(); //�깉濡쒕쭔�뱾 �뙆�씪紐� 
+				 String filename = multipartFile.getOriginalFilename(); //새로만들 파일명
 				
-				 File newFile = new File(filePath+"/" +filename); //�썝�옒 �뙆�씪紐� 
+				 File newFile = new File(filePath+"/" +filename); //원래 파일명 
 				 int i=1;
-				 while(newFile.exists())  //�씠誘몄〈�옱�븯硫�   a(1).jpg, a(2).jpg
+				 while(newFile.exists())  //이미존재하면   a(1).jpg, a(2).jpg
 				 {
 					
-					 filename = oriFile + "("+i+")." + ext;  //�깉濡쒖슫 �뙆�씪紐낆쓣 留뚮뱾�뼱�꽌 
+					 filename = oriFile + "("+i+")." + ext;  //새로운 파일명을 만들어서 
 					 i++;
 					 newFile = new File(filePath+"/" +filename);
 					 
 				 }
 				 
 				 System.out.println("filename : " + filename);
-				 fileNameList.add(filename); //�솗�젙�맂 �뙆�씪紐낆쓣 由ъ뒪�듃�뿉 ���옣�빐�꽌 蹂대궦�떎. �뵒鍮꾩뿉 ���옣�빐�빞 �릺�꽌  
-				
-				 //�솗�젙�맂 �뙆�씪紐낆쑝濡� �엫�떆���옣�냼�뿉�꽌 �뾽濡쒕뱶 ���옣�냼濡� �삷湲대떎. 
+				 fileNameList.add(filename); //확정된 파일명을 리스트에 저장해서 보낸다. 디비에 저장해야 되서  
+		            
+	             //확정된 파일명으로 임시저장소에서 업로드 저장소로 옮긴다. 
 				 String newFileName   = filePath + "/" + filename;
 				 try
 				 {
