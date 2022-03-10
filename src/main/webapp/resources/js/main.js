@@ -861,30 +861,31 @@ $(document).ready(function () {
 
 	/*3*/
 	function initializeThirdSlider() {
-		if ($('#slider__rating').length) {
-			var thirdSlider = document.getElementById('slider__rating');
-			noUiSlider.create(thirdSlider, {
-				range: {
-					'min': 0,
-					'max': 10
-				},
-				connect: [true, false],
-				step: 0.1,
-				start: 8.6,
-				format: wNumb({
-					decimals: 1,
-				})
-			});
+	if ($('#slider__rating').length) {
+		var thirdSlider = document.getElementById('slider__rating');
+		noUiSlider.create(thirdSlider, {
+			range: {
+				'min': 0,
+				'max': 10
+			},
+			connect: [true, false],
+			step: 0.1,
+			start: 8.6,
+			format: wNumb({
+				decimals: 1,
+			})
+		});
 
-			var thirdValue = document.getElementById('form__slider-value');
+		var thirdValue = document.getElementById('form__slider-value');
 
-			thirdSlider.noUiSlider.on('update', function( values, handle ) {
-				thirdValue.innerHTML = values[handle];
-			});
-		} else {
-			return false;
-		}
+		thirdSlider.noUiSlider.on('update', function( values, handle ) {
+			thirdValue.innerHTML = values[handle];
+			document.getElementById('form__slider-value').value=thirdValue.innerHTML;
+		});
+	} else {
 		return false;
 	}
-	$(window).on('load', initializeThirdSlider());
+	return false;
+}
+$(window).on('load', initializeThirdSlider());
 });

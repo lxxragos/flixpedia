@@ -36,6 +36,11 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberDao.findId(dto);
 	}
+	@Override
+	public void update(MemberDto dto) {
+		memberDao.update(dto);
+		
+	}
 
 	
 	

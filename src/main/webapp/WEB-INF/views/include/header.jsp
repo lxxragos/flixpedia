@@ -1,9 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page import="com.semi.flix.common.StringUtil"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%
 request.setAttribute("commonURL", request.getContextPath());
+
+String userid= StringUtil.nullToValue(session.getAttribute("userid"), "");
+String username= StringUtil.nullToValue(session.getAttribute("username"), "");
+String userseq= StringUtil.nullToValue(session.getAttribute("userseq"), "");
+String nickname= StringUtil.nullToValue(session.getAttribute("nickname"), "");
 %>
-<meta charset="UTF-8"> 
+<meta charset="utf-8"> 
 
 <!-- header -->
 	<header class="header">
@@ -13,7 +19,7 @@ request.setAttribute("commonURL", request.getContextPath());
 					<div class="col-12">
 						<div class="header__content">
 							<!-- header logo -->
-							<a href="${commonURL}/views/home" class="header__logo">
+							<a href="${commonURL}/" class="header__logo">
 								<img src="${commonURL}/resources/img/logo.svg" alt="">
 							</a>
 							<!-- end header logo -->
@@ -26,38 +32,39 @@ request.setAttribute("commonURL", request.getContextPath());
 									<a href="pricing.html" class="header__nav-link">영화</a>
 								</li>
 								<li class="header__nav-item">
-									<a href="${commonURL}/drama/list" class="header__nav-link">드라마</a>
+									<a href="pricing.html" class="header__nav-link">예능</a>
 								</li>
 								<li class="header__nav-item">
-									<a href="pricing.html" class="header__nav-link">예능</a>
+									<a href="${commonURL}/drama/list" class="header__nav-link">드라마</a>
 								</li>
 
 								<li class="header__nav-item">
-									<a href="faq.html" class="header__nav-link">애니메이션</a>
+									<a href="${commonURL}/animation/list" class="header__nav-link">애니</a>
 								</li>
 								<li class="header__nav-item">
-									<a href="faq.html" class="header__nav-link">웹툰</a>
+									<a href="${commonURL}/webtoon/list" class="header__nav-link">웹툰</a>
 								</li>
-								<li class="header__nav-item">
-									<a href="faq.html" class="header__nav-link">도서</a>
-								</li>
+								
 
 								<!-- dropdown -->
 								<li class="dropdown header__nav-item">
 									<a class="dropdown-toggle header__nav-link header__nav-link--more" href="#" role="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon ion-ios-more"></i></a>
 
 									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
-										<li><a href="about.html">Q&A</a></li> <!-- list,view작업 안됨 -->
-										<li><a href="about.html">공지사항</a></li> <!-- list,view작업 안됨 -->
-										<li><a href="signin.html">로그인</a></li>
-										<li><a href="signup.html">회원가입</a></li>
-										
+										<li><a href="about.html">영화</a></li>
+										<li><a href="signin.html">예능</a></li>
+										<li><a href="signup.html">드라마</a></li>
+										<li><a href="404.html">만화</a></li>
+										<li><a href="404.html">웹툰</a></li>
+				
 									</ul>
 								</li>
+								
 								<!-- end dropdown -->
 							</ul>
-							<!-- end header nav -->
-
+								
+							<!-- end header nav -->	
+							<%if(userid.equals("")) {%>
 							<!-- header auth -->
 							<div class="header__auth">
 								<button class="header__search-btn" type="button">
@@ -70,6 +77,37 @@ request.setAttribute("commonURL", request.getContextPath());
 								</a>
 							</div>
 							<!-- end header auth -->
+							<%}else{%>
+								
+								
+										<img class="profile" alt="" src="${commonURL }/resources/user_img/풀.jpg"/>
+										<ul>
+										<li class="dropdown header__nav-item">
+											<a class="dropdown-toggle header__nav-link header__nav-link--more" href="#" role="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon ion-ios-more"></i></a>
+
+											<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
+												<li><a href="about.html">마이페이지</a></li>
+												<li><a href="signin.html">로그아웃</a></li>
+												
+						
+											</ul>
+										</li>
+										</ul>
+					
+							<div class="header__auth">
+								<button class="header__search-btn" type="button">
+									<i class="icon ion-ios-search"></i>
+								</button>
+
+								<a class="header__sign-in" href="${commonURL}/member/logout">
+									<i class="icon ion-ios-log-in"></i>
+									<span>sign out</br>
+									
+									</span>
+								</a>
+							</div>
+							
+							<%} %>
 
 							<!-- header menu btn -->
 							<button class="header__btn" type="button">
@@ -98,6 +136,13 @@ request.setAttribute("commonURL", request.getContextPath());
 				</div>
 			</div>
 		</form>
+		
+		
+
+	
+		
 		<!-- end header search -->
+
+	
 	</header>
 	<!-- end header -->

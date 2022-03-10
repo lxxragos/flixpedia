@@ -3,8 +3,8 @@ package com.semi.flix.common;
 public class BaseDto {
 	protected String key="";
 	protected String keyword="";
-	protected int pg=0; 
-	protected int pageSize=10;
+	protected int pg=0; //�쁽�옱�럹�씠吏� 
+	protected int pageSize;
 	protected int pgGroup=5;
 	protected int start=0;
 	protected int rnum=0;
