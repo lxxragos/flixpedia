@@ -93,9 +93,9 @@ request.setAttribute("commonURL", request.getContextPath());
 					<div class="sign__group">
 						<input type="text" class="sign__input" placeholder="상세주소" id="address2" name="address2" readonly="readonly">
 					</div>
-					<button type="button" class="sign__btn" onclick="goWrite()">등록</button>
-					
+					<button type="button" class="sign__btn" onclick="goUpdate()">수정</button>
 				</form>
+				
 			</div>
 		</div>
 	</div>
