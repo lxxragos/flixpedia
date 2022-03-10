@@ -23,21 +23,21 @@ public class MemberController {
 	@Resource(name="memberService")
 	MemberService memberService;
 	
-	//ȸ������ ������ �̵�
+	//회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싱듸옙
 	@RequestMapping("member/signup")
 	String signup() {
 		return "member/signup";
-		//src/main/webapp/WEB-INF/view/test.jsp�� ������
+		//src/main/webapp/WEB-INF/view/test.jsp占쏙옙 占쏙옙占쏙옙占쏙옙
 	}
 	
-	//�ּ� �Է� �˾�â
+	//占쌍쇽옙 占쌉뤄옙 占싯억옙창
 	@RequestMapping("/member/jusoPopup")
 	String jusoPopup() {
 		return "member/jusoPopup";
-		//src/main/webapp/WEB-INF/view/test.jsp�� ������
+		//src/main/webapp/WEB-INF/view/test.jsp占쏙옙 占쏙옙占쏙옙占쏙옙
 	}
 	
-	//ȸ������ ����
+	//회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 	@RequestMapping(value="/member/insert", method=RequestMethod.POST)
 	//@ResponseBody
 	String member_insert(MemberDto dto, HttpServletRequest req, MultipartHttpServletRequest multi )
@@ -51,15 +51,20 @@ public class MemberController {
 		
 		dto.setUser_images(fileNameList.get(0));
 		
-		if(dto.getUser_id().equals(""))
+		
 			memberService.insert(dto);
-		else
-			memberService.update(dto);
-		return "/home";	
+		
+		return "/memeber/signin";	
+	}
+	@RequestMapping(value="member/update")
+	String member_update(MemberDto dto)
+	{
+		memberService.update(dto);
+		
+		return "/member/signup";
 	}
 	
-	
-	//���̵� �ߺ�Ȯ��
+	//占쏙옙占싱듸옙 占쌩븝옙확占쏙옙
 	@RequestMapping("/member/isDuplicate")
 	@ResponseBody 
 	public HashMap<String, String> member_isDuplicate(MemberDto dto)
@@ -74,14 +79,14 @@ public class MemberController {
 	}
 	
 	
-	//�α���
+	//占싸깍옙占쏙옙
 	@RequestMapping(value="/member/signin")
 	public String member_login()
 	{
 		return "member/signin";
 	}
 	
-	//�α��� �۵�
+	//占싸깍옙占쏙옙 占쌜듸옙
 	@RequestMapping(value="/member/login_proc")
 	@ResponseBody
 	public HashMap<String, String> member_login_proc(MemberDto dto, HttpServletRequest request)
@@ -102,7 +107,7 @@ public class MemberController {
 		{
 			if(resultDto.getPassword().equals(dto.getPassword()))
 			{
-				map.put("flag", "1"); //�α׿� ������ ���ǿ� ������ �����Ѵ� 
+				map.put("flag", "1"); //占싸그울옙 占쏙옙占쏙옙占쏙옙 占쏙옙占실울옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싼댐옙 
 				session.setAttribute("userid", resultDto.getUser_id());
 				session.setAttribute("username", resultDto.getName());
 				session.setAttribute("userseq", resultDto.getUser_seq());
@@ -118,7 +123,7 @@ public class MemberController {
 		return map;
 	}
 	
-	//�α׾ƿ�
+	//占싸그아울옙
 	@RequestMapping(value="/member/logout")
 	public String member_logout(HttpServletRequest request)
 	{
@@ -129,21 +134,21 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	//���̵� ã�� ������ �̵� 
+	//占쏙옙占싱듸옙 찾占쏙옙 占쏙옙占쏙옙占쏙옙 占싱듸옙 
 	@RequestMapping(value="/member/findid")
 	public String member_findid()
 	{	
 		return "member/member_findid";
 	}
 	
-	//���ã�� ������ �̵�
+	//占쏙옙占시ｏ옙占� 占쏙옙占쏙옙占쏙옙 占싱듸옙
 	@RequestMapping(value="/member/findpassword")
 	public String member_findpassword()
 	{	
 		return "member/member_findpassword";
 	}
 	
-	//��й�ȣã��
+	//占쏙옙橘占싫Ｃｏ옙占�
 	@RequestMapping(value="/member/findpass_proc")
 	@ResponseBody
 	public HashMap<String, String> member_findpass_proc(MemberDto dto)
@@ -161,7 +166,7 @@ public class MemberController {
 		return map;
 	}
 	
-	//���̵�ã��
+	//占쏙옙占싱듸옙찾占쏙옙
 	@RequestMapping(value="/member/findid_proc")
 	@ResponseBody
 	public HashMap<String, String> member_findid_proc(MemberDto dto)

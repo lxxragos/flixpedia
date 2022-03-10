@@ -212,6 +212,7 @@
 										<form action="#" class="form" name="myform2">
 											<input type="hidden" id="board_seq" name="board_seq" value="<%=dto.getBoard_seq()%>">
 											<input type="hidden" id="category_code" name="category_code" value="<%=dto.getCategory_code()%>">
+											<input type="hidden" id="user_seq" name="user_seq" value="<%=userseq%>">
 											<input type="hidden" id="star_point" name="star_point" value="">
 											
 											<input type="text" class="form__input" placeholder="Title" name="nick_name" id="nick_name" value="<%=nickname%>">

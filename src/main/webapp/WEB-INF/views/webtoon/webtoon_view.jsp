@@ -1,4 +1,3 @@
-<%@page import="com.semi.flix.common.Pager2"%>
 <%@page import="com.semi.flix.common.Pager"%>
 <%@page import="java.util.List"%>
 <%@page import="com.semi.flix.comment.CommentDto"%>
@@ -187,7 +186,7 @@
 									<div class="reviews">
 						<form name="commentForm" method="get">
 							<input type="hidden" name="pg"  id="pg" value="<%=pg%>"/>
-							<input type="hidden" name="key" id="key" value="<%=key%>"/>
+		
 							<input type="hidden" id="board_seq" name="board_seq" value="<%=dto.getBoard_seq()%>">
 							<input type="hidden" id="category_code" name="category_code" value="<%=dto.getCategory_code()%>">
 							<ul class="reviews__list">

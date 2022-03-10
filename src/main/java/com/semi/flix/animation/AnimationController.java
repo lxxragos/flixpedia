@@ -33,11 +33,11 @@ public class AnimationController {
 		return "animation/animation_list";
 	}
 	
-	// 웹툰 상세보기 페이지
+	// �쎒�댆 �긽�꽭蹂닿린 �럹�씠吏�
 		@RequestMapping("/animation/view")
 		String animation_view(AnimationDto dto, CommentDto Cdto, Model model) {
 
-			Cdto.setPageSize(3);
+			Cdto.setPageSize(4);
 			Cdto.setStart(Cdto.getPg() * Cdto.getPageSize());
 			
 			List<CommentDto> list = service.commentList(Cdto);

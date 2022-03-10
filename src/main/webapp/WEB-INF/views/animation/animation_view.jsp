@@ -1,4 +1,4 @@
-<%@page import="com.semi.flix.common.Pager2"%>
+
 <%@page import="com.semi.flix.common.Pager"%>
 <%@page import="java.util.List"%>
 <%@page import="com.semi.flix.comment.CommentDto"%>

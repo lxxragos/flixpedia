@@ -80,7 +80,8 @@
 										<li><a onclick="changeSearch('6')">Drama</a></li>
 										
 									</ul>
-									
+									<button class="sign__btn" type="button" onclick="goSearch()" 
+											style="width:100px; height: 30px; margin:2px;">검색</button>
 								</div>
 								<!-- end filter item -->
 	
@@ -88,8 +89,8 @@
 								
 							</div>
 							
-								<!-- filter btn -->
-							<button class="filter__btn" type="button" onclick="goSearch()">apply filter</button>
+							<!-- filter btn -->
+							<button class="filter__btn" type="button">apply filter</button>
 							<!-- end filter btn -->
 						</div>
 					</div>
