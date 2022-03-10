@@ -22,7 +22,18 @@
 
     <!-- Custom styles for this template-->
     <link href="<%=request.getContextPath()%>/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="<%=request.getContextPath()%>/resources/admin/css/sb-admin-2.css" rel="stylesheet">
+    <link rel="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<style>
+		.bg-admin-image {
+			  background-position: center;
+			  background-size: cover;
+			  background-image: url(<%=request.getContextPath()%>/resources/admin/img/admin.png);
+		}
+		.form-group-append {
+		  display: flex;
+		}
+	</style>
 </head>
 
 <body class="bg-gradient-primary">
@@ -30,105 +41,122 @@
 <%
 AdminMemberDto dto = (AdminMemberDto)request.getAttribute("adminmemberDto");
 %>
-<form class="user" name="myform" id="myform">
-    <div class="container">
+<form class="user" name="myform" id="myform" enctype="multipart/form-data">
+<input type="hidden" name="id" id="id" value="<%=dto.getId() %>"/>
+    <div class="container"  style="margin-top:70px">
 
+	<!-- Outer Row -->
+	<div class="row justify-content-center">
+
+	<div class="col-xl-10 col-lg-12 col-md-9">
+	
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
-                <div class="row">
-                    <div class="col">
+                <div class="row" style="align-items: center !important;">
+                    <div class="col-lg-6 d-none d-lg-block bg-admin-image" style="width:500px; height:500px;"></div>    
+                    <div class="col-lg-6">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">회원가입</h1>
+                                <h1 class="h4 text-gray-900 mb-4"><strong>회원가입</strong></h1>
                             </div>
                             <% if(dto.getUserid().equals("")) {%>
-                                <div class="form-group row">
-                                <div class="col-sm-10 mb-3 mb-sm-0">
+                                <div class="form-group">
                                     	<input type="hidden" name="idcheck" id="idcheck" value="N"/>
-                                        <input type="text" class="form-control form-control-user" name="userid" id="userid"
+                                        <div style="overflow:hidden;">
+                                        <input style="width:65% !important; float:left;" type="text" 
+                                        class="form-control form-control-user" name="userid" id="userid"
                                             placeholder="id">
+                                        <div style="float:right;" class="form-group-append">
+   											<button class="btn btn-success" type="button" id="btnDuplicate"
+   											style=" width:100px; height: 50px;">중복체크</button>  
+     									</div>
+     									</div>
                                         <p style="font-size: 11px">아이디는 영문 대소문자와 숫자 4~12자리로 입력하세요</p>
                                 </div>
-                                        <div class="input-group-append">
-      										<button class="btn btn-success" type="button" id="btnDuplicate">중복체크</button>  
-     									</div>
-                                </div>
                             <%} else {%>
-                            	<div class="form-group row">
+                            	<div class="form-group">
                                     	<input type="hidden" name="idcheck" id="idcheck" value="N"/>
                                         <input type="text" class="form-control form-control-user" name="userid" id="userid"
                                             placeholder="Name" value="<%=dto.getUserid()%>" readonly>
-                                        <div class="input-group-append">
+                                        <div class="form-group-append">
       										<button class="btn btn-success" type="button" id="btnDuplicate"></button>  
      									</div>
                                 </div>
                              <%} %>
                              
-                                <div class="form-group row">
-                                    <input type="email" class="form-control form-control-user" name="password" id="password" 
-                                        placeholder="password">
+                                <div class="form-group">
+                                    <input type="password" class="form-control form-control-user" name="password" id="password" 
+                                        placeholder="password" value="<%=dto.getPassword()%>">
+                                        <i class="fa fa-eye fa-lg"></i>
                                     <p style="font-size: 11px">비밀번호는 영문 대소문자와 숫자 4~12자리로 입력하세요</p>
                                 </div>
-                                <div class="form-group row">
-                                    <input type="email" class="form-control form-control-user" name="pwd_ck" id="pwd_ck" 
-                                        placeholder="password check">
+                                <div class="form-group">
+                                    <input type="password" class="form-control form-control-user" name="pwd_ck" id="pwd_ck" 
+                                        placeholder="password check" value="<%=dto.getPassword()%>">
+                                        <i class="fa fa-eye fa-lg"></i>
                                 </div>
-                                <div class="form-group row">
+                                <div class="form-group">
                                         <input type="text" class="form-control form-control-user"
                                             name="username" id="username" placeholder="이름" value="<%=dto.getUsername()%>">
                                  </div>
-                                 <div class="form-group row">
+                                 <div class="form-group">
                                         <input type="text" class="form-control form-control-user"
                                             name="nickname" id="nickname" placeholder="닉네임" value="<%=dto.getNickname()%>">
                                  </div>
-                                 <div class="form-group row">
+                                 <div class="form-group">
                                         <input type="text" class="form-control form-control-user"
                                             name="email" id="email" placeholder="email" value="<%=dto.getEmail()%>">
                                  </div>
-                                 <div class="form-group row">
+                                 <div class="form-group">
                                         <input type="text" class="form-control form-control-user"
                                             name="phone" id="phone" placeholder="전화번호" value="<%=dto.getPhone()%>">
                                  </div>
-                                 <button type="button"
-									onClick="goPopup();" value="팝업_domainChk"
-									style="width:100px; height: 30px; margin:2px;">주소 검색</button>
-								<div class="form-group row">
-									<p style="font-size: 11px">주소는 검색을 이용해주세요</p>
-								</div>
-                                 <div class="form-group row">
-                                        <input type="text" class="form-control form-control-user" readonly="readonly"
+                                 <div class="form-group">
+                                 <div style="overflow:hidden;">
+                                        <input style="width:65% !important; float:left;" 
+                                        	type="text" class="form-control form-control-user" readonly="readonly"
                                             name="zipcode" id="zipcode" placeholder="우편번호" value="<%=dto.getZipcode()%>">
+                                        <button class="btn btn-success" type="button" onClick="goPopup();" value="팝업_domainChk"
+                                        		style="float:right; width:100px; height: 50px;">
+                                        		주소 검색
+                                        </button>
                                  </div>
-                                 <div class="form-group row">
+										<p style="font-size: 11px">주소는 검색을 이용해주세요</p>
+                                 </div>
+                                 <div class="form-group">
                                         <input type="text" class="form-control form-control-user" readonly="readonly"
                                             name="address1" id="address1" placeholder="도로주소" value="<%=dto.getAddress1()%>">
                                  </div>
-                                 <div class="form-group row">
+                                 <div class="input-group mb-3">
                                         <input type="text" class="form-control form-control-user" readonly="readonly"
                                             name="address2" id="address2" placeholder="상세주소" value="<%=dto.getAddress2()%>">
                                  </div>
+                                 <div class="mt-1 text-center" id="result">
+	                                <a style="cursor:pointer; width:100% !important" onclick="goWrite()" class="btn btn-primary btn-user btn-block">
+	                                    등록
+	                                </a>
+	                                <a class="small" onclick="goCancel()">취소</a>
+	                                </div>
+	                                <a style="cursor:pointer; width:100% !important" 
+	                                href="index.html" class="btn btn-google btn-user btn-block">
+	                                    <i class="fab fa-google fa-fw"></i> Register with Google
+	                                </a>
+	                                <a style="cursor:pointer; width:100% !important" 
+	                                href="index.html" class="btn btn-facebook btn-user btn-block">
+	                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+	                                </a>
+	                            	<hr>   
                                 </div>
-                                <a onclick="goWrite()" class="btn btn-primary btn-user btn-block">
-                                    등록
-                                </a>
-                                <hr>
-                                <a href="index.html" class="btn btn-google btn-user btn-block">
-                                    <i class="fab fa-google fa-fw"></i> Register with Google
-                                </a>
-                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                </a>
-                            <hr>
-                           <div class="text-center">
-                                <a class="small" onclick="goCancel()">취소</a>
+                                 
                             </div>
-                            <hr>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
+            </div>
+        
 
 </form>
     <!-- Bootstrap core JavaScript-->
@@ -168,7 +196,11 @@ $(()=>{
 			//데이터가 정상적으로 수신되면 done이라는 메서드가 호출되면서 매개변수는 전달받은 값
 			//값은 dataType 속성을 안주면 text로 온다.
 			console.log(data.result);
-			if(data.result == "true")	//중복
+			if(data.result == "")
+			{
+				alert("id를 입력하세요")
+			}
+			else if(data.result == "true")	//중복
 			{
 				alert("이미 사용중인 아이디 입니다.")
 			}
@@ -292,7 +324,22 @@ function goModify()
 }
 
 function goCancel()
-{
-	location.href="${commonURL}/admin/adminindex";
+{	
+	history.back();
 }
+
+//패스워드 숨기기 보이기 기능구현
+$(document).ready(function(){
+    $('.main i').on('click',function(){
+        $('input').toggleClass('active');
+        if($('input').hasClass('active')){
+            $(this).attr('class',"fa fa-eye-slash fa-lg")
+            .prev('input').attr('type',"text");
+        }else{
+            $(this).attr('class',"fa fa-eye fa-lg")
+            .prev('input').attr('type','password');
+        }
+    });
+});
+
 </script>

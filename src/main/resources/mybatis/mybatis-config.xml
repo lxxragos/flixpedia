@@ -15,6 +15,10 @@
    <typeAlias alias="MovieBoardDto" type="com.semi.flix.admin.movieboard.MovieBoardDto"/>
    <typeAlias alias="ToonBoardDto" type="com.semi.flix.admin.toonboard.ToonBoardDto"/>
    <typeAlias alias="AniBoardDto" type="com.semi.flix.admin.aniboard.AniBoardDto"/>
+   <typeAlias alias="EnterBoardDto" type="com.semi.flix.admin.enterboard.EnterBoardDto"/>
+   <typeAlias alias="DramaBoardDto" type="com.semi.flix.admin.dramaboard.DramaBoardDto"/>
+   <typeAlias alias="UserDto" type="com.semi.flix.admin.user.UserDto"/>
+   <typeAlias alias="ReviewDto" type="com.semi.flix.admin.review.ReviewDto"/>
 
     	
 	</typeAliases>
@@ -28,6 +32,10 @@
 		<mapper resource=	"/com/semi/flix/admin/mapper/MovieBoard.xml"/>
 		<mapper resource=	"/com/semi/flix/admin/mapper/ToonBoard.xml"/>
 		<mapper resource=	"/com/semi/flix/admin/mapper/AniBoard.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/EnterBoard.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/DramaBoard.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/User.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/Review.xml"/>
 
 		
 	</mappers>
