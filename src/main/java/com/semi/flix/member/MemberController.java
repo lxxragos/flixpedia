@@ -29,6 +29,11 @@ public class MemberController {
 		return "member/signup";
 		//src/main/webapp/WEB-INF/view/test.jsp占쏙옙 占쏙옙占쏙옙占쏙옙
 	}
+	@RequestMapping("member/myinfo")
+	String myinfo() {
+		return "member/myinfo";
+		//src/main/webapp/WEB-INF/view/test.jsp占쏙옙 占쏙옙占쏙옙占쏙옙
+	}
 	
 	//占쌍쇽옙 占쌉뤄옙 占싯억옙창
 	@RequestMapping("/member/jusoPopup")
@@ -112,6 +117,8 @@ public class MemberController {
 				session.setAttribute("username", resultDto.getName());
 				session.setAttribute("userseq", resultDto.getUser_seq());
 				session.setAttribute("nickname", resultDto.getNick_name());
+				session.setAttribute("userimage", resultDto.getUser_images());
+				
 			}
 			else
 			{
