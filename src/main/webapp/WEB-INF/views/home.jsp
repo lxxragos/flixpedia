@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="com.semi.flix.drama.*" %>
+<%@page import="com.semi.flix.movie.*" %>
 <%@page import="java.util.*"%>
 
 <%@ page session="false" %>
@@ -16,13 +17,14 @@
 <body class="body">
 	<!-- header -->
 	<%@include file="include/header.jsp" %>
-	<%List<DramaDto> dramaList =(List<DramaDto>)request.getAttribute("dramaList"); %>
+	<%
+	List<DramaDto> dramaList =(List<DramaDto>)request.getAttribute("dramaList"); 
+		List<MovieDto> movieList =(List<MovieDto>)request.getAttribute("movieList");
+	%>
 
 	
-<!-- 카졸 시작 movie -->
-<section class="movie">
-
 <!-- **************************************************영화 카졸********************************************************** -->
+<section class="movie">
 	<div class="owl-carousel movie__bg">
 		<div class="item home__cover" data-bg="<%=request.getContextPath() %>/resources/img/home/home__bg.jpg"></div>
 		<div class="item home__cover" data-bg="<%=request.getContextPath() %>/resources/img/home/home__bg2.jpg"></div>
@@ -46,10 +48,10 @@
 				</button>
 				<!-- 카졸 move end-->
 			</div>
-
-			<div class="col-12"> <!-- 카톨 content start-->
+			<div class="col-12"> 
 				<div class="owl-carousel movie__carousel">
-
+				<!-- movie content start-->
+				
 					<div class="item">
 						<!-- card -->
 						<div class="card card--big">

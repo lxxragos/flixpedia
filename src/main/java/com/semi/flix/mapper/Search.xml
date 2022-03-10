@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="Search">
+
+   <select id="listPage" parameterType="SearchDto" resultType="SearchDto">
+      
+      select * from (
+         select '01' as category_code, board_seq, 
+          drama_title as title, drama_producer as producer, drama_images as images, 
+         a.genre_name, drama_hit as ratings
+         from drama_tbl dr, genre_tbl a
+         where a.genre_code = dr.genre_code
+         union all
+         select '04' as category_code, board_seq, movie_title as title, movie_producer as producer, movie_images as images, 
+          a.genre_name, movie_hit as ratings
+         from movie_tbl movie, genre_tbl a
+         where a.genre_code = movie.genre_code
+      ) A
+      where 
+      A.title like concat('${keyword}','%')
+      or A.producer like concat('${keyword}','%')
+            
+   </select>
+   
+   
+</mapper>
+
+
+
+
+
+
+

@@ -1,6 +1,7 @@
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="com.semi.flix.common.Pager"%>
-<%@page import="com.semi.flix.drama.*"%>
+
+<%@page import="com.semi.flix.movie.*"%>
 <%@page import="java.util.List"%>
 <%@page import="com.semi.flix.common.StringUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -14,20 +15,22 @@
 	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
 </head>
 <body class="body">
-	<%List<DramaDto> list =(List<DramaDto>)request.getAttribute("dramaList");%>
+	<%
+	List<MovieDto> list =(List<MovieDto>)request.getAttribute("movieList");
+	%>
 	<%@include file="../include/header.jsp" %>
 
 		
 	
 
 	<!-- page title -->
-	<section class="section section--first section--bg" data-bg="<%=request.getContextPath() %>/resources/img/section/section.jpg">
+	<section class="section section--first section--bg" data-bg="<%=request.getContextPath()%>/resources/img/section/section.jpg">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
 					<div class="section__wrap">
 						<!-- section title -->
-						<h2 class="section__title">드라마(${totalCnt}건)</h2>
+						<h2 class="section__title">영화(${totalCnt}건)</h2>
 						<!-- end section title -->
 
 						<!-- breadcrumb -->
@@ -98,16 +101,17 @@
 					<!-- card -->
 					
 					
-					<%for(DramaDto dto : list){
-					System.out.println("-------------번 호-----------------"+dto.getBoard_seq());
-					System.out.println("-------------제 목------------------"+dto.getDrama_title());
-					System.out.println("-------------이미지----------------"+dto.getDrama_images());
-					%>
+					<%
+															for(MovieDto dto : list){
+																		System.out.println("-------------번 호-----------------"+dto.getBoard_seq());
+																		System.out.println("-------------제 목------------------"+dto.getMovie_title());
+																		System.out.println("-------------이미지----------------"+dto.getMovie_images());
+															%>
 					<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
 						<div class="card">
 							<div class="card__cover">
 							
-								<img src="${commonURL}/resources/drama_img/<%=dto.getDrama_images() %>" style="height: 230px;object-fit: cover;">
+								<img src="${commonURL}/resources/drama_img/<%=dto.getMovie_images() %>" style="height: 230px;object-fit: cover;">
 								<a href="#" class="card__play" onclick="goView('<%=dto.getBoard_seq()%>')">
 									
 								</a>
@@ -116,7 +120,7 @@
 							</div>
 							<div class="card__content">
 							
-								<h3 class="card__title"><a href="#" onclick="goView('<%=dto.getBoard_seq()%>')"><%=dto.getDrama_title() %></a></h3>
+								<h3 class="card__title"><a href="#" onclick="goView('<%=dto.getBoard_seq()%>')"><%=dto.getMovie_title() %></a></h3>
 								<span class="card__category">
 								<%
 								if(dto.getGenre_code().equals("00")){ %>

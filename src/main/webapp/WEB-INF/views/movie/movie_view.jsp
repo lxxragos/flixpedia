@@ -1,5 +1,6 @@
-<%@page import="com.semi.flix.drama.*"%>
+
 <%@page import="com.semi.flix.common.StringUtil"%>
+<%@page import="com.semi.flix.movie.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,8 +13,8 @@
 </head>
 <body class="body">
 	<%
-	
-	DramaDto dto = (DramaDto)request.getAttribute("dramaDto"); %>
+	MovieDto dto = (MovieDto)request.getAttribute("movieDto");
+	%>
 	<%@include file="../include/header.jsp" %>
 
 		
@@ -31,7 +32,7 @@
 			<div class="row">
 				<!-- title -->
 				<div class="col-12">
-					<h1 class="details__title"><%=dto.getDrama_title() %></h1>
+					<h1 class="details__title"><%=dto.getMovie_title() %></h1>
 				</div>
 				<!-- end title -->
 
@@ -42,7 +43,7 @@
 							<!-- card cover -->
 							<div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-5">
 								<div class="card__cover">
-									<img src="${commonURL}/resources/drama_img/<%=dto.getDrama_images() %>" alt="">
+									<img src="${commonURL}/resources/movie_img/<%=dto.getMovie_images() %>" alt="">
 								</div>
 							</div>
 							<!-- end card cover -->
@@ -81,11 +82,11 @@
 												
 										</li>
 										<li><span>출시연도:</span> 출시년</li>
-										<li><span>연출/각본:</span> <%=dto.getDrama_producer() %></li>
+										<li><span>연출/각본:</span> <%=dto.getMovie_producer() %></li>
 									</ul>
 
 									<div class="card__description card__description--details">
-										<%=dto.getDrama_content() %>
+										<%=dto.getMovie_content() %>
 									</div>
 								</div>
 							</div>
@@ -98,7 +99,7 @@
 
 				<!-- player -->
 				<div class="col-12 col-xl-6">
-					<iframe width="560" height="315" src="<%=dto.getDrama_youtube() %>"
+					<iframe width="560" height="315" src="<%=dto.getMovie_url() %>"
 					title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				</div>
 				<!-- end player -->

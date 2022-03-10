@@ -1,6 +1,6 @@
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="com.semi.flix.common.Pager"%>
-<%@page import="com.semi.flix.drama.*"%>
+<%@page import="com.semi.flix.search.*"%>
 <%@page import="java.util.List"%>
 <%@page import="com.semi.flix.common.StringUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -14,7 +14,11 @@
 	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
 </head>
 <body class="body">
-	<%List<DramaDto> list =(List<DramaDto>)request.getAttribute("dramaList");%>
+	<%
+	
+	List<SearchDto> searchList = (List<SearchDto>)request.getAttribute("searchList");
+	%>
+	
 	<%@include file="../include/header.jsp" %>
 
 		
@@ -27,7 +31,7 @@
 				<div class="col-12">
 					<div class="section__wrap">
 						<!-- section title -->
-						<h2 class="section__title">드라마(${totalCnt}건)</h2>
+						<h2 class="section__title">검색결과</h2>
 						<!-- end section title -->
 
 						<!-- breadcrumb -->
@@ -39,11 +43,10 @@
 		</div>
 	</section>
 	<!-- end page title -->
-	
-	<form name="myform" method="get">
-		<input type="hidden" name="pg"  id="pg" value="<%=pg%>"/>
-		<input type="hidden" name="key" id="key" value="<%=key%>"/>
-		<input type="hidden" name="board_seq"  id="board_seq" value=""/>
+<form name="myform" method="get">
+	<input type="hidden" name="pg"  id="pg" value="<%=pg%>"/>
+	<input type="hidden" name="key" id="key" value="<%=key%>"/>
+	<input type="hidden" name="board_seq"  id="board_seq" value=""/>
 		<!-- filter -->
 		<div class="filter">
 			<div class="container">
@@ -98,17 +101,15 @@
 					<!-- card -->
 					
 					
-					<%for(DramaDto dto : list){
-					System.out.println("-------------번 호-----------------"+dto.getBoard_seq());
-					System.out.println("-------------제 목------------------"+dto.getDrama_title());
-					System.out.println("-------------이미지----------------"+dto.getDrama_images());
+					<%
+						for(SearchDto tempDto: searchList){
 					%>
 					<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
 						<div class="card">
 							<div class="card__cover">
 							
-								<img src="${commonURL}/resources/drama_img/<%=dto.getDrama_images() %>" style="height: 230px;object-fit: cover;">
-								<a href="#" class="card__play" onclick="goView('<%=dto.getBoard_seq()%>')">
+								<img src="${commonURL}/resources/drama_images/<%=tempDto.getImages() %>" style="height: 230px;object-fit: cover;">
+								<a href="#" class="card__play" onclick="goView('<%=tempDto.getBoard_seq()%>')">
 									
 								</a>
 						
@@ -116,27 +117,11 @@
 							</div>
 							<div class="card__content">
 							
-								<h3 class="card__title"><a href="#" onclick="goView('<%=dto.getBoard_seq()%>')"><%=dto.getDrama_title() %></a></h3>
-								<span class="card__category">
-								<%
-								if(dto.getGenre_code().equals("00")){ %>
-									<a href="#">Action</a>
-									<%}else if(dto.getGenre_code().equals("01")){ %>
-									<a href="#">Romantic</a>
-									<%}else if(dto.getGenre_code().equals("02")){ %>
-									<a href="#">Comedy</a>
-									<%}else if(dto.getGenre_code().equals("03")){ %>
-									<a href="#">Thliler/Criminal</a>
-									<%}else if(dto.getGenre_code().equals("04")){ %>
-									<a href="#">Horror</a>
-									<%}else if(dto.getGenre_code().equals("05")){ %>
-									<a href="#">SF/Fantasy</a>
-									<%}else if(dto.getGenre_code().equals("06")){ %>
-									<a href="#">Drama</a>
-									<%}%>
-									
+								<h3 class="card__title"><a href="#" onclick="goView('<%=tempDto.getBoard_seq()%>')"><%=tempDto.getTitle() %></a></h3>
+								<span class="card__category" style="color:white">
+								<%=tempDto.getGenre_name() %>
 								</span>
-								<span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+								<span class="card__rate"><i class="icon ion-ios-star"></i><%=tempDto.getRatings() %></span>
 							</div>
 						</div>
 					</div>
