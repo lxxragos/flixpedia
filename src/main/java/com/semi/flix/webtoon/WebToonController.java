@@ -18,7 +18,7 @@ public class WebToonController {
 	@Resource(name = "webtoonService")
 	WebtoonService service;
 
-	// 웹툰 목록 페이지 이동
+	// �쎒�댆 紐⑸줉 �럹�씠吏� �씠�룞
 	@RequestMapping("/webtoon/list")
 	String webtoon_list(Model model, WebtoonDto dto) {
 		dto.setPageSize(12);
@@ -36,11 +36,11 @@ public class WebToonController {
 		return "webtoon/webtoon_list";
 	}
 
-	// 웹툰 상세보기 페이지
+	// �쎒�댆 �긽�꽭蹂닿린 �럹�씠吏�
 	@RequestMapping("/webtoon/view")
 	String webtoon_view(WebtoonDto dto, CommentDto Cdto, Model model) {
 
-		Cdto.setPageSize(3);
+		Cdto.setPageSize(4);
 		Cdto.setStart(Cdto.getPg() * Cdto.getPageSize());
 		
 		List<CommentDto> list = service.commentList(Cdto);

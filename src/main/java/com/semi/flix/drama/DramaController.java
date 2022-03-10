@@ -36,7 +36,7 @@ public class DramaController {
 	
 	@RequestMapping("/drama/view")
 	String Drama_view(DramaDto dto,CommentDto Cdto,Model model) {
-		Cdto.setPageSize(3);
+		Cdto.setPageSize(4);
 		Cdto.setStart(Cdto.getPg() * Cdto.getPageSize());
 		
 		List<CommentDto> list = service.commentList(Cdto);

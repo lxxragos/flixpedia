@@ -63,8 +63,6 @@ String nickname= StringUtil.nullToValue(session.getAttribute("nickname"), "");
 								<!-- end dropdown -->
 							</ul>
 								
-									<img class="profile" alt="" src="${commonURL }/resources/user_img/풀.jpg">
-									<a href="${commonURL}/member/signin }"></a>
 							<!-- end header nav -->	
 							<%if(userid.equals("")) {%>
 							<!-- header auth -->
@@ -80,6 +78,22 @@ String nickname= StringUtil.nullToValue(session.getAttribute("nickname"), "");
 							</div>
 							<!-- end header auth -->
 							<%}else{%>
+								
+								
+										<img class="profile" alt="" src="${commonURL }/resources/user_img/풀.jpg"/>
+										<ul>
+										<li class="dropdown header__nav-item">
+											<a class="dropdown-toggle header__nav-link header__nav-link--more" href="#" role="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon ion-ios-more"></i></a>
+
+											<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
+												<li><a href="about.html">마이페이지</a></li>
+												<li><a href="signin.html">로그아웃</a></li>
+												
+						
+											</ul>
+										</li>
+										</ul>
+					
 							<div class="header__auth">
 								<button class="header__search-btn" type="button">
 									<i class="icon ion-ios-search"></i>
@@ -92,6 +106,7 @@ String nickname= StringUtil.nullToValue(session.getAttribute("nickname"), "");
 									</span>
 								</a>
 							</div>
+							
 							<%} %>
 
 							<!-- header menu btn -->
