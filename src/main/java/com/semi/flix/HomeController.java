@@ -30,6 +30,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
+		//=====================  Drama  ===================//
 		DramaDto dramaDto = new DramaDto();
 		dramaDto.setStart(dramaDto.getPg()*10);
 		List<DramaDto> dramaList = dramaService.getList(dramaDto);
@@ -37,21 +38,19 @@ public class HomeController {
 		System.out.println("[HomeController---------------]" + dramaList);
 		model.addAttribute("dramaList", dramaList);
 		
+		//=====================  Movie  ===================//
+		
+//		MovieDto movieDto = new MovieDto();
+//		movieDto.setStart(movieDto.getPg()*10);
+//		List<MovieDto> movieList = movieService.getList(movieDto);
+//		
+//		System.out.println("[HomeController---------------]" + movieList);
+//		model.addAttribute("movieList", movieList);
+		
 		return "home";
 	}
 	
-	@RequestMapping(value = "/search",method = RequestMethod.GET )
-	public String search(Locale locale,Model model, BaseDto baseDto)
-	{
-		DramaDto dramaDto = new DramaDto();
-		dramaDto.setStart(dramaDto.getPg()*10);
-		dramaDto.setKeyword(baseDto.getKeyword());
-		
-		List<DramaDto> dramaList = dramaService.getList(dramaDto);
-		System.out.println("[HomeController dramaList]" + dramaList);
-		model.addAttribute("dramaList", dramaList);
-		
-		return "home";
-	}
+	
+
 	
 }
