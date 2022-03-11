@@ -10,4 +10,5 @@ public interface UserService {
 	void delete(String user_seq);
 	void update(UserDto dto);
 	boolean isDuplicate(UserDto dto);
+	int Mail_find(UserDto dto);
 }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.semi.flix.admin.movieboard.*" %>
+<%@ page import="com.semi.flix.admin.review.*" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,8 +34,8 @@
 	      String pg = AdminStringUtil.nullToValue(request.getParameter("pg"), "0");
 	%>
     <%
-    MovieBoardDto dto = (MovieBoardDto)request.getAttribute("movieboardDto");
-    	dto = (dto == null) ? new MovieBoardDto() : dto;
+    ReviewDto dto = (ReviewDto)request.getAttribute("reviewDto");
+    	dto = (dto == null) ? new ReviewDto() : dto;
     %>
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -81,7 +81,7 @@
                         <h6 class="collapse-header">게시판 관리:</h6>
                         <a class="collapse-item" href="${commonURL}/admin/board/writemain">게시글 업로드</a>
                         <a class="collapse-item" href="${commonURL}/admin/board/listmain">게시글 수정/삭제</a>
-                        <a class="collapse-item" href="${commonURL}/admin/board/avgmain">평점 관리</a>
+                        <a class="collapse-item" href="${commonURL}/admin/review/list">평점 관리</a>
                     </div>
                 </div>
             </li>
@@ -200,128 +200,11 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
-
+                       
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                        <form id="myform" name="myform">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username"><%=username%></span>
@@ -339,7 +222,6 @@
                                     Logout
                                 </a>
                             </div>
-                            </form>
                         </li>
 
                     </ul>
@@ -349,19 +231,14 @@
 
 				<!-- Begin Page Content -->
 				<form id="myform" name="myform" enctype="multipart/form-data">
-				<input type="hidden" name="board_seq" id="board_seq" value="<%=dto.getBoard_seq() %>"/>
+				<input type="hidden" name="seq" id="seq" value="<%=dto.getSeq() %>"/>
 				<input type="hidden" name="pg"      value="<%=pg%>" >
       			<input type="hidden" name="key"     value="<%=key%>" >
       			<input type="hidden" name="keyword" value="<%=keyword%>" >
 				
 				<div class="container rounded bg-white mt-5 mb-5">
-				    <div class="row">
-				        <div class="col-md-3 border-right">
-				            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-				                <img class="rounded mt-5" style="width:80%; height:auto;" id="uplaod" src="../../upload/<%=dto.getMovie_images() %>">       
-				            </div>
-				        </div>
-				        <div class="col-md-5 border-right">
+				    <div class="row" style="justify-content:center">
+				        <div class="col-md-6">
 				            <div class="p-3 py-5">
 				                <div class="d-flex justify-content-between align-items-center mb-3">
 				                    
@@ -382,47 +259,24 @@
 				                <div class="col-md-6">
 				                <label class="labels">제목</label>
 				                <input readonly="readonly" type="text" class="form-control" placeholder="title" id="title" name="title"
-				                value="<%=dto.getMovie_title()%>">
+				                value="<%=dto.getTitle()%>">
 				                </div>
 				                <div class="col-md-6">
-				                <label class="labels">감독</label>
+				                <label class="labels">작성자</label>
 				                <input readonly="readonly" type="text" class="form-control" placeholder="producer" id="writer" name="writer"
-				                value="<%=dto.getMovie_producer()%>" >
+				                value="<%=dto.getName()%>" >
 				                </div>
 				            </div>
 				            <div class="row mt-3">
 				                <div class="col-md-12">
-				                <label class="labels">줄거리</label>
+				                <label class="labels">내용</label>
 				                <textarea readonly="readonly" class="form-control" id="contents" name="contents" placeholder="enter contents" 
-				                ><%=dto.getMovie_content()%></textarea>
+				                style="height : 270px;"><%=dto.getContent()%></textarea>
 				                </div>
 				            </div>
-				             <div class="row mt-3">
-				                <div class="col-md-4">
-				                <label class="labels">관람객수</label>
-				                <input readonly="readonly" type="text" class="form-control" placeholder="attendance" id="movie_attendance" name="movie_attendance"
-				                value="<%=dto.getMovie_attendance()%>">
-				                </div>
-				                <div class="col-md-4">
-				                <label class="labels">제작년도</label>
-				                <input readonly="readonly" type="text" class="form-control" placeholder="productionyear" id="movie_productionyear" name="movie_productionyear"
-				                value="<%=dto.getMovie_productionyear()%>">
-				                </div>
-				                <div class="col-md-4">
-				                <label class="labels">연령제한</label>
-				                <input readonly="readonly" type="text" class="form-control" placeholder="agelimit" id="movie_agelimit" name="movie_agelimit"
-				                value="<%=dto.getMovie_agelimit()%>">
-				                </div>
-				            </div>
-				            <div class="row mt-3">
-				                <div class="col-md-12">
-				                <label class="labels">예고편 url</label>
-				                <textarea readonly="readonly" class="form-control" id="movie_url" name="movie_url" placeholder="URL address" 
-				                ><%=dto.getMovie_url()%></textarea>
-				                </div>
-				            </div>
+				             
 				            <div class="mt-5 text-center">
-				                <button class="btn btn-primary profile-button" type="button" onclick="goModify()">수정</button>
+				                
 				                <button class="btn btn-primary profile-button" type="button" onclick="goDelete()">삭제</button>
 				                <button class="btn btn-primary profile-button" type="button" onclick="goList()">취소</button>
 				            </div>
@@ -503,24 +357,16 @@
 function goList()
 {
    var frm = document.myform;
-   frm.action="<%=request.getContextPath()%>/admin/movieboard/list";
+   frm.action="<%=request.getContextPath()%>/admin/review/list";
    frm.submit();
 }
-
-function goModify()
-{
-   var frm = document.myform;
-   frm.action="<%=request.getContextPath()%>/admin/movieboard/modify";
-   frm.submit();
-}
-
 
 function goDelete()
 {
    if( confirm("삭제하시겠습니까?"))
    {
       var frm = document.myform;
-      frm.action="<%=request.getContextPath()%>/admin/movieboard/delete";
+      frm.action="<%=request.getContextPath()%>/admin/review/delete";
       frm.submit();
    }
 }

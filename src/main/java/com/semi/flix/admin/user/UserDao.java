@@ -11,4 +11,5 @@ public interface UserDao {
 	UserDto getView(String user_seq);
 	void delete(String user_seq);
 	void update(UserDto dto);
+	int Mail_find(UserDto dto);
 }

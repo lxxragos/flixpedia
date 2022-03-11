@@ -43,5 +43,16 @@ public class AdminMemberDaoImpl implements AdminMemberDao{
 	public void update(AdminMemberDto dto) {
 		sm.update("AdminMember_updateInfo", dto);
 	}
-
+	@Override
+	public int cnt(AdminMemberDto dto) {
+		return sm.selectOne("AdminMember_cnt", dto);
+	}
+	@Override
+	public int user(AdminMemberDto dto) {
+		return sm.selectOne("AdminMember_user", dto);
+	}
+	@Override
+	public AdminMemberDto category(AdminMemberDto dto) {
+		return sm.selectOne("AdminMember_category", dto);
+	}
 }

@@ -104,6 +104,32 @@
 		where userid = #{userid}
 	</update>
 	
-
+	<select id="AdminMember_cnt" parameterType="AdminMemberDto" resultType="Integer">
+	select sum(A.cnt) from
+		(select count(board_seq) as cnt from movie_tbl
+		union all
+		select count(board_seq) as cnt from animation_tbl
+		union all
+		select count(board_seq) as cnt from webtoon_tbl
+		union all
+		select count(board_seq) as cnt from drama_tbl
+		union all
+		select count(board_seq) as cnt from entertain_tbl
+		) A
+	</select>
+	
+	<select id="AdminMember_user" parameterType="AdminMemberDto" resultType="Integer">
+		select count(*) from user
+	</select>
+	
+	<select id="AdminMember_category" parameterType="AdminMemberDto" resultType="AdminMemberDto">
+	select
+            (select count(board_seq) from movie_tbl)m,
+            (select count(board_seq) from animation_tbl)a,
+            (select count(board_seq) from webtoon_tbl)t,
+            (select count(board_seq) from drama_tbl)d,
+            (select count(board_seq) from entertain_tbl)e
+    from dual;
+	</select>
 
 </mapper>

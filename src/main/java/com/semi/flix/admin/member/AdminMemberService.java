@@ -7,4 +7,7 @@ public interface AdminMemberService {
 	AdminMemberDto findId(AdminMemberDto dto);
 	AdminMemberDto findPassword(AdminMemberDto dto);
 	void update(AdminMemberDto dto);
+	int cnt(AdminMemberDto dto);
+	int user(AdminMemberDto dto);
+	AdminMemberDto category(AdminMemberDto dto);
 }

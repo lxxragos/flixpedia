@@ -86,7 +86,7 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
                         <h6 class="collapse-header">게시판 관리:</h6>
                         <a class="collapse-item" href="${commonURL}/admin/board/writemain">게시글 업로드</a>
                         <a class="collapse-item" href="${commonURL}/admin/board/listmain">게시글 수정/삭제</a>
-                        <a class="collapse-item" href="${commonURL}/admin/board/avgmain">평점 관리</a>
+                        <a class="collapse-item" href="${commonURL}/admin/review/list">평점 관리</a>
                     </div>
                 </div>
             </li>

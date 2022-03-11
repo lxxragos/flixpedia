@@ -86,7 +86,7 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
                         <h6 class="collapse-header">게시판 관리:</h6>
                         <a class="collapse-item" href="${commonURL}/admin/board/writemain">게시글 업로드</a>
                         <a class="collapse-item" href="${commonURL}/admin/board/listmain">게시글 수정/삭제</a>
-                        <a class="collapse-item" href="${commonURL}/admin/board/avgmain">평점 관리</a>
+                        <a class="collapse-item" href="${commonURL}/admin/review/list">평점 관리</a>
                     </div>
                 </div>
             </li>
@@ -326,7 +326,6 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                        <form id="myform" name="myform">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username"><%=username%></span>
@@ -344,7 +343,6 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
                                     Logout
                                 </a>
                             </div>
-                            </form>
                         </li>
 
                     </ul>
@@ -358,7 +356,7 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
                     <form name="myform" method="post">
                         <input type="hidden" name="key" id="key" value="<%=key%>"/>
                         <input type="hidden" name="pg" id="pg" value="<%=pg%>"/>
-                        <input type="hidden" name="board_seq" id="board_seq" value=""/>
+                        <input type="hidden" name="seq" id="seq" value=""/>
                     
                         <div class="container" style="margin-top:80px">
                             <h2>게시판 목록 (${totalCnt})</h2>
@@ -371,8 +369,8 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
                                   <li><a class="dropdown-item" href="#" onclick="changeSearch('1')">전체</a></li>
                                   <li><a class="dropdown-item" href="#" onclick="changeSearch('2')">제목</a></li>
                                   <li><a class="dropdown-item" href="#" onclick="changeSearch('3')">작성자</a></li>
-                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('4')">장르</a></li>
-                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('5')">카테고리</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('4')">카테고리</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('5')">장르</a></li>
                                 </ul>
                                 <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword" value="<%=keyword%>">
                                 <button class="btn btn-secondary" type="button" onclick="goSearch()">Go</button>
@@ -492,12 +490,12 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
 <script>
 	window.onload = function(){
 		let key = '<%=key%>';
-		var texts=["","전체","제목","감독","장르"];
+		var texts=["","전체","제목","작성자","카테고리","장르"];
 		document.getElementById("searchItem").innerHTML=texts[key];	
 	}
 	function changeSearch(seq)
 	{
-		var texts=["","전체","제목","감독","장르"];
+		var texts=["","전체","제목","작성자","카테고리","장르"];
 		document.getElementById("searchItem").innerHTML=texts[seq]; //화면에 보이기 위해서
 		document.getElementById("key").value=seq; //컨트롤러로 넘기기 위해서
 		document.getElementById("keyword").value="";
@@ -521,7 +519,7 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
 	
 	function goView(seq){
 		let frm = document.myform;
-		frm.board_seq.value = board_seq;
+		frm.seq.value = seq;
 		frm.method = "get";
 		frm.action = "<%=request.getContextPath()%>/admin/review/view";
 		frm.submit();

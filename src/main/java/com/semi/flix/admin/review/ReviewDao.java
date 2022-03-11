@@ -7,7 +7,7 @@ public interface ReviewDao {
 	List<ReviewDto> getList(ReviewDto dto);
 	int getTotal(ReviewDto dto);
 	void insert(ReviewDto dto);
-	ReviewDto getView(String board_seq);
-	void delete(String board_seq);
+	ReviewDto getView(String seq);
+	void delete(String seq);
 	void update(ReviewDto dto);
 }

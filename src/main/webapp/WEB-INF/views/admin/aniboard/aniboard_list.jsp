@@ -89,7 +89,7 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
                         <h6 class="collapse-header">게시판 관리:</h6>
                         <a class="collapse-item" href="${commonURL}/admin/board/writemain">게시글 업로드</a>
                         <a class="collapse-item" href="${commonURL}/admin/board/listmain">게시글 수정/삭제</a>
-                        <a class="collapse-item" href="${commonURL}/admin/board/avgmain">평점 관리</a>
+                        <a class="collapse-item" href="${commonURL}/admin/review/list">평점 관리</a>
                     </div>
                 </div>
             </li>
@@ -329,7 +329,6 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                        <form id="myform" name="myform">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username"><%=username%></span>
@@ -347,7 +346,6 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
                                     Logout
                                 </a>
                             </div>
-                            </form>
                         </li>
 
                     </ul>

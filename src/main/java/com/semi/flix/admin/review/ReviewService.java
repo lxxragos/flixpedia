@@ -5,8 +5,8 @@ import java.util.List;
 public interface ReviewService {
 	List<ReviewDto> getList(ReviewDto dto);
 	void insert(ReviewDto dto);
-	ReviewDto getView(String board_seq);
+	ReviewDto getView(String seq);
 	int getTotal(ReviewDto dto);
-	void delete(String board_seq);
+	void delete(String seq);
 	void update(ReviewDto dto);
 }

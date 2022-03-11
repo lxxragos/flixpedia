@@ -26,9 +26,9 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public ReviewDto getView(String board_seq) {
+	public ReviewDto getView(String seq) {
 
-		return reviewDao.getView(board_seq);
+		return reviewDao.getView(seq);
 	}
 
 	@Override
@@ -37,8 +37,8 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public void delete(String board_seq) {
-		reviewDao.delete(board_seq);
+	public void delete(String seq) {
+		reviewDao.delete(seq);
 		
 	}
 

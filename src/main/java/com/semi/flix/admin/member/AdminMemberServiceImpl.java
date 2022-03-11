@@ -39,5 +39,16 @@ public class AdminMemberServiceImpl implements AdminMemberService{
 	public void update(AdminMemberDto dto) {
 		adminmemberDao.update(dto);
 	}
-	
+	@Override
+	public int cnt(AdminMemberDto dto) {
+		return adminmemberDao.cnt(dto);
+	}
+	@Override
+	public int user(AdminMemberDto dto) {
+		return adminmemberDao.user(dto);
+	}
+	@Override
+	public AdminMemberDto category(AdminMemberDto dto) {
+		return adminmemberDao.category(dto);
+	}
 }

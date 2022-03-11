@@ -52,6 +52,11 @@ public class UserDaoImpl implements UserDao{
 		sm.update("User_update", dto);
 	}
 
+	@Override
+	public int Mail_find(UserDto dto) {
+		return sm.selectOne("Mail_find", dto);
+	}
+
 
 
 }
