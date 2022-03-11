@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.semi.flix.admin.movieboard.*" %>
+<%@ page import="com.semi.flix.admin.mail.*" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +29,7 @@
 <body id="page-top">
 	<%@include file="../include/adminnav.jsp" %>
 	<%
-	MovieBoardDto dto = (MovieBoardDto)request.getAttribute("movieboardDto");
+	MailDto dto = (MailDto)request.getAttribute("mailDto");
 	%>
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -194,128 +194,11 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
-
+                        
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                        <form id="myform" name="myform">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username"><%=username%></span>
@@ -333,7 +216,6 @@
                                     Logout
                                 </a>
                             </div>
-                            </form>
                         </li>
 
                     </ul>
@@ -343,83 +225,58 @@
 
 				<!-- Begin Page Content -->
 				<form id="myform" name="myform" enctype="multipart/form-data">
-				<input type="hidden" name="board_seq" id="board_seq" value="<%=dto.getBoard_seq() %>"/>
-				<input type="hidden" name="hit" id="hit" value="<%=dto.getMovie_hit() %>"/>
+				<input type="hidden" name="seq" id="seq" value=""/>
+				<input type="hidden" name="hit" id="hit" value=">"/>
 				
 				<div class="container rounded bg-white mt-5 mb-5">
-				    <div class="row">
-				        <div class="col-md-5 border-right">
-					            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-					                <img class="rounded mt-5" src="">       
-					                <input type="file" class="form-control" id="uplaod" name="upload" 
-					                        placeholder="이미지를 업로드하세요" value="<%=dto.getMovie_images() %>" onchange="readURL(this);"/>
-					                        <br/><br/>
-									<img id="preview" src="../../upload/<%=dto.getMovie_images() %>"style="width:50%; height:auto;"/>
-									<input type="hidden" name="movie_images" value="<%=dto.getMovie_images() %>"/>
-					            </div>
-				        </div>
-				        <div class="col-md-7 border-right">
+				    <div class="row" style="justify-content:center">
+				        <div class="col-md-6 border-center">
 				            <div class="p-3 py-5">
 				                <div class="d-flex justify-content-between align-items-center mb-3">
 				                    
 				                </div>
 				            <div class="row mt-2">
 				                <div class="col-md-6">
-				                <label class="labels">카테고리</label>
-				                <input type="text" class="form-control" placeholder="category" id="category_code" name="category_code"
-				                value="<%=dto.getCategory_code()%>">
+				                <label class="labels">받는이</label>
+				                <input type="text" class="form-control" placeholder="to email" id="email1" name="email1"
+				                value=<%=dto.getEmail1()%>>
+								<button class="btn btn-success" type="button" id="btnfind"
+   											style=" width:70px; height: 30px; margin-top:3px;">확인</button>  
 				                </div>
 				                <div class="col-md-6">
-				                <label class="labels">장르</label>
-				                <input type="text" class="form-control" placeholder="genre" id="genre_code" name="genre_code"
-				                value="<%=dto.getGenre_code()%>" >
+				                <label class="labels">받는이 고유번호</label>
+				                <input readonly="readonly"type="text" class="form-control" placeholder="user_seq" id="user_seq" name="user_seq"
+				                value=<%=dto.getUser_seq()%>>
 				                </div>
 				            </div>
 				            <div class="row mt-2">
 				                <div class="col-md-6">
-				                <label class="labels">제목</label>
-				                <input type="text" class="form-control" placeholder="title" id="movie_title" name="movie_title"
-				                value="<%=dto.getMovie_title()%>">
+				                <label class="labels">보내는이</label>
+				                <input type="text" class="form-control" placeholder="from email" id="email2" name="email2"
+				                value=<%=email%> readonly>
 				                </div>
 				                <div class="col-md-6">
-				                <label class="labels">감독</label>
-				                <input type="text" class="form-control" placeholder="producer" id="movie_producer" name="movie_producer"
-				                value="<%=dto.getMovie_producer()%>" >
+				                <label class="labels">보내는이 고유번호</label>
+				                <input type="text" class="form-control" placeholder="admin_seq" id="id" name="id"
+				                value=<%=id%> readonly>
 				                </div>
 				            </div>
 				            <div class="row mt-3">
 				                <div class="col-md-12">
-				                <label class="labels">줄거리</label>
-				                <textarea class="form-control" id="movie_content" name="movie_content" placeholder="enter contents" 
-				                ><%=dto.getMovie_content()%></textarea>
-				                </div>
-				            </div>
-				            <div class="row mt-3">
-				                <div class="col-md-4">
-				                <label class="labels">관람객수</label>
-				                <input type="text" class="form-control" placeholder="attendance" id="movie_attendance" name="movie_attendance"
-				                value="<%=dto.getMovie_attendance()%>">
-				                </div>
-				                <div class="col-md-4">
-				                <label class="labels">제작년도</label>
-				                <input type="text" class="form-control" placeholder="productionyear" id="movie_productionyear" name="movie_productionyear"
-				                value="<%=dto.getMovie_productionyear()%>">
-				                </div>
-				                <div class="col-md-4">
-				                <label class="labels">연령제한</label>
-				                <input type="text" class="form-control" placeholder="agelimit" id="movie_agelimit" name="movie_agelimit"
-				                value="<%=dto.getMovie_agelimit()%>">
+				                <label class="labels">제목</label>
+				                <input type="text" class="form-control" placeholder="enter title" id="title" name="title" 
+				                value=<%=dto.getTitle()%>>
 				                </div>
 				            </div>
 				            <div class="row mt-3">
 				                <div class="col-md-12">
-				                <label class="labels">예고편 url</label>
-				                <textarea class="form-control" id="movie_url" name="movie_url" placeholder="URL address" 
-				                ><%=dto.getMovie_url()%></textarea>
+				                <label class="labels">내용</label>
+				                <textarea class="form-control" placeholder="enter content" id="content" name="content"  
+				                style="height : 270px;"><%=dto.getContent()%></textarea>
 				                </div>
 				            </div>
 				            <div class="mt-5 text-center">
-				                <button class="btn btn-primary profile-button" type="button" onclick="goWrite()">등록</button>
+				                <button class="btn btn-primary profile-button" type="button" onclick="goSend()">전송</button>
 				            </div>
 				            </div>
 				        </div>
@@ -495,84 +352,84 @@
 
 </html>
 <script>
-	function goWrite()
+	function goSend()
 	{
 		var frm = document.myform;
-		if(frm.category_code.value.trim().length==0)
+		if(frm.email1.value.trim().length==0)
 		{
-			alert("카테고리를 작성하세요");
-			frm.category_code.focus();
+			alert("이메일을 작성하세요");
+			frm.email1.focus();
 			return false;
 		}
-		if(frm.genre_code.value.trim().length==0)
+		if(frm.user_seq.value.trim().length==0)
 		{
-			alert("장르를 작성하세요");
-			frm.genre_code.focus();
+			alert("고유번호를 작성하세요");
+			frm.user_seq.focus();
 			return false;
 		}
-		if(frm.movie_attendance.value.trim().length==0)
+		if(frm.email2.value.trim().length==0)
 		{
-			alert("관람객수를 작성하세요");
-			frm.movie_attendance.focus();
+			alert("이메일을 작성하세요");
+			frm.email2.focus();
 			return false;
 		}
-		if(frm.movie_title.value.trim().length==0)
+		if(frm.id.value.trim().length==0)
+		{
+			alert("고유번호를 작성하세요");
+			frm.id.focus();
+			return false;
+		}
+		if(frm.title.value.trim().length==0)
 		{
 			alert("제목을 작성하세요");
-			frm.movie_title.focus();
+			frm.title.focus();
 			return false;
 		}
-		if(frm.movie_producer.value.trim().length==0)
-		{
-			alert("이름을 작성하세요");
-			frm.movie_producer.focus();
-			return false;
-		}
-		if(frm.movie_content.value.trim().length==0)
+		if(frm.content.value.trim().length==0)
 		{
 			alert("내용을 작성하세요");
-			frm.movie_content.focus();
+			frm.content.focus();
 			return false;
 		}
-		if(frm.movie_url.value.trim().length==0)
-		{
-			alert("영상 주소를 작성하세요");
-			frm.movie_url.focus();
-			return false;
-		}
-		if(frm.movie_productionyear.value.trim().length==0)
-		{
-			alert("제작년도를 작성하세요");
-			frm.movie_productionyear.focus();
-			return false;
-		}
-		if(frm.movie_agelimit.value.trim().length==0)
-		{
-			alert("제한연령을 작성하세요");
-			frm.movie_agelimit.focus();
-			return false;
-		}
-
-		frm.action="<%=request.getContextPath()%>/admin/movieboard/save";
+		frm.action="${commonURL}/sendMail"
 		frm.method="post";
 		frm.submit(); //서버로 전송하기
+		
 	}
+	
+
+	$(()=>{
+		$("#btnfind").click(()=>{
+			$.ajax({
+				url:"${commonURL}/find",	//요청 url정보
+				data:{email:$("#email1").val()},	//서버로 전달할 데이터 정보 : JSON형태
+				dataType:"json",	//결과를 json으로 받겠다. 이렇게 안하면 결과값이 text로 온다.
+				type:"POST"
+			})
+			.done((data)=>{
+				//데이터가 정상적으로 수신되면 done이라는 메서드가 호출되면서 매개변수는 전달받은 값
+				//값은 dataType 속성을 안주면 text로 온다.
+				console.log(data.result);
+				if(data.result == "fail")
+				{
+					alert("이메일이 없습니다.")
+				}
+				else
+				{
+					alert("사용 가능합니다.")
+					$("#user_seq").val(data.result);	//수정못하게 막는 기능
+				}
+			})
+			.fail((error)=>{
+				//통신에러, 오류에 대한 것
+				console.log(error)
+			})
+		})
+	})
 	
 	function goMain()
 	{
 		location.href="${commonURL}/admin/adminhome";		
 	}
-	
-	function readURL(input) {
-		if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function(e) {
-	      document.getElementById('preview').src = e.target.result;
-	    };
-	    reader.readAsDataURL(input.files[0]);
-	    } 
-		else {
-	    document.getElementById('preview').src = "";
-	    }
-	}
+
 </script>

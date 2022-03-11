@@ -32,11 +32,12 @@ public class ReviewController {
 	
 	//	/board/view?id=1
 	@RequestMapping(value="/admin/review/view", method=RequestMethod.GET)
-	String review_view(String board_seq, Model model)
+	String review_view(String seq, Model model)
 	{
 		System.out.println("toString");
-		ReviewDto dto = service.getView(board_seq);
+		ReviewDto dto = service.getView(seq);
 		model.addAttribute("reviewDto",dto);
+		System.out.println("dto--------------->" + dto);
 		return "admin/review/review_view";
 	}
 	

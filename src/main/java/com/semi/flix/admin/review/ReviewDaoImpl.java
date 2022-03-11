@@ -25,8 +25,8 @@ public class ReviewDaoImpl implements ReviewDao{
 	}
 
 	@Override
-	public ReviewDto getView(String board_seq) {
-		return sm.selectOne("Review_getView", board_seq);
+	public ReviewDto getView(String seq) {
+		return sm.selectOne("Review_getView", seq);
 	}
 
 	@Override
@@ -35,8 +35,8 @@ public class ReviewDaoImpl implements ReviewDao{
 	}
 
 	@Override
-	public void delete(String board_seq) {
-		sm.delete("Review_delete", board_seq);
+	public void delete(String seq) {
+		sm.delete("Review_delete", seq);
 	}
 
 	@Override

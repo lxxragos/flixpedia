@@ -52,4 +52,9 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
+	@Override
+	public int Mail_find(UserDto dto) {
+		return userDao.Mail_find(dto);
+	}
+
 }

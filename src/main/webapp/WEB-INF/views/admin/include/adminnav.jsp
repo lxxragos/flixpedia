@@ -3,7 +3,7 @@
 <%@page import="com.semi.flix.admin.common.*" %>
 <%
 request.setAttribute("commonURL", request.getContextPath());
-
+String id = AdminStringUtil.nullToValue(session.getAttribute("id"), "");
 String userid = AdminStringUtil.nullToValue(session.getAttribute("userid"), "");
 String username = AdminStringUtil.nullToValue(session.getAttribute("username"), "");
 String email = AdminStringUtil.nullToValue(session.getAttribute("email"), "");

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
 <%@page import="com.semi.flix.admin.common.*"%>
-<%@page import="com.semi.flix.admin.movieboard.*"%>
+<%@page import="com.semi.flix.admin.mail.*"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +86,7 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
                         <h6 class="collapse-header">게시판 관리:</h6>
                         <a class="collapse-item" href="${commonURL}/admin/board/writemain">게시글 업로드</a>
                         <a class="collapse-item" href="${commonURL}/admin/board/listmain">게시글 수정/삭제</a>
-                        <a class="collapse-item" href="${commonURL}/admin/board/avgmain">평점 관리</a>
+                        <a class="collapse-item" href="${commonURL}/admin/review/list">평점 관리</a>
                     </div>
                 </div>
             </li>
@@ -326,7 +326,6 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                        <form id="myform" name="myform">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username"><%=username%></span>
@@ -344,7 +343,6 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
                                     Logout
                                 </a>
                             </div>
-                            </form>
                         </li>
 
                     </ul>
@@ -358,7 +356,7 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
                     <form name="myform" method="post">
                         <input type="hidden" name="key" id="key" value="<%=key%>"/>
                         <input type="hidden" name="pg" id="pg" value="<%=pg%>"/>
-                        <input type="hidden" name="board_seq" id="board_seq" value=""/>
+                        <input type="hidden" name="seq" id="seq" value=""/>
                     
                         <div class="container" style="margin-top:80px">
                             <h2>게시판 목록 (${totalCnt})</h2>
@@ -370,8 +368,8 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
                                 <ul class="dropdown-menu">
                                   <li><a class="dropdown-item" href="#" onclick="changeSearch('1')">전체</a></li>
                                   <li><a class="dropdown-item" href="#" onclick="changeSearch('2')">제목</a></li>
-                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('3')">감독</a></li>
-                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('4')">장르</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('3')">보내는이</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('4')">받는이</a></li>
                                 </ul>
                                 <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword" value="<%=keyword%>">
                                 <button class="btn btn-secondary" type="button" onclick="goSearch()">Go</button>
@@ -389,25 +387,25 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
                                 <thead class="table-secondary">
                                   <tr>
                                     <th>번호</th>
-                                    <th>카테고리</th>
-                                    <th>장르</th>
+                                    <th>받는이</th>
+                                    <th>id</th>
                                     <th>제목</th>
-                                    <th>감독</th>
-                                    <th>작성일</th>
+                                    <th>보내는이</th>
+                                    <th>날짜</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                 <%
-                                List<MovieBoardDto> list = (List<MovieBoardDto>)request.getAttribute("movieboardList");
-                                                                for(MovieBoardDto tempDto : list){
+                                List<MailDto> list = (List<MailDto>)request.getAttribute("mailList");
+                                                                for(MailDto tempDto : list){
                                 %>
                                   <tr>
                                     <td><%=totalCnt - tempDto.getRnum()+1%></td>
-                                    <td><%=tempDto.getCategory_code()%></td>
-                                    <td><%=tempDto.getGenre_code()%></td>
-                                    <td><a href="#none" onclick="goView('<%=tempDto.getBoard_seq()%>')"><%=tempDto.getMovie_title()%></a></td>
-                                    <td><%=tempDto.getMovie_producer()%></td>
-                                    <td><%=tempDto.getWdate()%></td>
+                                    <td><%=tempDto.getName1()%></td>
+                                    <td><%=tempDto.getId()%></td>
+                                    <td><a href="#none" onclick="goView('<%=tempDto.getSeq()%>')"><%=tempDto.getTitle()%></a></td>
+                                    <td><%=tempDto.getName2()%></td>
+                                    <td><%=tempDto.getDate()%></td>
                                   </tr>
                                 <%} %>
                                 </tbody>
@@ -415,6 +413,9 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
                               
                               <div class="container mt-3" style="text-align:right;"> 
                                   <%=AdminPager.makeTag(request, 10, totalCnt)%>
+                              </div>
+                              <div class="container mt-3" style="text-align:right;">
+                                <a href="${commonURL}/admin/mailsend" class="btn btn-secondary">메일전송</a>
                               </div>
                
                         </div>
@@ -491,21 +492,21 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
 <script>
 	window.onload = function(){
 		let key = '<%=key%>';
-		var texts=["","전체","제목","감독","장르"];
+		var texts=["","전체","제목","받는이","보내는이"];
 		document.getElementById("searchItem").innerHTML=texts[key];	
 	}
-	function changeSearch(board_seq)
+	function changeSearch(seq)
 	{
-		var texts=["","전체","제목","감독","장르"];
-		document.getElementById("searchItem").innerHTML=texts[board_seq]; //화면에 보이기 위해서
-		document.getElementById("key").value=board_seq; //컨트롤러로 넘기기 위해서
+		var texts=["","전체","제목","받는이","보내는이"];
+		document.getElementById("searchItem").innerHTML=texts[seq]; //화면에 보이기 위해서
+		document.getElementById("key").value=seq; //컨트롤러로 넘기기 위해서
 		document.getElementById("keyword").value="";
 	}
 	
 	function goSearch(){
 		let frm = document.myform;
 		frm.pg.value=0;
-		frm.action = "<%=request.getContextPath()%>/admin/movieboard/list";
+		frm.action = "<%=request.getContextPath()%>/list";
 		frm.method = "get";
 		frm.submit();
 	}
@@ -514,15 +515,15 @@ String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
 		let frm = document.myform;
 		frm.pg.value = pg;
 		frm.method = "get";
-		frm.action = "${pageContext.request.contextPath}/admin/movieboard/list";
+		frm.action = "${pageContext.request.contextPath}/list";
 		frm.submit();
 	}
 	
-	function goView(board_seq){
+	function goView(seq){
 		let frm = document.myform;
-		frm.board_seq.value = board_seq;
+		frm.seq.value = seq;
 		frm.method = "get";
-		frm.action = "<%=request.getContextPath()%>/admin/movieboard/view";
+		frm.action = "<%=request.getContextPath()%>/view";
 		frm.submit();
 	}
 	function goMain()

@@ -13,7 +13,43 @@ public class AdminMemberDto {
 	private String address1="";
 	private String address2="";
 	private String user_images="";
+	private String m="";
+	private String a="";
+	private String t="";
+	private String d="";
+	private String e="";
 	
+	public String getM() {
+		return m;
+	}
+	public void setM(String m) {
+		this.m = m;
+	}
+	public String getA() {
+		return a;
+	}
+	public void setA(String a) {
+		this.a = a;
+	}
+	public String getT() {
+		return t;
+	}
+	public void setT(String t) {
+		this.t = t;
+	}
+	
+	public String getD() {
+		return d;
+	}
+	public void setD(String d) {
+		this.d = d;
+	}
+	public String getE() {
+		return e;
+	}
+	public void setE(String e) {
+		this.e = e;
+	}
 	public String getUser_images() {
 		return user_images;
 	}
@@ -86,8 +122,10 @@ public class AdminMemberDto {
 	public void setAddress2(String address2) {
 		this.address2 = address2;
 	}
+	
 	public AdminMemberDto(String id, String userid, String password, String username, String email, String wdate,
-			String nickname, String phone, String zipcode, String address1, String address2, String user_images) {
+			String nickname, String phone, String zipcode, String address1, String address2, String user_images,
+			String m, String a, String t, String d, String e) {
 		super();
 		this.id = id;
 		this.userid = userid;
@@ -101,7 +139,13 @@ public class AdminMemberDto {
 		this.address1 = address1;
 		this.address2 = address2;
 		this.user_images = user_images;
+		this.m = m;
+		this.a = a;
+		this.t = t;
+		this.d = d;
+		this.e = e;
 	}
+	
 	public AdminMemberDto() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -110,7 +154,8 @@ public class AdminMemberDto {
 	public String toString() {
 		return "AdminMemberDto [id=" + id + ", userid=" + userid + ", password=" + password + ", username=" + username
 				+ ", email=" + email + ", wdate=" + wdate + ", nickname=" + nickname + ", phone=" + phone + ", zipcode="
-				+ zipcode + ", address1=" + address1 + ", address2=" + address2 + ", user_images=" + user_images + "]";
+				+ zipcode + ", address1=" + address1 + ", address2=" + address2 + ", user_images=" + user_images
+				+ ", m=" + m + ", a=" + a + ", t=" + t + ", d=" + d + ", e=" + e + "]";
 	}
 	
 	

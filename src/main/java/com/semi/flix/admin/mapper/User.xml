@@ -147,4 +147,9 @@
 		select count(*) from user
 		where user_id = #{user_id}
 	</select>
+	
+	<select id="Mail_find" parameterType="UserDto" resultType="Integer">
+		select user_seq from user
+		where email = #{email}
+	</select>
 </mapper>
