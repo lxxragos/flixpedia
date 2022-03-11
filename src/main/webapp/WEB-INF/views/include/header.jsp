@@ -14,6 +14,7 @@ String userimage= StringUtil.nullToValue(session.getAttribute("userimage"), "");
 
 <!-- header -->
 	<header class="header">
+	<form name="mypageForm" style="text-align: right;">
 		<div class="header__wrap">
 			<div class="container">
 				<div class="row">
@@ -68,6 +69,7 @@ String userimage= StringUtil.nullToValue(session.getAttribute("userimage"), "");
 							<!-- end header nav -->	
 							<%if(userid.equals("")) {%>
 							<!-- header auth -->
+
 							<div class="header__auth">
 								<button class="header__search-btn" type="button">
 									<i class="icon ion-ios-search"></i>
@@ -80,6 +82,7 @@ String userimage= StringUtil.nullToValue(session.getAttribute("userimage"), "");
 							</div>
 							<!-- end header auth -->
 							<%}else{%>
+								<input type="hidden" id="user_id" name="user_id" value=""> 
 								<div class="header__auth">
 											<button class="header__search-btn" type="button" >
 												<i class="icon ion-ios-search" style="margin-top: 60px;"></i>
@@ -94,7 +97,7 @@ String userimage= StringUtil.nullToValue(session.getAttribute("userimage"), "");
 											</a>
 
 											<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
-												<li><a href="${commonURL}/member/myinfo">마이페이지</a></li>
+												<li><a href="#" onclick="goMypage('<%=userid%>')">마이페이지</a></li>
 												<li><a href="${commonURL}/member/logout">로그아웃</a></li>
 												
 						
@@ -104,7 +107,8 @@ String userimage= StringUtil.nullToValue(session.getAttribute("userimage"), "");
 										</div>
 					
 							
-							<%} %>
+							
+							<% } %>
 
 							<!-- header menu btn -->
 							<button class="header__btn" type="button">
@@ -118,7 +122,7 @@ String userimage= StringUtil.nullToValue(session.getAttribute("userimage"), "");
 				</div>
 			</div>
 		</div>
-
+</form>
 		<!-- header search -->
 		<form action="#" class="header__search">
 			<div class="container">

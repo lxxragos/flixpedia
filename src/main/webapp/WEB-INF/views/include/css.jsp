@@ -40,3 +40,14 @@
 	<script src="<%=request.getContextPath() %>/resources/js/photoswipe.min.js"></script>
 	<script src="<%=request.getContextPath() %>/resources/js/photoswipe-ui-default.min.js"></script>
 	<script src="<%=request.getContextPath() %>/resources/js/main.js"></script>
+	
+	<script>
+	function goMypage(id)
+	{
+		frm = document.mypageForm;
+		frm.user_id.value=id;///////////
+		frm.method="get";
+		frm.action="${pageContext.request.contextPath}/member/myinfo";
+		frm.submit();
+	}
+	</script>

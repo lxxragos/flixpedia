@@ -34,9 +34,9 @@
 		#{email},
 		#{phone},
 		now(),
-		#{zipcode},
 		#{address1},
 		#{address2},
+		#{zipcode},
 		#{user_images}
 	)
 	</insert>
@@ -68,7 +68,7 @@
 	<update id="Member_update" parameterType="MemberDto" >
 	update user set 
 			user_id=#{user_id},
-			password=#{password},
+			
 			nick_name=#{nick_name},
 			name=#{name},
 			email=#{email},

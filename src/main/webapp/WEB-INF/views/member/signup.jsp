@@ -16,7 +16,6 @@ request.setAttribute("commonURL", request.getContextPath());
 </head>
 <body class="body">
 <%@include file="../include/header.jsp" %>
-<%MemberDto dto = (MemberDto)request.getAttribute("memberDto"); %>
  <div class="sign section--bg" data-bg="${commonURL }/resources/img/section/section.jpg" style="margin-top : 70px;">
  	<div class="container">
  		<div class="col-12">
@@ -37,12 +36,12 @@ request.setAttribute("commonURL", request.getContextPath());
 					<div class="filebox">
 						<input class="sign__input" id="upload-name" value="" placeholder="프로필사진"><br>
                         <label for="upload" style="width:100px; height: 30px; margin:2px;" 
-                         >파일찾기</label> 
+                         >사진 찾기</label> 
    						<input type="file"  id="upload" name="upload"
    							accept="image/jpeg, image/jpg, image/png" multiple>
 					</div>
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="이름" id="name" name="name">
+						<input type="text" class="sign__input" placeholder="이름" id="name" name="name" >
 					</div>
 					<div class="sign__group">
 						<input type="text" class="sign__input" placeholder="아이디" id="user_id" name="user_id">
@@ -105,6 +104,59 @@ request.setAttribute("commonURL", request.getContextPath());
 </body>
 </html>
 <script language="javascript">
+//파일 추가 하면 파일명 보여쥬기
+$("#upload").on('change',function(){
+  var fileName = $("#upload").val();
+  $("#upload-name").val(fileName);
+
+});	
+	 
+	 document.addEventListener('DOMContentLoaded', function(){
+		    //이미지 객체 타입으로 이미지 확장자 밸리데이션
+		    var validateType = function(img){
+		        return (['image/jpeg','image/jpg','image/png'].indexOf(img.type) > -1);
+		    }
+
+		    var validateName = function(fname){
+		        let extensions = ['jpeg','jpg','png'];
+		        let fparts = fname.split('.');
+		        let fext = '';
+		    
+		        if(fparts.length > 1){
+		            fext = fparts[fparts.length-1];
+		        }
+		    
+		        let validated = false;
+		        
+		        if(fext != ''){
+		            extensions.forEach(function(ext){
+		                if(ext == fext){
+		                    validated = true;
+		                }
+		            });
+		        }
+		    
+		        return validated;
+		    }
+
+		    // 파일 선택 필드에 이벤트 리스너 등록
+		    document.getElementById('upload').addEventListener('change', function(e){
+		        let elem = e.target;
+		        if(validateType(elem.files[0])){
+		            let preview = document.querySelector('.thumb');
+		            preview.src = URL.createObjectURL(elem.files[0]); //파일 객체에서 이미지 데이터 가져옴.
+		            
+		            //document.querySelector('.dellink').style.display = 'block'; // 이미지 삭제 링크 표시
+		            preview.onload = function() {
+		                URL.revokeObjectURL(preview.src); //URL 객체 해제
+		            }
+		        }else{
+		        console.log('이미지 파일이 아닙니다.');
+		        }
+		    });
+
+		   
+		});
 function goPopup()
 {
 	var pop = window.open("jusoPopup","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
@@ -201,14 +253,15 @@ function goWrite()
 		alert("아이디 중복체크를 하세요")
 		frm.user_id.focus();
 	}else{
-   //var frmData = new FormData(document.myform);
+   var frmData = new FormData(document.form);
   // console.log( frmData );
-  /*  var queryString = $("form[name=form]").serialize(); 
+  // var queryString = $("form[name=form]").serialize(); 
 	$.ajax({
       url:"${commonURL}/member/insert",
-      data:queryString,
-      type:"POST",
-      data:queryString
+      processData : false,
+      contentType : false,
+      data : frmData,
+      type:"POST"
    })
    .done( (result)=>{
       console.log(result);
@@ -217,10 +270,9 @@ function goWrite()
    })
    .fail( (error)=>{
       console.log(error);
-   }) */
-   frm.action="<%=request.getContextPath()%>/member/insert";
-	frm.method="post";
-	frm.submit(); //서버로 전송하기 
+   })
+  
+	//서버로 전송하기 
 	}
 }
 
@@ -269,59 +321,8 @@ $(()=>{
        })
     })
  })
-	
-$("#upload").on('change',function(){
-  var fileName = $("#upload").val();
-  $("#upload-name").val(fileName);
 
-});	
-	 
-	 document.addEventListener('DOMContentLoaded', function(){
-		    //이미지 객체 타입으로 이미지 확장자 밸리데이션
-		    var validateType = function(img){
-		        return (['image/jpeg','image/jpg','image/png'].indexOf(img.type) > -1);
-		    }
-
-		    var validateName = function(fname){
-		        let extensions = ['jpeg','jpg','png'];
-		        let fparts = fname.split('.');
-		        let fext = '';
-		    
-		        if(fparts.length > 1){
-		            fext = fparts[fparts.length-1];
-		        }
-		    
-		        let validated = false;
-		        
-		        if(fext != ''){
-		            extensions.forEach(function(ext){
-		                if(ext == fext){
-		                    validated = true;
-		                }
-		            });
-		        }
-		    
-		        return validated;
-		    }
-
-		    // 파일 선택 필드에 이벤트 리스너 등록
-		    document.getElementById('upload').addEventListener('change', function(e){
-		        let elem = e.target;
-		        if(validateType(elem.files[0])){
-		            let preview = document.querySelector('.thumb');
-		            preview.src = URL.createObjectURL(elem.files[0]); //파일 객체에서 이미지 데이터 가져옴.
-		            
-		            //document.querySelector('.dellink').style.display = 'block'; // 이미지 삭제 링크 표시
-		            preview.onload = function() {
-		                URL.revokeObjectURL(preview.src); //URL 객체 해제
-		            }
-		        }else{
-		        console.log('이미지 파일이 아닙니다.');
-		        }
-		    });
-
-		   
-		});
+ 
 
 
 </script>
