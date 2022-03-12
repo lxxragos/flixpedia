@@ -22,7 +22,6 @@
 	int totalCnt = (Integer)request.getAttribute("totalCnt");
 	
 	List<WebtoonDto> list =(List<WebtoonDto>)request.getAttribute("webtoonList");
-
 	%>
 	<%@include file="../include/header.jsp" %>
 

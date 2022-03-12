@@ -8,24 +8,26 @@
 기술한다  -->
 	<typeAliases>
     	
+    <typeAlias alias="CommentDto" type="com.semi.flix.comment.CommentDto"/>	
    <typeAlias alias="DramaDto" type="com.semi.flix.drama.DramaDto"/>
    <typeAlias alias="MemberDto" type="com.semi.flix.member.MemberDto"/>	
    <typeAlias alias="MovieDto" type="com.semi.flix.movie.MovieDto"/>
    <typeAlias alias="WebtoonDto" type="com.semi.flix.webtoon.WebtoonDto"/>
    <typeAlias alias="AnimationDto" type="com.semi.flix.animation.AnimationDto"/>
    <typeAlias alias="SearchDto" type="com.semi.flix.search.SearchDto"/>
+
     	
 	</typeAliases>
 
 	<mappers>
 	  
-		<mapper resource=	"/com/semi/flix/mapper/Drama.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Member.xml"/>
+		<mapper resource=	"/com/semi/flix/mapper/Comment.xml"/>
+		<mapper resource=	"/com/semi/flix/mapper/Drama.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Movie.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Webtoon.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Search.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Animation.xml"/>
-		
 		
 	</mappers>
 	

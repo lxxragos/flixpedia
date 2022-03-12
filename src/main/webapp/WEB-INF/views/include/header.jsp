@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="com.semi.flix.common.*" %>
-<%@page import="com.semi.flix.drama.*" %>
-<%@page import="com.semi.flix.movie.*" %>
-<%@page import="com.semi.flix.search.*" %>
-<%@page import="com.semi.flix.webtoon.*" %>
-<%@page import="com.semi.flix.animation.*" %>
-<%@page import="com.semi.flix.member.*" %>
-<%@page import="java.util.List"%>
+
 
 
 
@@ -25,6 +19,7 @@ String userimage= StringUtil.nullToValue(session.getAttribute("userimage"), "");
 
 <!-- header -->
 	<header class="header">
+	<form name="mypageForm" style="text-align: right;">
 		<div class="header__wrap">
 			<div class="container">
 				<div class="row">
@@ -44,21 +39,19 @@ String userimage= StringUtil.nullToValue(session.getAttribute("userimage"), "");
 									<a href="${commonURL}/movie/list" class="header__nav-link">영화</a>
 								</li>
 								<li class="header__nav-item">
-									<a href="${commonURL}/drama/list" class="header__nav-link">드라마</a>
+									<a href="pricing.html" class="header__nav-link">예능</a>
 								</li>
 								<li class="header__nav-item">
-									<a href="pricing.html" class="header__nav-link">예능</a>
+									<a href="${commonURL}/drama/list" class="header__nav-link">드라마</a>
 								</li>
 
 								<li class="header__nav-item">
-									<a href="faq.html" class="header__nav-link">애니메이션</a>
+									<a href="${commonURL}/animation/list" class="header__nav-link">애니</a>
 								</li>
 								<li class="header__nav-item">
 									<a href="${commonURL}/webtoon/list" class="header__nav-link">웹툰</a>
 								</li>
-								<li class="header__nav-item">
-									<a href="faq.html" class="header__nav-link">도서</a>
-								</li>
+								
 
 								<!-- dropdown -->
 								<li class="dropdown header__nav-item">
@@ -73,11 +66,15 @@ String userimage= StringUtil.nullToValue(session.getAttribute("userimage"), "");
 										
 									</ul>
 								</li>
+								
 								<!-- end dropdown -->
 							</ul>
-							<!-- end header nav -->
-
+								
+							
+							<!-- end header nav -->	
+							<%if(userid.equals("")) {%>
 							<!-- header auth -->
+
 							<div class="header__auth">
 								<button class="header__search-btn" type="button">
 									<i class="icon ion-ios-search"></i>
@@ -89,6 +86,34 @@ String userimage= StringUtil.nullToValue(session.getAttribute("userimage"), "");
 								</a>
 							</div>
 							<!-- end header auth -->
+							<%}else{%>
+								<input type="hidden" id="user_id" name="user_id" value=""> 
+								<div class="header__auth">
+											<button class="header__search-btn" type="button" >
+												<i class="icon ion-ios-search" style="margin-top: 60px;"></i>
+											</button>
+								
+										
+										<ul style="text-align:center;">
+										<li class="dropdown header__nav-item">
+											<a style = "width : auto; height: auto;"class="dropdown-toggle header__nav-link header__nav-link--more" href="#" role="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<img class="profile" alt="" src="${commonURL }/resources/user_img/<%=userimage%>" style="margin-right: 20px; display: inline;"/>
+											<strong style="font-size: 17px"><%=nickname %></strong> 님 반갑습니다
+											</a>
+
+											<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
+												<li><a href="#" onclick="goMypage('<%=userid%>')">마이페이지</a></li>
+												<li><a href="${commonURL}/member/logout">로그아웃</a></li>
+												
+						
+											</ul>
+										</li>
+										</ul>
+										</div>
+					
+							
+							
+							<% } %>
 
 							<!-- header menu btn -->
 							<button class="header__btn" type="button">
@@ -102,7 +127,7 @@ String userimage= StringUtil.nullToValue(session.getAttribute("userimage"), "");
 				</div>
 			</div>
 		</div>
-
+</form>
 		<!-- header search -->
 		<form action="${commonURL}/search/search_list" class="header__search">
 			<div class="container">
@@ -117,9 +142,14 @@ String userimage= StringUtil.nullToValue(session.getAttribute("userimage"), "");
 				</div>
 			</div>
 		</form>
+		
+		
+
+	
+		
 		<!-- end header search -->
-		
-		
+
+	
 	</header>
 	<!-- end header -->
 	

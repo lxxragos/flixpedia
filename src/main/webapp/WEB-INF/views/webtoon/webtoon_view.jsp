@@ -221,11 +221,10 @@
 										<form action="#" class="form" name="myform2">
 											<input type="hidden" id="board_seq" name="board_seq" value="<%=dto.getBoard_seq()%>">
 											<input type="hidden" id="category_code" name="category_code" value="<%=dto.getCategory_code()%>">
-											
-											<input type="hidden" id="user_seq" name="user_seq" value="<%=memberDto.getUser_seq()%>">
+											<input type="hidden" id="user_seq" name="user_seq" value="<%=userseq%>">
 											<input type="hidden" id="star_point" name="star_point" value="">
 											
-											<input type="text" class="form__input" placeholder="Title" name="nick_name" id="nick_name" value="<%=memberDto.getNick_name()%>">
+											<input type="text" class="form__input" placeholder="Title" name="nick_name" id="nick_name" value="<%=nickname%>">
 											<textarea class="form__textarea" placeholder="Review" name="content" id="content" ></textarea>
 											<div class="form__slider" >
 												<div class="form__slider-rating" id="slider__rating"></div>
@@ -261,7 +260,7 @@ function goCommentWrite()
 	frm2 = document.myform2;
 	frm2.star_point.value=star_point;
 	
-	var userid='<%=memberDto.getUser_id()%>';
+	var userid='<%=userid%>';
 	if(userid=="")
 	{
 		alert("로그인하세요");

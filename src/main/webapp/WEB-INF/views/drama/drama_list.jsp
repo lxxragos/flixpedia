@@ -3,8 +3,8 @@
 <%@page import="com.semi.flix.drama.*"%>
 <%@page import="java.util.List"%>
 <%@page import="com.semi.flix.common.StringUtil"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
@@ -49,11 +49,13 @@
 		</div>
 	</section>
 	<!-- end page title -->
+<form name="myform" method="get">
+	<input type="hidden" name="pg"  id="pg" value="<%=pg%>"/>
+	<input type="hidden" name="key" id="key" value="<%=key%>"/>
+	<input type="hidden" name="board_seq"  id="board_seq" value=""/>
+	<input type="hidden" name="category_code"  id="category_code" value=""/>
 	
-	<form name="myform" method="get">
-		<input type="hidden" name="pg"  id="pg" value="<%=pg%>"/>
-		<input type="hidden" name="key" id="key" value="<%=key%>"/>
-		<input type="hidden" name="board_seq"  id="board_seq" value=""/>
+	
 		<!-- filter -->
 		<div class="filter">
 			<div class="container">
@@ -108,11 +110,7 @@
 					<!-- card -->
 					
 					
-					<%for(DramaDto dto : list){
-					System.out.println("-------------번 호-----------------"+dto.getBoard_seq());
-					System.out.println("-------------제 목------------------"+dto.getDrama_title());
-					System.out.println("-------------이미지----------------"+dto.getDrama_images());
-					%>
+					<%for(DramaDto dto : list){%>
 					<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
 						<div class="card">
 							<div class="card__cover">
@@ -146,7 +144,7 @@
 									<%}%>
 									
 								</span>
-								<span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+								<span class="card__rate"><i class="icon ion-ios-star"></i><%=dto.getStar_avg() %></span>
 							</div>
 						</div>
 					</div>
@@ -203,6 +201,7 @@ function goView(id)
 	
 	frm = document.myform;
 	frm.board_seq.value=id;///////////
+	frm.category_code.value="02";
 	frm.method="get";
 	frm.action="${pageContext.request.contextPath}/drama/view";
 	frm.submit();

@@ -62,15 +62,26 @@ public class MemberController {
 		FileUploadUtil.upload( path,multiList, fileNameList);
 		
 		dto.setUser_images(fileNameList.get(0));
+
+	    memberService.insert(dto);
 		
-		
-			memberService.insert(dto);
-		
-		return "/memeber/signin";	
+		return "/member/signin";	
+
 	}
-	@RequestMapping(value="member/update")
+
+	@RequestMapping(value="member/update", method=RequestMethod.POST)
 	String member_update(MemberDto dto, HttpServletRequest req, MultipartHttpServletRequest multi)
 	{
+		MemberDto resultDto = memberService.getInfo(dto);
+		System.out.println("디티오 : " +dto.getUser_images()+","+dto.getNick_name());
+		System.out.println("리술트 : " + resultDto.getUser_images()+","+resultDto.getNick_name());
+		if(dto.getUser_images().equals(resultDto.getUser_images())) {
+			
+			resultDto.setUser_images(resultDto.getUser_images());
+			System.out.println("_________________________________________이미지 변경 사항 없음");
+		}else {
+			System.out.println("______________________________________이미지 변경 사항 있음");
+			
 		List<MultipartFile> multiList = new ArrayList<MultipartFile>();
 		multiList.add(multi.getFile("upload"));
 		
@@ -79,13 +90,23 @@ public class MemberController {
 		FileUploadUtil.upload( path,multiList, fileNameList);
 		
 		dto.setUser_images(fileNameList.get(0));
-		
-		
+		}
 		memberService.update(dto);
 		
-		return "/member/signup";
+		HttpSession session = req.getSession();
+		MemberDto resultDto2 = memberService.getInfo(dto);
+		session.setAttribute("userid", resultDto2.getUser_id());
+		session.setAttribute("username", resultDto2.getName());
+		session.setAttribute("userseq", resultDto2.getUser_seq());
+		session.setAttribute("nickname", resultDto2.getNick_name());
+		session.setAttribute("userimage", resultDto2.getUser_images());
+		String userid = (String) session.getAttribute("userid");
+		String userimage = (String) session.getAttribute("userimage");
+		System.out.println("!!1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+userid);
+		System.out.println(userimage);
+		return "/home";
 	}
-	
+
 	//占쏙옙占싱듸옙 占쌩븝옙확占쏙옙
 	@RequestMapping("/member/isDuplicate")
 	@ResponseBody 

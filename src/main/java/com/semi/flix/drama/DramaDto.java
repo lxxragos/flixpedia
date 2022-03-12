@@ -5,9 +5,9 @@ import com.semi.flix.common.BaseDto;
 public class DramaDto extends BaseDto {
 
 	private String board_seq="";
-	private String group_name="";
 	private String genre_code="";
 	private String drama_title="";
+	private String wdate="";
 	private String drama_producer="";
 	private String drama_content="";
 	private String drama_images="";
@@ -17,6 +17,7 @@ public class DramaDto extends BaseDto {
 	private String drama_productionyear = "";
 	private String drama_agelimit ="";
 	private String category_code="";
+
 	private String star_avg="";
 	
 	public String getBoard_seq() {
@@ -24,12 +25,6 @@ public class DramaDto extends BaseDto {
 	}
 	public void setBoard_seq(String board_seq) {
 		this.board_seq = board_seq;
-	}
-	public String getGroup_name() {
-		return group_name;
-	}
-	public void setGroup_name(String group_name) {
-		this.group_name = group_name;
 	}
 	public String getGenre_code() {
 		return genre_code;
@@ -61,17 +56,29 @@ public class DramaDto extends BaseDto {
 	public void setDrama_images(String drama_images) {
 		this.drama_images = drama_images;
 	}
-	public int getDrama_hit() {
+	public String getCategory_code() {
+		return category_code;
+	}
+	public void setCategory_code(String category_code) {
+		this.category_code = category_code;
+	}
+	public String getDrama_author() {
+		return drama_author;
+	}
+	public void setDrama_author(String drama_author) {
+		this.drama_author = drama_author;
+	}
+	public String getDrama_hit() {
 		return drama_hit;
 	}
-	public void setDrama_hit(int drama_hit) {
+	public void setDrama_hit(String drama_hit) {
 		this.drama_hit = drama_hit;
 	}
-	public String getDrama_url() {
-		return drama_url;
+	public String getWdate() {
+		return wdate;
 	}
-	public void setDrama_url(String drama_url) {
-		this.drama_url = drama_url;
+	public void setWdate(String wdate) {
+		this.wdate = wdate;
 	}
 	public int getDrama_avg_ratings() {
 		return drama_avg_ratings;
@@ -91,12 +98,20 @@ public class DramaDto extends BaseDto {
 	public void setDrama_agelimit(String drama_agelimit) {
 		this.drama_agelimit = drama_agelimit;
 	}
-	public String getCategory_code() {
-		return category_code;
+
+	public String getDrama_url() {
+		return drama_url;
 	}
-	public void setCategory_code(String category_code) {
-		this.category_code = category_code;
+	public void setDrama_url(String drama_url) {
+		this.drama_url = drama_url;
 	}
+	public String getStar_avg() {
+		return star_avg;
+	}
+	public void setStar_avg(String star_avg) {
+		this.star_avg = star_avg;
+	}
+
 	public DramaDto(String board_seq, String group_name, String genre_code, String drama_title, String drama_producer,
 			String drama_content, String drama_images, int drama_hit, String drama_url, int drama_avg_ratings,
 			String drama_productionyear, String drama_agelimit, String category_code) {
@@ -119,26 +134,6 @@ public class DramaDto extends BaseDto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	
-	
-
-
-
-
-
-
-
-
-
-	
-	
-	
-	
-	
-		
 	
 	
 }

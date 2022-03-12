@@ -99,3 +99,8 @@ replay_pid*
 target/
 
 .classpath
+
+.project
+
+src/main/webapp/META-INF/MANIFEST.MF
+

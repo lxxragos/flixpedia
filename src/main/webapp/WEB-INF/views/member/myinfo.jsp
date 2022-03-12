@@ -23,7 +23,7 @@ request.setAttribute("commonURL", request.getContextPath());
  			<div class="sign__content">
  			
 				<form name="form" id="form" method="post" class="sign__form" enctype="multipart/form-data">
-				<input type="hidden" id="user_seq" name="user_seq" value="<%=dto.getUser_seq()%>">
+					<input type="hidden" id="user_seq" name="user_seq" value="<%=userseq%>">
 					<a href="index.html" class="sign__logo">
 					
 					
@@ -36,7 +36,7 @@ request.setAttribute("commonURL", request.getContextPath());
 					</div>
 					
 					<div class="filebox">
-						<input class="sign__input" id="upload-name" value="" placeholder="프로필사진"><br>
+						<input class="sign__input" id="upload-name" value="<%=dto.getUser_images() %>" placeholder="프로필사진"><br>
                         <label for="upload" style="width:100px; height: 30px; margin:2px;" 
                          >사진 변경</label> 
    						<input type="file"  id="upload" name="upload"
@@ -175,26 +175,26 @@ function goUpdate()
 		alert("아이디 중복체크를 하세요")
 		frm.user_id.focus();
 	}else{
-   //var frmData = new FormData(document.myform);
-  // console.log( frmData );
-  /*  var queryString = $("form[name=form]").serialize(); 
+    var frmData = new FormData(document.form);
+  console.log( frmData );
+    //var queryString = $("form[name=form]").serialize(); 
 	$.ajax({
-      url:"${commonURL}/member/insert",
-      data:queryString,
-      type:"POST",
-      data:queryString
+      url:"${commonURL}/member/update",
+      processData : false,
+      contentType : false,
+      data : frmData,
+      type:"POST"
+
    })
    .done( (result)=>{
       console.log(result);
-      alert("회원가입이 되었습니다.");
+      alert("수정되었습니다.");
       location.href="${commonURL}/"; //시작화면으로 이동하기
    })
    .fail( (error)=>{
       console.log(error);
-   }) */
-   frm.action="<%=request.getContextPath()%>/member/update";
-	frm.method="post";
-	frm.submit(); //서버로 전송하기 
+   })  
+  
 	}
 }
 

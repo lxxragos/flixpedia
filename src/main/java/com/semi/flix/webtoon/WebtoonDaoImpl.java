@@ -14,21 +14,18 @@ public class WebtoonDaoImpl implements WebtoonDao {
 	
 	@Override
 	public List<WebtoonDto> getList(WebtoonDto dto) {
-		//return sm.selectList("Webtoon_getList", dto);
-		return null;
+		return sm.selectList("Webtoon_getList", dto);
 	}
 
 	@Override
 	public int getTotal(WebtoonDto dto) {
-		//return sm.selectOne("Webtoon_getTotal",dto);
-		return 0;
+		return sm.selectOne("Webtoon_getTotal",dto);
 	}
 
 	@Override
 	public WebtoonDto getView(WebtoonDto dto) {
 		// TODO Auto-generated method stub
-		//return sm.selectOne("Webtoon_getView",dto);
-		return null;
+		return sm.selectOne("Webtoon_getView",dto);
 	}
 
 	

@@ -6,7 +6,9 @@
 <mapper namespace="Drama">
 
 	<select id="Drama_getList" parameterType="DramaDto" resultType="DramaDto">
-		select * from 
+		select A.*, 
+				ifnull((select round(avg(star_point),2) from review_tbl B where A.board_seq =B.board_seq and A.category_code=B.category_code),0) as star_avg 
+		from 
  		(
 	 		select
 				board_seq,
@@ -98,7 +100,10 @@
 	</select>
 	
 	<select id="Drama_getView" parameterType="DramaDto" resultType="DramaDto">
-	 	select * from drama_tbl where board_seq=#{board_seq}
+	 	select A.*,
+	 	ifnull((select round(avg(star_point),2) from review_tbl B where A.board_seq =B.board_seq and A.category_code=B.category_code),0) as star_avg
+	 	
+	 	 from drama_tbl A  where board_seq=#{board_seq}
 	 </select>
 	<select id="Drama_Rank" parameterType="DramaDto" resultType="DramaDto">
 		 select * from drama_tbl order by drama_hit desc
