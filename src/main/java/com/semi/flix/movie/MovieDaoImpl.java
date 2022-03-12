@@ -29,7 +29,7 @@ public class MovieDaoImpl implements MovieDao {
 	}
 
 	@Override
-	public MovieDto getTest_Rank(MovieDto dto) {
+	public MovieDto getMovie_Rank(MovieDto dto) {
 		return sm.selectOne("Movie_Rank",dto);
 	}
 

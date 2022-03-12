@@ -11,9 +11,16 @@
 	<title>FlixPedia</title>
 </head>
 <body class="body">
-	<%
 	
-	DramaDto dto = (DramaDto)request.getAttribute("dramaDto"); %>
+	<%
+	request.setAttribute("commonURL", request.getContextPath());
+	String key = StringUtil.nullToValue(request.getParameter("key"), "1");
+	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
+	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
+	int totalCnt = (Integer)request.getAttribute("totalCnt");
+	%>
+	
+	<% 	DramaDto dto = (DramaDto)request.getAttribute("dramaDto"); %>
 	<%@include file="../include/header.jsp" %>
 
 		
@@ -98,7 +105,7 @@
 
 				<!-- player -->
 				<div class="col-12 col-xl-6">
-					<iframe width="560" height="315" src="<%=dto.getDrama_youtube() %>"
+					<iframe width="560" height="315" src="<%=dto.getDrama_url() %>"
 					title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				</div>
 				<!-- end player -->

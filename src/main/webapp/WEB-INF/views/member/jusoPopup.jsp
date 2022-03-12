@@ -11,9 +11,9 @@
 
 	String roadAddrPart1 = request.getParameter("roadAddrPart1"); 
 	
+	String addrDetail = request.getParameter("addrDetail"); 
 	
 	String zipNo = request.getParameter("zipNo"); 
-	String addrDetail = request.getParameter("addrDetail"); 
 	
 
 %>

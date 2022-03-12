@@ -17,13 +17,14 @@ public class MovieController {
 	MovieService service;
 	
 	@RequestMapping("/movie/list")
-	String test_list(Model model,MovieDto dto) {
+	String movie_list(Model model,MovieDto dto) {
 		
 		dto.setPageSize(12);
 		dto.setStart( dto.getPg() * dto.getPageSize());
 		
 		List<MovieDto> list = service.getList(dto);
 		int cnt = service.getTotal(dto);
+		System.out.println("[MovieController---------------]" + list);
 		
 		model.addAttribute("movieList",list);
 		model.addAttribute("totalCnt",cnt);
@@ -32,7 +33,7 @@ public class MovieController {
 	}
 	
 	@RequestMapping("/movie/view")
-	String test_view(MovieDto dto,Model model) {
+	String movie_view(MovieDto dto,Model model) {
 		
 		MovieDto resultDto = service.getView(dto);
 		model.addAttribute("moiveDto",resultDto);

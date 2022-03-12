@@ -31,8 +31,8 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public MovieDto getTest_Rank(MovieDto dto) {
-		return movieDao.getTest_Rank(dto);
+	public MovieDto getMovie_Rank(MovieDto dto) {
+		return movieDao.getMovie_Rank(dto);
 	}
 	
 	

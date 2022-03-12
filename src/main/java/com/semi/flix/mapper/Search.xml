@@ -20,8 +20,8 @@
          where a.genre_code = movie.genre_code
       ) A
       where 
-      A.title like concat('${keyword}','%')
-      or A.producer like concat('${keyword}','%')
+      A.title like concat('%', '${keyword}','%')
+      or A.producer like concat('%', '${keyword}','%')
             
    </select>
    

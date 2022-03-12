@@ -39,7 +39,4 @@ public class DramaController {
 		return "drama/drama_view";
 	}
 	
-	
-	
-	
 }

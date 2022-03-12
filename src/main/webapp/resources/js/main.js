@@ -176,7 +176,7 @@ $(document).ready(function () {
 		loop: true,
 		autoplay: false,
 		smartSpeed: 600,
-		margin: 0,
+		margin: 100,
 	  });
 	
 	  $(".movie__bg .item").each(function () {

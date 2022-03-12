@@ -6,5 +6,5 @@ public interface MovieDao {
 	List<MovieDto> getList(MovieDto dto);
 	int getTotal(MovieDto dto);
 	MovieDto getView(MovieDto dto);
-	MovieDto getTest_Rank(MovieDto dto);
+	MovieDto getMovie_Rank(MovieDto dto);
 }

@@ -16,12 +16,14 @@ request.setAttribute("commonURL", request.getContextPath());
 </head>
 <body class="body">
 <%@include file="../include/header.jsp" %>
+<%MemberDto dto = (MemberDto)request.getAttribute("memberDto"); %>
  <div class="sign section--bg" data-bg="${commonURL }/resources/img/section/section.jpg" style="margin-top : 70px;">
  	<div class="container">
  		<div class="col-12">
  			<div class="sign__content">
  			
 				<form name="form" id="form" method="post" class="sign__form" enctype="multipart/form-data">
+				<input type="hidden" id="user_seq" name="user_seq" value="<%=dto.getUser_seq()%>">
 					<a href="index.html" class="sign__logo">
 					
 					
@@ -29,22 +31,22 @@ request.setAttribute("commonURL", request.getContextPath());
 					
 
 					<div style="width: 130px;height: 130px; border-radius: 50%; overflow: hidden; margin-bottom: 50px; "	>
-					<img class="thumb" src="${commonURL }/resources/user_img/basic.jpg" 
+					<img class="thumb" src="${commonURL }/resources/user_img/<%=dto.getUser_images() %>" 
 					style="width: 130px; height: 130px; object-fit: cover; " />
 					</div>
 					
 					<div class="filebox">
 						<input class="sign__input" id="upload-name" value="" placeholder="프로필사진"><br>
                         <label for="upload" style="width:100px; height: 30px; margin:2px;" 
-                         >사진 찾기</label> 
+                         >사진 변경</label> 
    						<input type="file"  id="upload" name="upload"
    							accept="image/jpeg, image/jpg, image/png" multiple>
 					</div>
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="이름" id="name" name="name" >
+						<input type="text" class="sign__input" placeholder="이름" id="name" name="name" value="<%=dto.getName()%>">
 					</div>
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="아이디" id="user_id" name="user_id">
+						<input type="text" class="sign__input" placeholder="아이디" id="user_id" name="user_id"  value="<%=dto.getUser_id()%>">
 					</div>
 					<div class="card__description">
 						<p style="font-size: 11px">아이디는 영문 대소문자와 숫자 4~12자리로 입력하세요</p>
@@ -53,25 +55,16 @@ request.setAttribute("commonURL", request.getContextPath());
 					style="width:100px; height: 30px; margin:2px;">중복체크</button>
 					<input type="hidden" id="id_check" name="id_check" value="N"/>
 					<br>
-					<div class="sign__group">
-						<input type="password" class="sign__input" placeholder="비밀번호" id="password" name="password">
-					</div>
-					<div class="sign__group">
-						<input type="password" class="sign__input" placeholder="비밀번호 확인" id="pwd_ck" name="pwd_ck">
-					</div>
-
-					<div class="card__description">
-						<p style="font-size: 11px">비밀번호는 영문 대소문자와 숫자 4~12자리로 입력하세요</p>
-					</div><br>
+					
 
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="별명" id="nick_name" name="nick_name">
+						<input type="text" class="sign__input" placeholder="별명" id="nick_name" name="nick_name"  value="<%=dto.getNick_name()%>">
 					</div>
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="Email" id="email" name="email">
+						<input type="text" class="sign__input" placeholder="Email" id="email" name="email" value="<%=dto.getEmail()%>">
 					</div>
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="전화번호" id="phone" name="phone">
+						<input type="text" class="sign__input" placeholder="전화번호" id="phone" name="phone"  value="<%=dto.getPhone()%>">
 					</div>
 					<button type="button" class="sign__btn" 
 							onClick="goPopup();" value="팝업_domainChk"
@@ -82,19 +75,19 @@ request.setAttribute("commonURL", request.getContextPath());
 							<br>
 			
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="우편번호" id="zipcode" name="zipcode" readonly="readonly">
+						<input type="text" class="sign__input" placeholder="우편번호" id="zipcode" name="zipcode" readonly="readonly"  value="<%=dto.getZipcode()%>">
 					</div>
 					
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="주소" id=address1 name="address1" readonly="readonly">
+						<input type="text" class="sign__input" placeholder="주소" id=address1 name="address1" readonly="readonly" value="<%=dto.getAddress1()%>">
 					</div>
 					
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="상세주소" id="address2" name="address2" readonly="readonly">
+						<input type="text" class="sign__input" placeholder="상세주소" id="address2" name="address2" readonly="readonly" value="<%=dto.getAddress2()%>">
 					</div>
-					<button type="button" class="sign__btn" onclick="goWrite()">등록</button>
-					
+					<button type="button" class="sign__btn" onclick="goUpdate()">수정</button>
 				</form>
+				
 			</div>
 		</div>
 	</div>
@@ -117,7 +110,7 @@ function jusoCallBack(address1,address2, zipcode)
 		document.form.zipcode.value = zipcode;
 	}
 	
-function goWrite() 
+function goUpdate() 
 {
 	var id_check =document.form.id_check.value;
 	var frm = document.form;
@@ -134,29 +127,11 @@ function goWrite()
    		return false;
    		} 
 	 
-	if( frm.password.value.trim()=="")
-	{
-		alert("비밀번호를 입력하세요");
-		frm.password.focus();
-		return false;
-	}
 	
-	 var password1RegExp = /^[a-zA-z0-9]{4,12}$/; //비밀번호 유효성 검사
-     if (!password1RegExp.test(frm.password.value.trim())) {
-         alert("비밀번호는 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
-         form.password.value = "";
-         form.password.focus();
-         return false;
-     }
+	
 
 
 
-	if( frm.password.value.trim()!=frm.pwd_ck.value.trim())
-	{
-		alert("비밀번호가 다릅니다");
-		frm.pwd_ck.focus();
-		return false;
-	};
 	if( frm.nick_name.value.trim()=="")
 	{
 		alert("별명을 입력하세요");
@@ -217,7 +192,7 @@ function goWrite()
    .fail( (error)=>{
       console.log(error);
    }) */
-   frm.action="<%=request.getContextPath()%>/member/insert";
+   frm.action="<%=request.getContextPath()%>/member/update";
 	frm.method="post";
 	frm.submit(); //서버로 전송하기 
 	}
@@ -268,8 +243,7 @@ $(()=>{
        })
     })
  })
-
- //파일 추가 하면 파일명 보여쥬기
+	
 $("#upload").on('change',function(){
   var fileName = $("#upload").val();
   $("#upload-name").val(fileName);

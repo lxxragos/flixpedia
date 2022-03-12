@@ -1,15 +1,24 @@
 package com.semi.flix.member;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.semi.flix.animation.AnimationDto;
+import com.semi.flix.comment.CommentDto;
+import com.semi.flix.common.FileUploadUtil;
 
 @Controller
 public class MemberController {
@@ -17,38 +26,69 @@ public class MemberController {
 	@Resource(name="memberService")
 	MemberService memberService;
 	
-	//È¸¿ø°¡ÀÔ ÆäÀÌÁö ÀÌµ¿
+	//íšŒå ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì‹±ë“¸ì˜™
 	@RequestMapping("member/signup")
 	String signup() {
 		return "member/signup";
-		//src/main/webapp/WEB-INF/view/test.jsp·Î Æ÷¿öµù
+		//src/main/webapp/WEB-INF/view/test.jspå ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™
+	}
+	@RequestMapping("member/myinfo")
+	String myinfo(Model model,MemberDto dto) {
+		
+		
+		MemberDto resultDto = memberService.getInfo(dto);
+		model.addAttribute("memberDto", resultDto);
+		return "member/myinfo";
+		//src/main/webapp/WEB-INF/view/test.jspå ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™
 	}
 	
-	//ÁÖ¼Ò ÀÔ·Â ÆË¾÷Ã¢
+	//å ìŒì‡½ì˜™ å ìŒ‰ë¤„ì˜™ å ì‹¯ì–µì˜™ì°½
 	@RequestMapping("/member/jusoPopup")
 	String jusoPopup() {
 		return "member/jusoPopup";
-		//src/main/webapp/WEB-INF/view/test.jsp·Î Æ÷¿öµù
+		//src/main/webapp/WEB-INF/view/test.jspå ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™
 	}
 	
-	//È¸¿ø°¡ÀÔ ÀúÀå
+	//íšŒå ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™
 	@RequestMapping(value="/member/insert", method=RequestMethod.POST)
-	@ResponseBody
-	public HashMap<String, String> member_insert(MemberDto dto)
+	//@ResponseBody
+	String member_insert(MemberDto dto, HttpServletRequest req, MultipartHttpServletRequest multi )
 	{
-		System.out.println("userid : " + dto.getUser_id());
-		memberService.insert(dto);
-		HashMap<String, String> map = new HashMap<String, String>();
+		List<MultipartFile> multiList = new ArrayList<MultipartFile>();
+		multiList.add(multi.getFile("upload"));
 		
-		map.put("result", "success");
-		return map;
+		List<String> fileNameList = new ArrayList<String>();
+		String path = req.getServletContext().getRealPath("/");
+		FileUploadUtil.upload( path,multiList, fileNameList);
+		
+		dto.setUser_images(fileNameList.get(0));
+		
+		
+			memberService.insert(dto);
+		
+		return "/memeber/signin";	
+	}
+	@RequestMapping(value="member/update")
+	String member_update(MemberDto dto, HttpServletRequest req, MultipartHttpServletRequest multi)
+	{
+		List<MultipartFile> multiList = new ArrayList<MultipartFile>();
+		multiList.add(multi.getFile("upload"));
+		
+		List<String> fileNameList = new ArrayList<String>();
+		String path = req.getServletContext().getRealPath("/");
+		FileUploadUtil.upload( path,multiList, fileNameList);
+		
+		dto.setUser_images(fileNameList.get(0));
+		
+		
+		memberService.update(dto);
+		
+		return "/member/signup";
 	}
 	
-	
-	//¾ÆÀÌµğ Áßº¹È®ÀÎ
+	//å ì™ì˜™å ì‹±ë“¸ì˜™ å ìŒ©ë¸ì˜™í™•å ì™ì˜™
 	@RequestMapping("/member/isDuplicate")
-	@ResponseBody  //Ajax¿äÃ»½Ã µ¥ÀÌÅ¸°¡ Ãâ·ÂµÇ¾ß ÇÑ´Ù.jsp ÀÌµ¿À» ¸·´Â´Ù 
-	               //ÀÚ¹Ù°´Ã¼¸¦  json ÇüÅÂ·Î ÀüÈ¯½ÃÄÑ¼­ ¹İÈ¯ÇÑ´Ù 
+	@ResponseBody 
 	public HashMap<String, String> member_isDuplicate(MemberDto dto)
 	{
 		System.out.println("userid : " + dto.getUser_id());
@@ -61,21 +101,19 @@ public class MemberController {
 	}
 	
 	
-	//·Î±×ÀÎ
+	//å ì‹¸ê¹ì˜™å ì™ì˜™
 	@RequestMapping(value="/member/signin")
 	public String member_login()
 	{
 		return "member/signin";
 	}
 	
-	//·Î±×ÀÎ ÀÛµ¿
+	//å ì‹¸ê¹ì˜™å ì™ì˜™ å ìŒœë“¸ì˜™
 	@RequestMapping(value="/member/login_proc")
 	@ResponseBody
 	public HashMap<String, String> member_login_proc(MemberDto dto, HttpServletRequest request)
 	{
-		//°¢ ÆäÀÌÁöº°·Î Á¤º¸ °øÀ¯°¡ ¾ÈµÈ´Ù. 
-		//¿¹¿Ü(ÄíÅ° ¶Ç´Â ¼¼¼Ç- ¼¼¼ÇÀ» »ç¿ëÇÑ´Ù.)
-		//ÄíÅ° - º»ÀÎÄÄÇ»ÅÍ¿¡ session- ¼­¹ö¿¡(º¸¾ÈÀ» °­È­½ÃÅ°°íÀÚ ÇÒ¶§(
+		
 		HttpSession session = request.getSession();
 		
 		MemberDto resultDto = memberService.getInfo(dto);
@@ -91,11 +129,13 @@ public class MemberController {
 		{
 			if(resultDto.getPassword().equals(dto.getPassword()))
 			{
-				map.put("flag", "1"); //·Î±×¿Â ¼º°ø½Ã ¼¼¼Ç¿¡ Á¤º¸¸¦ ÀúÀåÇÑ´Ù 
+				map.put("flag", "1"); //å ì‹¸ê·¸ìš¸ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì‹¤ìš¸ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì‹¼ëŒì˜™ 
 				session.setAttribute("userid", resultDto.getUser_id());
 				session.setAttribute("username", resultDto.getName());
-				session.setAttribute("email", resultDto.getEmail());
-				session.setAttribute("phone", resultDto.getPhone());
+				session.setAttribute("userseq", resultDto.getUser_seq());
+				session.setAttribute("nickname", resultDto.getNick_name());
+				session.setAttribute("userimage", resultDto.getUser_images());
+				
 			}
 			else
 			{
@@ -107,38 +147,38 @@ public class MemberController {
 		return map;
 	}
 	
-	//·Î±×¾Æ¿ô
+	//å ì‹¸ê·¸ì•„ìš¸ì˜™
 	@RequestMapping(value="/member/logout")
 	public String member_logout(HttpServletRequest request)
 	{
 	
 		HttpSession session = request.getSession();
-		session.invalidate(); //¼¼¼ÇÀÇ µ¥ÀÌÅÍ »èÁ¦ 
+		session.invalidate(); 
 		
 		return "redirect:/";
 	}
 	
-	//¾ÆÀÌµğ Ã£±â ÆäÀÌÁö ÀÌµ¿ 
+	//å ì™ì˜™å ì‹±ë“¸ì˜™ ì°¾å ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì‹±ë“¸ì˜™ 
 	@RequestMapping(value="/member/findid")
 	public String member_findid()
 	{	
 		return "member/member_findid";
 	}
 	
-	//ºñ¹øÃ£±â ÆäÀÌÁö ÀÌµ¿
+	//å ì™ì˜™å ì‹œï½ì˜™å ï¿½ å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì‹±ë“¸ì˜™
 	@RequestMapping(value="/member/findpassword")
 	public String member_findpassword()
 	{	
 		return "member/member_findpassword";
 	}
 	
-	//ºñ¹Ğ¹øÈ£Ã£±â
+	//å ì™ì˜™æ©˜å ì‹«ï¼£ï½ì˜™å ï¿½
 	@RequestMapping(value="/member/findpass_proc")
 	@ResponseBody
 	public HashMap<String, String> member_findpass_proc(MemberDto dto)
 	{	
 		MemberDto findDto = memberService.findPassword(dto);
-		HashMap map = new HashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		if (findDto==null)
 			map.put("result", "fail");
 		else
@@ -150,13 +190,13 @@ public class MemberController {
 		return map;
 	}
 	
-	//¾ÆÀÌµğÃ£±â
+	//å ì™ì˜™å ì‹±ë“¸ì˜™ì°¾å ì™ì˜™
 	@RequestMapping(value="/member/findid_proc")
 	@ResponseBody
 	public HashMap<String, String> member_findid_proc(MemberDto dto)
 	{	
 		MemberDto findDto = memberService.findId(dto);
-		HashMap map = new HashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		if (findDto==null)
 			map.put("result", "fail");
 		else
