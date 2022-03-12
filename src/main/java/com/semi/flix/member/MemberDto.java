@@ -10,11 +10,9 @@ public class MemberDto {
 	private String email ="";	
 	private String phone ="";	
 	private String wdate ="";	
-	private String zipcode ="";
-	private String address1 ="";	
-	private String address2 ="";
-	private String user_images ="";
-	
+	private String roadAddrPart1 ="";	
+	private String addrDetail ="";
+	private int zipNo =0;
 	
 	
 	public String getUser_seq() {
@@ -65,30 +63,23 @@ public class MemberDto {
 	public void setWdate(String wdate) {
 		this.wdate = wdate;
 	}
-	
-	public String getZipcode() {
-		return zipcode;
+	public String getRoadAddrPart1() {
+		return roadAddrPart1;
 	}
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
+	public void setRoadAddrPart1(String roadAddrPart1) {
+		this.roadAddrPart1 = roadAddrPart1;
 	}
-	public String getAddress1() {
-		return address1;
+	public String getAddrDetail() {
+		return addrDetail;
 	}
-	public void setAddress1(String address1) {
-		this.address1 = address1;
+	public void setAddrDetail(String addrDetail) {
+		this.addrDetail = addrDetail;
 	}
-	public String getAddress2() {
-		return address2;
+	public int getZipNo() {
+		return zipNo;
 	}
-	public void setAddress2(String address2) {
-		this.address2 = address2;
-	}
-	public String getUser_images() {
-		return user_images;
-	}
-	public void setUser_images(String user_images) {
-		this.user_images = user_images;
+	public void setZipNo(int zipNo) {
+		this.zipNo = zipNo;
 	}
 	
 	

@@ -12,16 +12,9 @@
 	<title>FlixPedia</title>
 </head>
 <body class="body">
-	
 	<%
-	request.setAttribute("commonURL", request.getContextPath());
-	String key = StringUtil.nullToValue(request.getParameter("key"), "1");
-	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
-	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
-	int totalCnt = (Integer)request.getAttribute("totalCnt");
+	MovieDto dto = (MovieDto)request.getAttribute("movieDto");
 	%>
-	
-	<%	MovieDto dto = (MovieDto)request.getAttribute("movieDto");	%>
 	<%@include file="../include/header.jsp" %>
 
 		

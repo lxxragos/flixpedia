@@ -11,12 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.semi.flix.common.BaseDto;
 import com.semi.flix.drama.DramaDto;
 import com.semi.flix.drama.DramaService;
-import com.semi.flix.movie.MovieDto;
-import com.semi.flix.movie.MovieService;
-import com.semi.flix.webtoon.WebtoonDto;
-import com.semi.flix.webtoon.WebtoonService;
 
 /**
  * Handles requests for the application home page.
@@ -27,11 +24,8 @@ public class HomeController {
 	@Resource(name="dramaService")
 	DramaService dramaService;
 	
-	@Resource(name="movieService")
-	MovieService movieService;
-	
-	@Resource(name="webtoonService")
-	WebtoonService webtoonService;
+//	@Resource(name="webtoonService")
+//	WebtoonService webtoonService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -46,22 +40,12 @@ public class HomeController {
 		
 		//=====================  Movie  ===================//
 		
-		MovieDto movieDto = new MovieDto();
-		movieDto.setStart(movieDto.getPg()*10);
-		List<MovieDto> movieList = movieService.getList(movieDto);
-		
-		System.out.println("[HomeController---------------]" + movieList);
-		model.addAttribute("movieList", movieList);
-		
-		
-		//=====================  webtoon  ===================//
-		
-		WebtoonDto webtoonDto = new WebtoonDto();
-		webtoonDto.setStart(webtoonDto.getPg()*10);
-		List<WebtoonDto> webtoonList = webtoonService.getList(webtoonDto);
-		
-		System.out.println("[HomeController---------------]" + webtoonList);
-		model.addAttribute("webtoonList", webtoonList);
+//		MovieDto movieDto = new MovieDto();
+//		movieDto.setStart(movieDto.getPg()*10);
+//		List<MovieDto> movieList = movieService.getList(movieDto);
+//		
+//		System.out.println("[HomeController---------------]" + movieList);
+//		model.addAttribute("movieList", movieList);
 		
 		return "home";
 	}

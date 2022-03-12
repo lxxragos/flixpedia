@@ -102,11 +102,11 @@
 					
 					
 					<%
-								for(MovieDto dto : list){
-											System.out.println("-------------번 호-----------------"+dto.getBoard_seq());
-											System.out.println("-------------제 목------------------"+dto.getMovie_title());
-											System.out.println("-------------이미지----------------"+dto.getMovie_images());
-					%>
+															for(MovieDto dto : list){
+																		System.out.println("-------------번 호-----------------"+dto.getBoard_seq());
+																		System.out.println("-------------제 목------------------"+dto.getMovie_title());
+																		System.out.println("-------------이미지----------------"+dto.getMovie_images());
+															%>
 					<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
 						<div class="card">
 							<div class="card__cover">

@@ -2,12 +2,10 @@
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="com.semi.flix.drama.*" %>
-<%@page import="com.semi.flix.webtoon.*" %>
-<%@page import="com.semi.flix.animation.*" %>
 <%@page import="com.semi.flix.movie.*" %>
 <%@page import="java.util.*"%>
 
-<%@ page session="true" %>
+<%@ page session="false" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,84 +17,68 @@
 <body class="body">
 	<!-- header -->
 	<%@include file="include/header.jsp" %>
-
-	
 	<%
 	List<DramaDto> dramaList =(List<DramaDto>)request.getAttribute("dramaList"); 
-	dramaList = dramaList==null ? new ArrayList<DramaDto>() : dramaList;
-	List<MovieDto> movieList =(List<MovieDto>)request.getAttribute("movieList");
-	movieList = movieList==null ? new ArrayList<MovieDto>() : movieList;
-
-	List<WebtoonDto> webtoonList =(List<WebtoonDto>)request.getAttribute("webtoonList");
-	webtoonList = webtoonList==null ? new ArrayList<WebtoonDto>() : webtoonList;
-	List<AnimationDto> aniList =(List<AnimationDto>)request.getAttribute("aniList");
-	aniList = aniList==null ? new ArrayList<AnimationDto>() : aniList;
+		List<MovieDto> movieList =(List<MovieDto>)request.getAttribute("movieList");
 	%>
 
 	
 <!-- **************************************************영화 카졸********************************************************** -->
-<form id="movieForm" name="movieForm" >
-	<input type="hidden" name="board_seq" value=""/>
-	<section class="movie" style="margin-top:0px; padding-top: 50px;">
-		<!-- 카졸 백그라운드 이미지 drama bg -->
-		<div class="owl-carousel movie__bg">
-			<div class="item movie__cover" data-bg="<%=request.getContextPath() %>/resources/img/home/home__bg.jpg"></div>
-			<div class="item movie__cover" data-bg="<%=request.getContextPath() %>/resources/img/home/home__bg2.jpg"></div>
-			<div class="item movie__cover" data-bg="<%=request.getContextPath() %>/resources/img/home/home__bg3.jpg"></div>
-			<div class="item movie__cover" data-bg="<%=request.getContextPath() %>/resources/img/home/home__bg4.jpg"></div>
-		</div>
-		<!-- 카졸 백그라운드 이미지 끝end drama bg -->
+<section class="movie">
+	<div class="owl-carousel movie__bg">
+		<div class="item home__cover" data-bg="<%=request.getContextPath() %>/resources/img/home/home__bg.jpg"></div>
+		<div class="item home__cover" data-bg="<%=request.getContextPath() %>/resources/img/home/home__bg2.jpg"></div>
+		<div class="item home__cover" data-bg="<%=request.getContextPath() %>/resources/img/home/home__bg3.jpg"></div>
+		<div class="item home__cover" data-bg="<%=request.getContextPath() %>/resources/img/home/home__bg4.jpg"></div>
+	</div>
+	<!-- 카졸 백그라운드 이미지 끝end movie bg -->
 
-
-		<!-- movie carousel move-->
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<h1 class="movie__title" style="margin-top:70px"><a href="${commonURL}/movie/list" style="color:white;"><b>영화</b> Movie</a></h1>
-					<button class="movie__nav movie__nav--prev" style="margin-top:20px" type="button">
-						<i class="icon ion-ios-arrow-round-back"></i>
-					</button>
-					<button class="movie__nav movie__nav--next" style="margin-top:20px" type="button">
-						<i class="icon ion-ios-arrow-round-forward"></i>
-					</button>
-				</div>
-				<div class="col-12">
-					<div class="owl-carousel movie__carousel">
-				<!-- movie 카졸 move end-->
-							
-				<%						
-					for(MovieDto tempDto: movieList){
-				%>
-						<div class="item" style="width: 255px; margin-right: 80px;">
-							<!-- card -->
-							<div class="card card--big">
-								<div class="card__cover" onclick="goView('<%=tempDto.getBoard_seq()%>')">
-									<img src="<%=request.getContextPath() %>/resources/movie_img/<%=tempDto.getMovie_images()%>" alt="">
-									<a href="#" class="card__play">
-										<i class="icon ion-ios-play"></i>
-									</a>
-								</div>
-								<div class="card__content">
-									<h3 class="card__title" onclick="goView('<%=tempDto.getBoard_seq()%>')"><a href="#"><%=tempDto.getMovie_title() %></a></h3>
-									<span class="card__category">
-										<a href="#"><%=tempDto.getGenre_code() %></a>
-										
-									</span>
-									<span class="card__rate"><i class="icon ion-ios-star"></i><%=tempDto.getMovie_hit() %></span>
-								</div>
+	<!-- 카졸 내용-->
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h1 class="movie__title"><b>영화</b> Movie</h1>
+				
+				<!-- 카졸 move-->
+				<button class="movie__nav movie__nav--prev" type="button">
+					<i class="icon ion-ios-arrow-round-back"></i>
+				</button>
+				<button class="movie__nav movie__nav--next" type="button">
+					<i class="icon ion-ios-arrow-round-forward"></i>
+				</button>
+				<!-- 카졸 move end-->
+			</div>
+			<div class="col-12"> 
+				<div class="owl-carousel movie__carousel">
+				<!-- movie content start-->
+				
+					<div class="item">
+						<!-- card -->
+						<div class="card card--big">
+							<div class="card__cover">
+								<img src="<%=request.getContextPath() %>/resources/img/covers/cover.jpg" alt="">
+								<a href="${commonURL}/drama/view" class="card__play">
+									<i class="icon ion-ios-play"></i>
+								</a>
+							</div>
+							<div class="card__content">
+								<h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
+								<span class="card__category">
+									<a href="#">Action</a>
+									<a href="#">Triler</a>
+								</span>
+								<span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
 							</div>
 						</div>
 						<!-- end card -->
-				<%
-					}
-				%>
-						
 					</div>
+
+					
 				</div>
 			</div>
 		</div>
-	</section>
-	</form>
+	</div>
+</section>
 
 <!-- **************************************************영화 카졸 끝********************************************************** -->
 

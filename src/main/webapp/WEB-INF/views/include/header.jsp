@@ -1,18 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="com.semi.flix.common.*" %>
-
-
+<%@page import="com.semi.flix.drama.*" %>
+<%@page import="com.semi.flix.movie.*" %>
+<%@page import="com.semi.flix.search.*" %>
+<%@page import="java.util.List"%>
 
 
 <%
 request.setAttribute("commonURL", request.getContextPath());
-String userid= StringUtil.nullToValue(session.getAttribute("userid"), "");
-String username= StringUtil.nullToValue(session.getAttribute("username"), "");
-String userseq= StringUtil.nullToValue(session.getAttribute("userseq"), "");
-String nickname= StringUtil.nullToValue(session.getAttribute("nickname"), "");
-String userimage= StringUtil.nullToValue(session.getAttribute("userimage"), "");
+String key = StringUtil.nullToValue(request.getParameter("key"), "1");
+String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
+String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
+int totalCnt = (Integer)request.getAttribute("totalCnt");
+
+
+
 %>
+
 
 <meta charset="UTF-8"> 
 

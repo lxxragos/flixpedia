@@ -12,14 +12,11 @@ public class DramaDto extends BaseDto {
 	private String drama_content="";
 	private String drama_images="";
 	private int drama_hit=0;
-	private String drama_url="";	// 220303�߰�
+	private String drama_youtube="";	// 220303�߰�
 	private int drama_avg_ratings=0;
 	private String drama_productionyear = "";
 	private String drama_agelimit ="";
 	private String category_code="";
-
-	private String star_avg="";
-	
 	public String getBoard_seq() {
 		return board_seq;
 	}
@@ -74,11 +71,11 @@ public class DramaDto extends BaseDto {
 	public void setDrama_hit(String drama_hit) {
 		this.drama_hit = drama_hit;
 	}
-	public String getWdate() {
-		return wdate;
+	public String getDrama_youtube() {
+		return drama_youtube;
 	}
-	public void setWdate(String wdate) {
-		this.wdate = wdate;
+	public void setDrama_youtube(String drama_youtube) {
+		this.drama_youtube = drama_youtube;
 	}
 	public int getDrama_avg_ratings() {
 		return drama_avg_ratings;
@@ -113,7 +110,7 @@ public class DramaDto extends BaseDto {
 	}
 
 	public DramaDto(String board_seq, String group_name, String genre_code, String drama_title, String drama_producer,
-			String drama_content, String drama_images, int drama_hit, String drama_url, int drama_avg_ratings,
+			String drama_content, String drama_images, int drama_hit, String drama_youtube, int drama_avg_ratings,
 			String drama_productionyear, String drama_agelimit, String category_code) {
 		super();
 		this.board_seq = board_seq;
@@ -124,7 +121,7 @@ public class DramaDto extends BaseDto {
 		this.drama_content = drama_content;
 		this.drama_images = drama_images;
 		this.drama_hit = drama_hit;
-		this.drama_url = drama_url;
+		this.drama_youtube = drama_youtube;
 		this.drama_avg_ratings = drama_avg_ratings;
 		this.drama_productionyear = drama_productionyear;
 		this.drama_agelimit = drama_agelimit;

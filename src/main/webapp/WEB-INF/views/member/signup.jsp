@@ -1,10 +1,7 @@
-<%@page import="com.semi.flix.common.StringUtil"%>
-<%@page import="com.semi.flix.member.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%
 request.setAttribute("commonURL", request.getContextPath());
-
 %>
 <!DOCTYPE html>
 <html>
@@ -15,33 +12,17 @@ request.setAttribute("commonURL", request.getContextPath());
 	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
 </head>
 <body class="body">
-<%@include file="../include/header.jsp" %>
- <div class="sign section--bg" data-bg="${commonURL }/resources/img/section/section.jpg" style="margin-top : 70px;">
+
+ <div class="sign section--bg" data-bg="img/section/section.jpg">
  	<div class="container">
  		<div class="col-12">
  			<div class="sign__content">
- 			
-				<form name="form" id="form" method="post" class="sign__form" enctype="multipart/form-data">
+				<form name="form" id="form" method="post" class="sign__form">
 					<a href="index.html" class="sign__logo">
-					
-					
 					<img src="../resources/img/logo.svg" alt=""></a>
 					
-
-					<div style="width: 130px;height: 130px; border-radius: 50%; overflow: hidden; margin-bottom: 50px; "	>
-					<img class="thumb" src="${commonURL }/resources/user_img/basic.jpg" 
-					style="width: 130px; height: 130px; object-fit: cover; " />
-					</div>
-					
-					<div class="filebox">
-						<input class="sign__input" id="upload-name" value="" placeholder="프로필사진"><br>
-                        <label for="upload" style="width:100px; height: 30px; margin:2px;" 
-                         >사진 찾기</label> 
-   						<input type="file"  id="upload" name="upload"
-   							accept="image/jpeg, image/jpg, image/png" multiple>
-					</div>
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="이름" id="name" name="name" >
+						<input type="text" class="sign__input" placeholder="이름" id="name" name="name">
 					</div>
 					<div class="sign__group">
 						<input type="text" class="sign__input" placeholder="아이디" id="user_id" name="user_id">
@@ -82,18 +63,18 @@ request.setAttribute("commonURL", request.getContextPath());
 							<br>
 			
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="우편번호" id="zipcode" name="zipcode" readonly="readonly">
+						<input type="text" class="sign__input" placeholder="우편번호" id="zipNo" name="zipNo" readonly="readonly">
 					</div>
 					
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="주소" id=address1 name="address1" readonly="readonly">
+						<input type="text" class="sign__input" placeholder="주소" id=roadAddrPart1 name="roadAddrPart1" readonly="readonly">
 					</div>
 					
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="상세주소" id="address2" name="address2" readonly="readonly">
+						<input type="text" class="sign__input" placeholder="상세주소" id="addrDetail" name="addrDetail" readonly="readonly">
 					</div>
+					
 					<button type="button" class="sign__btn" onclick="goWrite()">등록</button>
-					
 				</form>
 			</div>
 		</div>
@@ -163,11 +144,11 @@ function goPopup()
 	
 	}
 
-function jusoCallBack(address1,address2, zipcode)
+function jusoCallBack(roadAddrPart1,addrDetail, zipNo)
 {
-		document.form.address1.value = address1;
-		document.form.address2.value = address2;
-		document.form.zipcode.value = zipcode;
+		document.form.roadAddrPart1.value = roadAddrPart1;
+		document.form.addrDetail.value = addrDetail;
+		document.form.zipNo.value = zipNo;
 	}
 	
 function goWrite() 
@@ -216,34 +197,28 @@ function goWrite()
 		frm.nick_name.focus();
 		return false;
 	};
-	if( frm.nick_name.value.trim().length>4)
-	{
-		alert("별명은 4글자 이내로 입력하세요");
-		frm.nick_name.focus();
-		return false;
-	};
 	if( frm.email.value.trim()=="")
 	{
 		alert("이메일을 입력하세요");
 		frm.email.focus();
 		return false;
 	};
-	if( frm.zipcode.value.trim()=="")
+	if( frm.zipNo.value.trim()=="")
 	{
 		alert("우편번호를 입력하세요");
-		frm.zipcode.focus();
+		frm.zipNo.focus();
 		return false;
 	};
-	if( frm.address1.value.trim()=="")
+	if( frm.roadAddrPart1.value.trim()=="")
 	{
 		alert("도로명 주소를 입력하세요");
-		frm.address1.focus();
+		frm.roadAddrPart1.focus();
 		return false;
 	};
-	if( frm.address2.value.trim()=="")
+	if( frm.addrDetail.value.trim()=="")
 	{
 		alert("상세 주소를 입력하세요");
-		frm.address2.focus();
+		frm.addrDetail.focus();
 		return false;
 	};
 
@@ -255,7 +230,7 @@ function goWrite()
 	}else{
    var frmData = new FormData(document.form);
   // console.log( frmData );
-  /*  var queryString = $("form[name=form]").serialize(); 
+   var queryString = $("form[name=form]").serialize(); 
 	$.ajax({
       url:"${commonURL}/member/insert",
       processData : false,
@@ -270,10 +245,7 @@ function goWrite()
    })
    .fail( (error)=>{
       console.log(error);
-   }) */
-   frm.action="<%=request.getContextPath()%>/member/insert";
-	frm.method="post";
-	frm.submit(); //서버로 전송하기 
+   })
 	}
 }
 
@@ -322,8 +294,10 @@ $(()=>{
        })
     })
  })
-
- 
-
+	
+	
+	
+	
+	
 
 </script>

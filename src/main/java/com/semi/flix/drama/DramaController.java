@@ -50,20 +50,6 @@ public class DramaController {
 		return "drama/drama_view";
 	}
 	
-	@RequestMapping(value="/dramaComment/write")
-	@ResponseBody 
-	HashMap<String, String> comment_write(CommentDto dto) {
-	System.out.println("comment_id : " + dto.getReview_seq()); 
-	
-	System.out.println("--------------> " + dto);
-	//if(dto.getComment_id().equals("")) 
-		service.commentinsert(dto); 
-	//else
-	//service.comment_update(dto);
-	
-	HashMap<String, String>map = new HashMap<String, String>();
-	map.put("result","success"); return map; 
-	}
 	
 	
 	

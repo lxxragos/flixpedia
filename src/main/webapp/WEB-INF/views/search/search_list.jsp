@@ -14,17 +14,9 @@
 	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
 </head>
 <body class="body">
-	
 	<%
-		request.setAttribute("commonURL", request.getContextPath());
-		String key = StringUtil.nullToValue(request.getParameter("key"), "1");
-		String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
-		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
-		int totalCnt = (Integer)request.getAttribute("totalCnt");
-	%>
 	
-	<%
-		List<SearchDto> searchList = (List<SearchDto>)request.getAttribute("searchList");
+	List<SearchDto> searchList = (List<SearchDto>)request.getAttribute("searchList");
 	%>
 	
 	<%@include file="../include/header.jsp" %>
@@ -55,7 +47,6 @@
 	<input type="hidden" name="pg"  id="pg" value="<%=pg%>"/>
 	<input type="hidden" name="key" id="key" value="<%=key%>"/>
 	<input type="hidden" name="board_seq"  id="board_seq" value=""/>
-	
 		<!-- filter -->
 		<div class="filter">
 			<div class="container">
@@ -116,9 +107,9 @@
 					<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
 						<div class="card">
 							<div class="card__cover">
-								
+							
 								<img src="${commonURL}/resources/drama_images/<%=tempDto.getImages() %>" style="height: 230px;object-fit: cover;">
-								<a href="#" class="card__play" onclick="goView('<%=tempDto.getCategory_code()%>', '<%=tempDto.getBoard_seq()%>')">
+								<a href="#" class="card__play" onclick="goView('<%=tempDto.getBoard_seq()%>')">
 									
 								</a>
 						
@@ -126,7 +117,7 @@
 							</div>
 							<div class="card__content">
 							
-								<h3 class="card__title"><a href="#" onclick="goView('<%=tempDto.getCategory_code()%>', '<%=tempDto.getBoard_seq()%>')"><%=tempDto.getTitle() %></a></h3>
+								<h3 class="card__title"><a href="#" onclick="goView('<%=tempDto.getBoard_seq()%>')"><%=tempDto.getTitle() %></a></h3>
 								<span class="card__category" style="color:white">
 								<%=tempDto.getGenre_name() %>
 								</span>
@@ -177,27 +168,18 @@ function changeSearch(id)
 function goSearch(){
 	let frm = document.myform;
 	frm.pg.value=0;
-	frm.action = "<%=request.getContextPath()%>/search/search_list";
+	frm.action = "<%=request.getContextPath()%>/drama/list";
 	frm.method="get";
 	frm.submit();
 }
 
-///////// 카테고리 코드 별로 분기
-function goView(code, id)
+function goView(id)
 {
 	
 	frm = document.myform;
 	frm.board_seq.value=id;///////////
 	frm.method="get";
-	
-	
-	if(code=='01'){
-		frm.action="${pageContext.request.contextPath}/movie/view";
-	} else if(code=='02') {
-		frm.action="${pageContext.request.contextPath}/drama/view";
-	} 
-	
-	//frm.action="${pageContext.request.contextPath}/drama/view";
+	frm.action="${pageContext.request.contextPath}/drama/view";
 	frm.submit();
 }
 
@@ -206,7 +188,7 @@ function goPage(pg)
 	frm = document.myform;
 	frm.pg.value=pg;///////////
 	frm.method="get";
-	frm.action="${pageContext.request.contextPath}/search/search_list";
+	frm.action="${pageContext.request.contextPath}/drama/list";
 	frm.submit();
 }
 

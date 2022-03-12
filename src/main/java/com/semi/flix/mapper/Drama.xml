@@ -19,7 +19,7 @@
 				group_name,
 				drama_producer,
 				drama_hit,
-				drama_url,
+				drama_youtube,
 				drama_avg_ratings,
 				drama_productionyear,
 				wdate,

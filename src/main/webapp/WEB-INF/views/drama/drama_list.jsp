@@ -14,17 +14,7 @@
 	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
 </head>
 <body class="body">
-
-	<%
-	request.setAttribute("commonURL", request.getContextPath());
-	String key = StringUtil.nullToValue(request.getParameter("key"), "1");
-	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
-	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
-	int totalCnt = (Integer)request.getAttribute("totalCnt");
-	%>
-	<%
-	List<DramaDto> list =(List<DramaDto>)request.getAttribute("dramaList");
-	%>
+	<%List<DramaDto> list =(List<DramaDto>)request.getAttribute("dramaList");%>
 	<%@include file="../include/header.jsp" %>
 
 		
