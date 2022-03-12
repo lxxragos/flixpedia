@@ -51,6 +51,7 @@ public class MemberController {
 	
 	//회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 	@RequestMapping(value="/member/insert", method=RequestMethod.POST)
+	//@ResponseBody
 	String member_insert(MemberDto dto, HttpServletRequest req, MultipartHttpServletRequest multi )
 	{
 		List<MultipartFile> multiList = new ArrayList<MultipartFile>();
@@ -61,14 +62,14 @@ public class MemberController {
 		FileUploadUtil.upload( path,multiList, fileNameList);
 		
 		dto.setUser_images(fileNameList.get(0));
-		
-		
+
 	    memberService.insert(dto);
 		
 		return "/member/signin";	
+
 	}
+
 	@RequestMapping(value="member/update", method=RequestMethod.POST)
-	
 	String member_update(MemberDto dto, HttpServletRequest req, MultipartHttpServletRequest multi)
 	{
 		MemberDto resultDto = memberService.getInfo(dto);
@@ -105,7 +106,7 @@ public class MemberController {
 		System.out.println(userimage);
 		return "/home";
 	}
-	
+
 	//占쏙옙占싱듸옙 占쌩븝옙확占쏙옙
 	@RequestMapping("/member/isDuplicate")
 	@ResponseBody 

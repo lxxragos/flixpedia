@@ -3,34 +3,32 @@
 	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="Drama">
+<mapper namespace="Movie">
 
-	<select id="Drama_getList" parameterType="DramaDto" resultType="DramaDto">
-		select A.*, 
-				ifnull((select round(avg(star_point),2) from review_tbl B where A.board_seq =B.board_seq and A.category_code=B.category_code),0) as star_avg 
-		from 
+	<select id="Movie_getList" parameterType="MovieDto" resultType="MovieDto">
+		select * from 
  		(
 	 		select
-				board_seq,
+				board_seq
 				genre_code,
-				drama_title,
-				drama_content,
-				drama_images,
-				group_name,
-				drama_producer,
-				drama_hit,
-				drama_url,
-				drama_avg_ratings,
-				drama_productionyear,
+				movie_title,
+				movie_content,
+				movie_images,
+				movie_attendance,
+				category_code,
+				movie_producer,
+				movie_hit,
 				wdate,
-				drama_agelimit,
+				movie_productionyear,
+				movie_agelimit,
+				movie_url,
 			    @rownum := @rownum+1 AS rnum
-				from drama_tbl A, (select @rownum:=0) B
+				from movie_tbl A, (select @rownum:=0) B
 				
 				<if test='key!=null or keyword!=null'>
 					<if test='keyword!=null'>
-						where drama_title like concat('%',#{keyword},'%') or
-							drama_content like concat('%',#{keyword},'%')
+						where movie_title like concat('%',#{keyword},'%') or
+							movie_content like concat('%',#{keyword},'%')
 					</if>
 	
 					<if test='key=="0"'>
@@ -61,7 +59,7 @@
 				</if> 
 		
 			
-		 order by drama_hit desc
+		 order by movie_hit desc
 		) A
 		   
 		limit #{start}, #{pageSize}     
@@ -69,8 +67,8 @@
 	
 	
 	
-	<select id="Drama_getTotal" parameterType="DramaDto" resultType="Integer">
-					select count(*) from drama_tbl 
+	<select id="Movie_getTotal" parameterType="MovieDto" resultType="Integer">
+					select count(*) from movie_tbl 
 				<if test='key!=null'>
 	
 					<if test='key=="0"'>
@@ -99,14 +97,11 @@
 				</if> 
 	</select>
 	
-	<select id="Drama_getView" parameterType="DramaDto" resultType="DramaDto">
-	 	select A.*,
-	 	ifnull((select round(avg(star_point),2) from review_tbl B where A.board_seq =B.board_seq and A.category_code=B.category_code),0) as star_avg
-	 	
-	 	 from drama_tbl A  where board_seq=#{board_seq}
+	<select id="Movie_getView" parameterType="MovieDto" resultType="MovieDto">
+	 	select * from moive_tbl where board_seq=#{board_seq}
 	 </select>
-	<select id="Drama_Rank" parameterType="DramaDto" resultType="DramaDto">
-		 select * from drama_tbl order by drama_hit desc
+	<select id="Movie_Rank" parameterType="MovieDto" resultType="MovieDto">
+		 select * from movie_tbl order by movie_hit desc
 	</select>
 	
 

@@ -2,6 +2,7 @@
 <%@page import="java.util.List"%>
 <%@page import="com.semi.flix.comment.CommentDto"%>
 <%@page import="com.semi.flix.webtoon.WebtoonDto"%>
+<%@page import="com.semi.flix.member.MemberDto"%>
 <%@page import="com.semi.flix.common.StringUtil"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
@@ -16,9 +17,14 @@
 <body class="body">
 	<%
 	String key = StringUtil.nullToValue(request.getParameter("key"), "7");
+	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
+	int totalCnt = (Integer)request.getAttribute("totalCnt");
+	
 	int commentTotalCnt = (Integer)request.getAttribute("commentTotalCnt");
+	
 	WebtoonDto dto = (WebtoonDto)request.getAttribute("webtoonDto");
+	MemberDto memberDto = (MemberDto)request.getAttribute("memberDto");
 	List<CommentDto> list =(List<CommentDto>)request.getAttribute("commentList");
 	
 	%>

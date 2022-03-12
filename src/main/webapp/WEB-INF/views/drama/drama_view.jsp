@@ -11,10 +11,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<%@include file="../include/css.jsp" %>
-	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
+	<title>FlixPedia</title>
 </head>
 <body class="body">
+	
 	<%
+	request.setAttribute("commonURL", request.getContextPath());
+	String key = StringUtil.nullToValue(request.getParameter("key"), "1");
+	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
 	int commentTotalCnt = (Integer)request.getAttribute("commentTotalCnt");
 	DramaDto dto = (DramaDto)request.getAttribute("dramaDto"); 
@@ -26,8 +30,8 @@
 	
 	<!-- details -->
 	<section class="section details">
-<form name="myform">
-	<<input type="hidden" name="board_seq"      value="<%=dto.getBoard_seq()%>" >
+	<form name="myform">
+	<input type="hidden" name="board_seq"      value="<%=dto.getBoard_seq()%>" >
 	<input type="hidden" name="pg"      value="<%=pg%>" >
 		<!-- details background -->
 		<div class="details__bg" data-bg="img/home/home__bg.jpg"></div>
@@ -82,9 +86,11 @@
 													<%}else if(dto.getGenre_code().equals("06")){ %>
 													<a href="#">Drama</a>
 													<%}%>
+													
+												
 										</li>
 										<li><span>출시연도:</span> 출시년</li>
-										<li><span>연출/각본:</span> <%=dto.getDrama_author() %></li>
+										<li><span>연출/각본:</span> <%=dto.getDrama_producer() %></li>
 									</ul>
 
 									<div class="card__description card__description--details">
@@ -101,7 +107,7 @@
 
 				<!-- player -->
 				<div class="col-12 col-xl-6">
-					<iframe width="560" height="315" src="https://www.youtube.com/embed/V_QS0cLTBOg"
+					<iframe width="560" height="315" src="<%=dto.getDrama_url() %>"
 					title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				</div>
 				<!-- end player -->

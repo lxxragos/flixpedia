@@ -1,28 +1,32 @@
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="com.semi.flix.common.Pager"%>
-<%@page import="com.semi.flix.webtoon.WebtoonDto"%>
-<%@page import="com.semi.flix.member.MemberDto"%>
+<%@page import="com.semi.flix.search.*"%>
 <%@page import="java.util.List"%>
 <%@page import="com.semi.flix.common.StringUtil"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<%@include file="../include/css.jsp" %>
 	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
 </head>
 <body class="body">
-	<%
-	String key = StringUtil.nullToValue(request.getParameter("key"), "7");
-	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
-	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
-	int totalCnt = (Integer)request.getAttribute("totalCnt");
 	
-	List<WebtoonDto> list =(List<WebtoonDto>)request.getAttribute("webtoonList");
+	<%
+		request.setAttribute("commonURL", request.getContextPath());
+		String key = StringUtil.nullToValue(request.getParameter("key"), "1");
+		String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
+		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
+		int totalCnt = (Integer)request.getAttribute("totalCnt");
 	%>
+	
+	<%
+		List<SearchDto> searchList = (List<SearchDto>)request.getAttribute("searchList");
+	%>
+	
 	<%@include file="../include/header.jsp" %>
 
 		
@@ -35,7 +39,7 @@
 				<div class="col-12">
 					<div class="section__wrap">
 						<!-- section title -->
-						<h2 class="section__title">드라마(${totalCnt}건)</h2>
+						<h2 class="section__title">검색결과</h2>
 						<!-- end section title -->
 
 						<!-- breadcrumb -->
@@ -51,8 +55,7 @@
 	<input type="hidden" name="pg"  id="pg" value="<%=pg%>"/>
 	<input type="hidden" name="key" id="key" value="<%=key%>"/>
 	<input type="hidden" name="board_seq"  id="board_seq" value=""/>
-	<input type="hidden" name="category_code"  id="category_code" value=""/>
-	<input type="hidden" name="user_seq"  id="user_seq" value="<%=userseq%>"/>
+	
 		<!-- filter -->
 		<div class="filter">
 			<div class="container">
@@ -81,8 +84,8 @@
 										<li><a onclick="changeSearch('6')">Drama</a></li>
 										
 									</ul>
-									<!-- <button class="sign__btn" type="button" onclick="goSearch()" 
-											style="width:100px; height: 30px; margin:2px;">검색</button> -->
+									<button class="sign__btn" type="button" onclick="goSearch()" 
+											style="width:100px; height: 30px; margin:2px;">검색</button>
 								</div>
 								<!-- end filter item -->
 	
@@ -91,7 +94,7 @@
 							</div>
 							
 							<!-- filter btn -->
-							<button class="filter__btn" type="button" onclick="goSearch()">apply filter</button>
+							<button class="filter__btn" type="button">apply filter</button>
 							<!-- end filter btn -->
 						</div>
 					</div>
@@ -107,40 +110,27 @@
 					<!-- card -->
 					
 					
-					<% for(WebtoonDto dto : list){ %>
+					<%
+						for(SearchDto tempDto: searchList){
+					%>
 					<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
 						<div class="card">
 							<div class="card__cover">
-							
-								<img src="${commonURL}/resources/webtoon_img/<%=dto.getToon_images() %>" style="height: 230px;object-fit: cover;">
-								<a href="#" class="card__play" onclick="goView('<%=dto.getBoard_seq()%>')"></a>
-							
+								
+								<img src="${commonURL}/resources/drama_images/<%=tempDto.getImages() %>" style="height: 230px;object-fit: cover;">
+								<a href="#" class="card__play" onclick="goView('<%=tempDto.getCategory_code()%>', '<%=tempDto.getBoard_seq()%>')">
+									
+								</a>
+						
 								
 							</div>
 							<div class="card__content">
 							
-								<h3 class="card__title"><a href="#" onclick="goView('<%=dto.getBoard_seq()%>')"><%=dto.getToon_title() %></a></h3>
-								<span class="card__category">
-
-								<%
-								if(dto.getGenre_code().equals("00")){ %>
-									<a href="#">Action</a>
-									<%}else if(dto.getGenre_code().equals("01")){ %>
-									<a href="#">Romantic</a>
-									<%}else if(dto.getGenre_code().equals("02")){ %>
-									<a href="#">Comedy</a>
-									<%}else if(dto.getGenre_code().equals("03")){ %>
-									<a href="#">Thliler/Criminal</a>
-									<%}else if(dto.getGenre_code().equals("04")){ %>
-									<a href="#">Horror</a>
-									<%}else if(dto.getGenre_code().equals("05")){ %>
-									<a href="#">SF/Fantasy</a>
-									<%}else if(dto.getGenre_code().equals("06")){ %>
-									<a href="#">Drama</a>
-									<%}%>
-									
+								<h3 class="card__title"><a href="#" onclick="goView('<%=tempDto.getCategory_code()%>', '<%=tempDto.getBoard_seq()%>')"><%=tempDto.getTitle() %></a></h3>
+								<span class="card__category" style="color:white">
+								<%=tempDto.getGenre_name() %>
 								</span>
-								<span class="card__rate" id="star_point"><i class="icon ion-ios-star"><%=dto.getStar_avg() %></i></span>
+								<span class="card__rate"><i class="icon ion-ios-star"></i><%=tempDto.getRatings() %></span>
 							</div>
 						</div>
 					</div>
@@ -176,7 +166,6 @@ window.onload=function(){
 	document.getElementById("searchItem").value=texts[key];
 }
 
-
 function changeSearch(id)
 {
 	var texts=["Action", "Romance", "Comedy", "Thriller/Crime", "Horror","Fantasy","Drama","전체"];
@@ -188,18 +177,27 @@ function changeSearch(id)
 function goSearch(){
 	let frm = document.myform;
 	frm.pg.value=0;
-	frm.action = "<%=request.getContextPath()%>/webtoon/list";
+	frm.action = "<%=request.getContextPath()%>/search/search_list";
 	frm.method="get";
 	frm.submit();
 }
 
-function goView(id)
+///////// 카테고리 코드 별로 분기
+function goView(code, id)
 {
+	
 	frm = document.myform;
 	frm.board_seq.value=id;///////////
-	frm.category_code.value="04";///////////
 	frm.method="get";
-	frm.action="${pageContext.request.contextPath}/webtoon/view";
+	
+	
+	if(code=='01'){
+		frm.action="${pageContext.request.contextPath}/movie/view";
+	} else if(code=='02') {
+		frm.action="${pageContext.request.contextPath}/drama/view";
+	} 
+	
+	//frm.action="${pageContext.request.contextPath}/drama/view";
 	frm.submit();
 }
 
@@ -208,10 +206,9 @@ function goPage(pg)
 	frm = document.myform;
 	frm.pg.value=pg;///////////
 	frm.method="get";
-	frm.action="${pageContext.request.contextPath}/webtoon/list";
+	frm.action="${pageContext.request.contextPath}/search/search_list";
 	frm.submit();
 }
-
 
 
 

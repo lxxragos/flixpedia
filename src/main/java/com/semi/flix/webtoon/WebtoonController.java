@@ -1,11 +1,9 @@
-package com.semi.flix.drama;
+package com.semi.flix.webtoon;
 
 import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
-
-//import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,42 +13,47 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.semi.flix.comment.CommentDto;
 
 @Controller
-public class DramaController {
-	
-	@Resource(name="dramaService")
-	DramaService service;
-	
-	@RequestMapping("/drama/list")
-	String Drama_list(Model model,DramaDto dto) {
-		
+public class WebtoonController {
+
+	@Resource(name = "webtoonService")
+	WebtoonService service;
+
+	// �쎒�댆 紐⑸�? �럹�씠吏� �씠�룞
+	@RequestMapping("/webtoon/list")
+	String webtoon_list(Model model, WebtoonDto dto) {
 		dto.setPageSize(12);
-		dto.setStart( dto.getPg() * dto.getPageSize());
-		
-	
-		List<DramaDto> list = service.getList(dto);
+		dto.setStart(dto.getPg() * dto.getPageSize());
+
+		List<WebtoonDto> list = service.getList(dto);
 		int cnt = service.getTotal(dto);
 		
-		model.addAttribute("dramaList",list);
-		model.addAttribute("totalCnt",cnt);
 		
-		return "drama/drama_list";
+		model.addAttribute("webtoonList", list);
+		model.addAttribute("totalCnt", cnt);
+		
+		
+
+		return "webtoon/webtoon_list";
 	}
-	
-	@RequestMapping("/drama/view")
-	String Drama_view(DramaDto dto,CommentDto Cdto,Model model) {
+
+	// �쎒�댆 �긽�꽭蹂닿�? �럹�씠吏�
+	@RequestMapping("/webtoon/view")
+	String webtoon_view(WebtoonDto dto, CommentDto Cdto, Model model) {
+
 		Cdto.setPageSize(4);
 		Cdto.setStart(Cdto.getPg() * Cdto.getPageSize());
 		
 		List<CommentDto> list = service.commentList(Cdto);
-		DramaDto resultDto = service.getView(dto);
+		WebtoonDto resultDto = service.getView(dto);
 		int commentCnt = service.commentTotal(Cdto);
-		model.addAttribute("dramaDto",resultDto);
+		model.addAttribute("webtoonDto", resultDto);
 		model.addAttribute("commentList", list);
 		model.addAttribute("commentTotalCnt", commentCnt);
-		return "drama/drama_view";
+		return "webtoon/webtoon_view";
 	}
+
 	
-	@RequestMapping(value="/dramaComment/write")
+	@RequestMapping(value="/comment/write")
 	@ResponseBody 
 	HashMap<String, String> comment_write(CommentDto dto) {
 	System.out.println("comment_id : " + dto.getReview_seq()); 
@@ -64,7 +67,6 @@ public class DramaController {
 	HashMap<String, String>map = new HashMap<String, String>();
 	map.put("result","success"); return map; 
 	}
-	
-	
-	
+
+
 }

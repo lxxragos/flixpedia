@@ -13,4 +13,5 @@ public interface DramaService {
 	List<CommentDto> commentList(CommentDto dto);
 	void commentinsert(CommentDto dto);
 	int commentTotal(CommentDto dto);
+	DramaDto getDrama_Rank(DramaDto dto);
 }
