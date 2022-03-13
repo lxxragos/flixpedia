@@ -1,5 +1,6 @@
 package com.semi.flix.animation;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,6 +8,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.semi.flix.comment.CommentDto;
 import com.semi.flix.animation.AnimationDto;
@@ -50,6 +53,18 @@ public class AnimationController {
 		}
 		
 		
+		@RequestMapping(value="comment/delete", method=RequestMethod.POST)
+		@ResponseBody
+		HashMap<String, String> comment_delete(CommentDto dto)
+		{
+			System.out.println(dto);
+			service.comment_delete(dto);
+			
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("result", "success");
+			
+			return map;
+		}
 		
 		
 }

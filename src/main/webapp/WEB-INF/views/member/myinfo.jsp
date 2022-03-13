@@ -31,16 +31,16 @@ request.setAttribute("commonURL", request.getContextPath());
 					
 
 					<div style="width: 130px;height: 130px; border-radius: 50%; overflow: hidden; margin-bottom: 50px; "	>
-					<img class="thumb" src="${commonURL }/resources/user_img/<%=dto.getUser_images() %>" 
+					<img class="thumb" src="${commonURL }/resources/user_img/<%=userimage %>" 
 					style="width: 130px; height: 130px; object-fit: cover; " />
 					</div>
 					
 					<div class="filebox">
-						<input class="sign__input" id="upload-name" value="<%=dto.getUser_images() %>" placeholder="프로필사진"><br>
-                        <label for="upload" style="width:100px; height: 30px; margin:2px;" 
+						<input class="sign__input" id="upload-name" value="<%=userimage %>" placeholder="프로필사진"><br>
+                        <label for="upload" style="width:100px; height: 30px; margin:2px;" value = "<%=userimage %>"
                          >사진 변경</label> 
    						<input type="file"  id="upload" name="upload"
-   							accept="image/jpeg, image/jpg, image/png" multiple>
+   							accept="image/jpeg, image/jpg, image/png"  multiple>
 					</div>
 					<div class="sign__group">
 						<input type="text" class="sign__input" placeholder="이름" id="name" name="name" value="<%=dto.getName()%>">
@@ -176,7 +176,7 @@ function goUpdate()
 		frm.user_id.focus();
 	}else{
     var frmData = new FormData(document.form);
-  console.log( frmData );
+  	console.log( frmData );
     //var queryString = $("form[name=form]").serialize(); 
 	$.ajax({
       url:"${commonURL}/member/update",

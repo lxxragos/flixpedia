@@ -1,4 +1,5 @@
 
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="com.semi.flix.common.Pager"%>
 <%@page import="java.util.List"%>
 <%@page import="com.semi.flix.comment.CommentDto"%>
@@ -29,8 +30,8 @@
 	
 	<!-- details -->
 	<section class="section details">
-<form name="myform">
-	<input type="hidden" name="board_seq"      value="<%=dto.getBoard_seq()%>" >
+
+	
 		<!-- details background -->
 		<div class="details__bg" data-bg="${commonURL }/resources/img/home/home__bg.jpg"></div>
 		<!-- end details background -->
@@ -142,7 +143,7 @@
 				</div>
 			</div>
 		</div>
-		</form>
+		
 		<!-- end details content -->
 		
 		<!-- content -->
@@ -185,16 +186,16 @@
 								<!-- reviews -->
 								<div class="col-12">
 									<div class="reviews">
-						<form name="commentForm" method="get">
+						<form name="commentForm" method="post" >
 							<input type="hidden" name="pg"  id="pg" value="<%=pg%>"/>
-							<input type="hidden" name="key" id="key" value="<%=key%>"/>
 							<input type="hidden" id="board_seq" name="board_seq" value="<%=dto.getBoard_seq()%>">
 							<input type="hidden" id="category_code" name="category_code" value="<%=dto.getCategory_code()%>">
+							<input type="hidden" id="review_seq" name="review_seq" value="">
 							<ul class="reviews__list">
-										
 							<% for(CommentDto Cdto : list){ %>
 										<!--댓글 한칸 시작  -->
 											<li class="reviews__item">
+												
 												<div class="reviews__autor">
 													<img class="reviews__avatar" src="${commonURL }/resources/user_img/<%=Cdto.getUser_images() %>" alt=""> 
 													<span class="reviews__name">닉네임 : <%=Cdto.getNick_name() %></span>
@@ -207,7 +208,8 @@
 												if(Cdto.getUser_seq().equals(userseq)){
 												%>
 												<div align="right">
-												<button style="width:40px; height: 40px; "  type="button" class="form__btn" onclick="goCommentWrite()">삭제</button>
+												<button style="width:40px; height: 40px; "  type="button" class="form__btn" onclick="commentDelete('<%=Cdto.getReview_seq() %>')">삭제</button>
+												
 												</div>
 											<%} %>
 											</li>
@@ -224,10 +226,10 @@
 											</div>
 							</form>			
 
-										<form action="#" class="form" name="myform2">
-											<input type="hidden" id="board_seq" name="board_seq" value="<%=dto.getBoard_seq()%>">
+										<form action="#" class="form" name="myform">
+											<<input type="hidden" id="board_seq" name="board_seq" value="<%=dto.getBoard_seq()%>">
 											<input type="hidden" id="category_code" name="category_code" value="<%=dto.getCategory_code()%>">
-											<input type="hidden" id="user_seq" name="user_seq" value="<%=userseq%>">
+											<input type="hidden" id="user_seq" name="user_seq" value="<%=userseq%>"> 
 											<input type="hidden" id="star_point" name="star_point" value="">
 											
 											<input type="text" class="form__input" placeholder="Title" value="<%=nickname%>">
@@ -259,11 +261,10 @@
 <script>
 
 
-
 function goCommentWrite()
 {
 	var star_point = document.getElementById('form__slider-value').value;
-	frm2 = document.myform2;
+	frm2 = document.myform;
 	frm2.star_point.value=star_point;
 	
 	var userid='<%=userid%>';
@@ -273,7 +274,7 @@ function goCommentWrite()
 		location.href="${commonURL}/member/signin";
 	}
 	
-	var queryString = $("form[name=myform2]").serialize();
+	var queryString = $("form[name=myform]").serialize();
    $.ajax({
 	   url:"${commonURL}/comment/write",
       data:queryString,
@@ -295,10 +296,42 @@ function goPage(pg)
 {
 	frm = document.commentForm;
 	frm.pg.value=pg;///////////
-	frm.method="get";
+	frm.method="post";
 	frm.action="${pageContext.request.contextPath}/animation/view";
 	frm.submit();
 }
+
+function commentDelete(useq)
+{
+  
+	frm = document.commentForm;
+	frm.review_seq.value=useq;
+   
+   if( !confirm("삭제하시겠습니까?"))
+	   return false;
+   
+   //var frmData = new FormData(document.commentForm);
+   //console.log( frmData );
+   var queryString = $("form[name=commentForm]").serialize(); 
+   console.log( queryString );
+  $.ajax({
+     url:"${commonURL}/comment/delete",
+     data:queryString,
+     type:"POST",
+     dataType:"json"
+    
+   })
+   .done( (result)=>{
+	    alert("삭제완료");
+     	location.reload()
+   })
+   .fail( (error)=>{
+      console.log(error);
+   })
+}
+
+
+
 
 </script>
 
