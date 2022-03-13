@@ -11,7 +11,7 @@ import com.semi.flix.comment.CommentDto;
 
 @Service("dramaService")
 public class DramaServiceImpl implements DramaService {
-	
+	 
 	@Resource(name="dramaDao")
 	DramaDao dramaDao;
 	@Resource(name="commentDao")
@@ -35,7 +35,7 @@ public class DramaServiceImpl implements DramaService {
 	}
 	
 	
-	//----여기부터댓글----
+	//----�뿬湲곕��꽣�뙎湲�----
 	@Override
 	public void commentinsert(CommentDto dto) {
 		commentDao.commentinsert(dto);
@@ -55,5 +55,6 @@ public class DramaServiceImpl implements DramaService {
 		// TODO Auto-generated method stub
 		return commentDao.commentList(dto);
 	}
+	
 	
 }

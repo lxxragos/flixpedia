@@ -43,6 +43,19 @@ public class CommentDaoImpl implements CommentDao{
 	public int commentTotal(CommentDto dto) {
 		return sm.selectOne("Comment_count",dto);
 	}
+
+
+
+
+
+
+
+
+
+	@Override
+	public void comment_delete(CommentDto dto) {
+		sm.delete("Comment_delete",dto);
+	}
 		
 
 	
