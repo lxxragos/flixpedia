@@ -255,7 +255,7 @@ function goWrite()
 	}else{
    var frmData = new FormData(document.form);
   // console.log( frmData );
-  // var queryString = $("form[name=form]").serialize(); 
+  /*  var queryString = $("form[name=form]").serialize(); 
 	$.ajax({
       url:"${commonURL}/member/insert",
       processData : false,
@@ -270,9 +270,10 @@ function goWrite()
    })
    .fail( (error)=>{
       console.log(error);
-   })
-  
-	//서버로 전송하기 
+   }) */
+   frm.action="<%=request.getContextPath()%>/member/insert";
+	frm.method="post";
+	frm.submit(); //서버로 전송하기 
 	}
 }
 

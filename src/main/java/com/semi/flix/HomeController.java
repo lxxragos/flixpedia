@@ -1,15 +1,22 @@
 package com.semi.flix;
 
-import java.text.DateFormat;
-import java.util.Date;
+
+import java.util.List;
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.semi.flix.drama.DramaDto;
+import com.semi.flix.drama.DramaService;
+import com.semi.flix.movie.MovieDto;
+import com.semi.flix.movie.MovieService;
+import com.semi.flix.webtoon.WebtoonDto;
+import com.semi.flix.webtoon.WebtoonService;
 
 /**
  * Handles requests for the application home page.
@@ -17,23 +24,49 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Resource(name="dramaService")
+	DramaService dramaService;
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+	@Resource(name="movieService")
+	MovieService movieService;
+	
+	@Resource(name="webtoonService")
+	WebtoonService webtoonService;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		//=====================  Drama  ===================//
+		DramaDto dramaDto = new DramaDto();
+		dramaDto.setStart(dramaDto.getPg()*10);
+		List<DramaDto> dramaList = dramaService.getList(dramaDto);
 		
-		String formattedDate = dateFormat.format(date);
+		System.out.println("[HomeController---------------]" + dramaList);
+		model.addAttribute("dramaList", dramaList);
 		
-		model.addAttribute("serverTime", formattedDate );
+		//=====================  Movie  ===================//
+		
+		MovieDto movieDto = new MovieDto();
+		movieDto.setStart(movieDto.getPg()*10);
+		List<MovieDto> movieList = movieService.getList(movieDto);
+		
+		System.out.println("[HomeController---------------]" + movieList);
+		model.addAttribute("movieList", movieList);
+		
+		
+		//=====================  webtoon  ===================//
+		
+		WebtoonDto webtoonDto = new WebtoonDto();
+		webtoonDto.setStart(webtoonDto.getPg()*10);
+		List<WebtoonDto> webtoonList = webtoonService.getList(webtoonDto);
+		
+		System.out.println("[HomeController---------------]" + webtoonList);
+		model.addAttribute("webtoonList", webtoonList);
 		
 		return "home";
 	}
+	
+	
+
 	
 }
