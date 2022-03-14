@@ -8,11 +8,13 @@ String userid= StringUtil.nullToValue(session.getAttribute("userid"), "");
 String username= StringUtil.nullToValue(session.getAttribute("username"), "");
 String userseq= StringUtil.nullToValue(session.getAttribute("userseq"), "");
 String nickname= StringUtil.nullToValue(session.getAttribute("nickname"), "");
+String userimage= StringUtil.nullToValue(session.getAttribute("userimage"), "");
 %>
 <meta charset="utf-8"> 
 
 <!-- header -->
 	<header class="header">
+	<form name="mypageForm" style="text-align: right;">
 		<div class="header__wrap">
 			<div class="container">
 				<div class="row">
@@ -63,9 +65,11 @@ String nickname= StringUtil.nullToValue(session.getAttribute("nickname"), "");
 								<!-- end dropdown -->
 							</ul>
 								
+							
 							<!-- end header nav -->	
 							<%if(userid.equals("")) {%>
 							<!-- header auth -->
+
 							<div class="header__auth">
 								<button class="header__search-btn" type="button">
 									<i class="icon ion-ios-search"></i>
@@ -78,36 +82,33 @@ String nickname= StringUtil.nullToValue(session.getAttribute("nickname"), "");
 							</div>
 							<!-- end header auth -->
 							<%}else{%>
+								<input type="hidden" id="user_id" name="user_id" value=""> 
+								<div class="header__auth">
+											<button class="header__search-btn" type="button" >
+												<i class="icon ion-ios-search" style="margin-top: 60px;"></i>
+											</button>
 								
-								
-										<img class="profile" alt="" src="${commonURL }/resources/user_img/풀.jpg"/>
-										<ul>
+										
+										<ul style="text-align:center;">
 										<li class="dropdown header__nav-item">
-											<a class="dropdown-toggle header__nav-link header__nav-link--more" href="#" role="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon ion-ios-more"></i></a>
+											<a style = "width : auto; height: auto;"class="dropdown-toggle header__nav-link header__nav-link--more" href="#" role="button" id="dropdownMenuMore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<img class="profile" alt="" src="${commonURL }/resources/user_img/<%=userimage%>" style="margin-right: 20px; display: inline;"/>
+											<strong style="font-size: 17px"><%=nickname %></strong> 님 반갑습니다
+											</a>
 
 											<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
-												<li><a href="about.html">마이페이지</a></li>
-												<li><a href="signin.html">로그아웃</a></li>
+												<li><a href="#" onclick="goMypage('<%=userid%>')">마이페이지</a></li>
+												<li><a href="${commonURL}/member/logout">로그아웃</a></li>
 												
 						
 											</ul>
 										</li>
 										</ul>
+										</div>
 					
-							<div class="header__auth">
-								<button class="header__search-btn" type="button">
-									<i class="icon ion-ios-search"></i>
-								</button>
-
-								<a class="header__sign-in" href="${commonURL}/member/logout">
-									<i class="icon ion-ios-log-in"></i>
-									<span>sign out</br>
-									
-									</span>
-								</a>
-							</div>
 							
-							<%} %>
+							
+							<% } %>
 
 							<!-- header menu btn -->
 							<button class="header__btn" type="button">
@@ -121,7 +122,7 @@ String nickname= StringUtil.nullToValue(session.getAttribute("nickname"), "");
 				</div>
 			</div>
 		</div>
-
+</form>
 		<!-- header search -->
 		<form action="#" class="header__search">
 			<div class="container">

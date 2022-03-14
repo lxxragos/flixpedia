@@ -9,8 +9,9 @@ public interface DramaService {
 	int getTotal(DramaDto dto);
 	DramaDto getView(DramaDto dto);
 	
-	//댓글
+	//�뙎湲�
 	List<CommentDto> commentList(CommentDto dto);
 	void commentinsert(CommentDto dto);
 	int commentTotal(CommentDto dto);
+	
 }

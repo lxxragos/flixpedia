@@ -9,8 +9,9 @@ public interface AnimationService {
 	int getTotal(AnimationDto dto);
 	AnimationDto getView(AnimationDto dto);
 	
-	//댓글
+	//�뙎湲�
 	List<CommentDto> commentList(CommentDto dto);
 	void commentinsert(CommentDto dto);
 	int commentTotal(CommentDto dto);
+	void comment_delete(CommentDto dto);
 }

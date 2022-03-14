@@ -71,6 +71,12 @@ public class CommentDto extends BaseDto {
 	public void setUser_images(String user_images) {
 		this.user_images = user_images;
 	}
+	@Override
+	public String toString() {
+		return "CommentDto [review_seq=" + review_seq + ", user_seq=" + user_seq + ", board_seq=" + board_seq
+				+ ", content=" + content + ", wdate=" + wdate + ", star_point=" + star_point + ", category_code="
+				+ category_code + ", nick_name=" + nick_name + ", user_images=" + user_images + "]";
+	}
 	
 	
 	

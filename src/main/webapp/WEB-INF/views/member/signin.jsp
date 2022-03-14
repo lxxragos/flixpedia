@@ -15,7 +15,7 @@ request.setAttribute("commonURL", request.getContextPath());
 
 </head>
 <body class="body">
-
+<%@include file="../include/header.jsp" %>
 	<div class="sign section--bg" data-bg="<%=request.getContextPath() %>/resources/img/section/section.jpg">
 		<div class="container">
 			<div class="row">
