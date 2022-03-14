@@ -53,6 +53,11 @@ public class MemberController {
 	@RequestMapping(value="/member/insert", method=RequestMethod.POST)
 	String member_insert(MemberDto dto, HttpServletRequest req, MultipartHttpServletRequest multi )
 	{
+		
+		if(dto.getUser_images().equals("")) {
+			dto.setUser_images("basic.jpg");
+			memberService.insert(dto);
+		}else {
 		List<MultipartFile> multiList = new ArrayList<MultipartFile>();
 		multiList.add(multi.getFile("upload"));
 		
@@ -64,6 +69,7 @@ public class MemberController {
 		
 		
 	    memberService.insert(dto);
+		}
 		
 		return "/member/signin";	
 	}
@@ -72,7 +78,6 @@ public class MemberController {
 	String member_update(MemberDto dto, HttpServletRequest req, MultipartHttpServletRequest multi)
 	{
 		MemberDto resultDto = memberService.getInfo(dto);
-		System.out.println("리술트 : " + resultDto.getUser_images()+","+resultDto.getNick_name());
 		if(dto.getUser_images().equals(resultDto.getUser_images())) {
 			System.out.println("디티오 : " +dto.getUser_images()+","+dto.getNick_name());
 			
