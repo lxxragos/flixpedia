@@ -15,8 +15,6 @@ public class MemberDto {
 	private String address2 ="";
 	private String user_images ="";
 	
-	
-	
 	public String getUser_seq() {
 		return user_seq;
 	}

@@ -34,12 +34,12 @@ request.setAttribute("commonURL", request.getContextPath());
 					<img class="thumb" src="${commonURL }/resources/user_img/<%=userimage %>" 
 					style="width: 130px; height: 130px; object-fit: cover; " />
 					</div>
-					
+					<input type="hidden" id="user_images" name="user_images" value="<%=userimage%>">
 					<div class="filebox">
 						<input class="sign__input" id="upload-name" value="<%=userimage %>" placeholder="프로필사진"><br>
-                        <label for="upload" style="width:100px; height: 30px; margin:2px;" value = "<%=userimage %>"
+                        <label for="upload" style="width:100px; height: 30px; margin:2px;" 
                          >사진 변경</label> 
-   						<input type="file"  id="upload" name="upload"
+   						<input type="file"  id="upload" name="upload" value = "<%=userimage %>"
    							accept="image/jpeg, image/jpg, image/png"  multiple>
 					</div>
 					<div class="sign__group">
