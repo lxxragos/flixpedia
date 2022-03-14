@@ -432,7 +432,7 @@ $(document).ready(function () {
 	  });
 	  $(window).trigger("resize");
 
-	  /*==============================
+	/*==============================
 	enter
 	==============================*/
 	$(".enter__bg").owlCarousel({
