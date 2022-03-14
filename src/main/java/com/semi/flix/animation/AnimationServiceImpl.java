@@ -54,6 +54,12 @@ public class AnimationServiceImpl implements AnimationService {
 		
 	}
 
+	@Override
+	public void comment_delete(CommentDto dto) {
+		commentDao.comment_delete(dto);
+		
+	}
+
 	
 
 }

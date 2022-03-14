@@ -72,11 +72,12 @@ public class MemberController {
 	String member_update(MemberDto dto, HttpServletRequest req, MultipartHttpServletRequest multi)
 	{
 		MemberDto resultDto = memberService.getInfo(dto);
-		System.out.println("디티오 : " +dto.getUser_images()+","+dto.getNick_name());
 		System.out.println("리술트 : " + resultDto.getUser_images()+","+resultDto.getNick_name());
 		if(dto.getUser_images().equals(resultDto.getUser_images())) {
+			System.out.println("디티오 : " +dto.getUser_images()+","+dto.getNick_name());
 			
-			resultDto.setUser_images(resultDto.getUser_images());
+			memberService.update(dto);
+			
 			System.out.println("_________________________________________이미지 변경 사항 없음");
 		}else {
 			System.out.println("______________________________________이미지 변경 사항 있음");
@@ -89,7 +90,7 @@ public class MemberController {
 		FileUploadUtil.upload( path,multiList, fileNameList);
 		
 		dto.setUser_images(fileNameList.get(0));
-		}
+		
 		memberService.update(dto);
 		
 		HttpSession session = req.getSession();
@@ -103,6 +104,7 @@ public class MemberController {
 		String userimage = (String) session.getAttribute("userimage");
 		System.out.println("!!1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+userid);
 		System.out.println(userimage);
+		}
 		return "/home";
 	}
 	
