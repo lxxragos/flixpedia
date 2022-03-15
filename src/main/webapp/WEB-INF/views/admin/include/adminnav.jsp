@@ -8,6 +8,12 @@ String userid = AdminStringUtil.nullToValue(session.getAttribute("userid"), "");
 String username = AdminStringUtil.nullToValue(session.getAttribute("username"), "");
 String email = AdminStringUtil.nullToValue(session.getAttribute("email"), "");
 String phone = AdminStringUtil.nullToValue(session.getAttribute("phone"), "");
+
+String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
+String keyword = AdminStringUtil.nullToValue(request.getParameter("keyword"), "");
+String keyword2 = AdminStringUtil.nullToValue(request.getParameter("keyword2"), "");
+String pg = AdminStringUtil.nullToValue(request.getParameter("pg"), "0");
+int totalCnt = (Integer)request.getAttribute("totalCnt");
 %>
 <meta charset="UTF-8">
 	<nav class="navbar navbar-expand-sm bg-light navbar-light" style="display:none">
@@ -45,3 +51,41 @@ String phone = AdminStringUtil.nullToValue(session.getAttribute("phone"), "");
           </div>
         </div>
     </nav>
+    
+<script>
+function enterkey(){
+	if(window.event.keyCode == 13)
+	{
+		goSearch();
+	}
+}
+
+function goMain()
+{
+	location.href="${commonURL}/admin/adminhome";	//페이지 이동	
+}
+
+function naventerkey(){
+	if(window.event.keyCode == 13)
+	{
+		goMainSearch();
+		event.preventDefault();	//서버에 가서 값을 가져와야하는 경우라... 막는다.
+	}
+}
+function goMainSearch(){
+   var queryString = $("form[name=myform2]").serialize();
+   $.ajax({
+      url:"${commonURL}/searchurl",
+      data:queryString,
+      type:"POST",
+      dataType:"text"
+   })
+   .done( (result)=>{
+	   console.log("${commonURL}"+result);
+	   location.href="${commonURL}"+result;
+   })
+   .fail( (error)=>{
+	   location.href="${commonURL}/notfound";
+   })
+}
+</script>

@@ -11325,16 +11325,12 @@ body.sidebar-toggled footer.sticky-footer {
 
 div.main{
 	position: relative;
-	margin-bottom: 1rem;
-    display: flex;
     flex-wrap: wrap;
-    margin-right: -0.75rem;
-    margin-left: -0.75rem;
 }
 div.main input{
     text-indent: 10px;
 }
 div.main i{
     position: absolute;
-    top: 27px;
+    top: 30px;
 }

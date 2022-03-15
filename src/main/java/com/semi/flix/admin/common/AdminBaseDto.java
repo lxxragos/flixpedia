@@ -8,7 +8,14 @@ public class AdminBaseDto {
 	protected int pgGroup=5;
 	protected int start=0;
 	protected int rnum=0;
+	protected String keyword2="";
 	
+	public String getKeyword2() {
+		return keyword2;
+	}
+	public void setKeyword2(String keyword2) {
+		this.keyword2 = keyword2;
+	}
 	public String getKey() {
 		return key;
 	}

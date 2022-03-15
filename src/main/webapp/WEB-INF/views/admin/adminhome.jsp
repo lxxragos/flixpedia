@@ -30,10 +30,6 @@
 
 <body id="page-top">
 	<%@include file="../admin/include/adminnav.jsp" %>
-	<%
-		String keyword = AdminStringUtil.nullToValue(request.getParameter("keyword"), "");
-		int totalCnt = (Integer)request.getAttribute("totalCnt");
-	%>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -45,7 +41,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">FLIXPEDIA-admin</div>
+                <div class="sidebar-brand-text mx-3"><strong>FLIXPEDIA-admin</strong></div>
             </a>
 
             <!-- Divider -->
@@ -135,7 +131,7 @@
 
             <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
+                <img class="sidebar-card-illustration mb-2" style="width:150px; height:auto; "src="<%=request.getContextPath()%>/resources/admin/img/logo.png" alt="...">
                 <p class="text-center mb-2"><strong>FLIXPEDIA</strong> 메인페이지로 이동하여 자세한 사항을 확인하세요</p>
                 <a class="btn btn-success btn-sm" href="${commonURL}/">도메인이동</a>
             </div>
@@ -158,13 +154,14 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form name="myform" method="get"
+                    <form name="myform2" method="get"
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2" name="keyword" id="keyword" value="<%=keyword %>">
+                                aria-label="Search" aria-describedby="basic-addon2" name="keyword2" id="keyword2" value="<%=keyword2 %>"
+                                onkeydown="naventerkey();">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button" onclick="goSearch()">
+                                <button class="btn btn-primary" type="button" onclick="goMainSearch()">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -395,7 +392,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Made By HJ &copy; FLIXPEDIA 2022</span>
                     </div>
                 </div>
             </footer>
@@ -452,10 +449,6 @@
 
 </html>
 <script>
-function goMain()
-{
-	location.href="${commonURL}/admin/adminhome";	//페이지 이동	
-}
 
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
@@ -622,22 +615,4 @@ var myLineChart = new Chart(ctx, {
     }
   }
 });
-
-function goSearch(){
-   var queryString = $("form[name=myform]").serialize();
-   $.ajax({
-      url:"${commonURL}/searchurl",
-      data:queryString,
-      type:"POST",
-      dataType:"text"
-   })
-   .done( (result)=>{
-	   console.log("${commonURL}"+result);
-	   location.href="${commonURL}"+result;
-   })
-   .fail( (error)=>{
-	   location.href="${commonURL}/notfound";
-   })
-}
-
 </script>

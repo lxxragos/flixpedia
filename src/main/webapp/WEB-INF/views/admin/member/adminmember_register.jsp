@@ -85,13 +85,13 @@ AdminMemberDto dto = (AdminMemberDto)request.getAttribute("adminmemberDto");
                                 </div>
                              <%} %>
                              
-                                <div class="form-group">
+                                <div class="form-group main i">
                                     <input type="password" class="form-control form-control-user" name="password" id="password" 
                                         placeholder="password" value="<%=dto.getPassword()%>">
                                         <i class="fa fa-eye fa-lg"></i>
                                     <p style="font-size: 11px">비밀번호는 영문 대소문자와 숫자 4~12자리로 입력하세요</p>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group main i">
                                     <input type="password" class="form-control form-control-user" name="pwd_ck" id="pwd_ck" 
                                         placeholder="password check" value="<%=dto.getPassword()%>">
                                         <i class="fa fa-eye fa-lg"></i>

@@ -44,6 +44,7 @@
 		<mapper resource=	"/com/semi/flix/mapper/Comment.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Drama.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Animation.xml"/>
+		<mapper resource=	"/com/semi/flix/mapper/Movie.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Search.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Visit.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Q_A.xml"/>

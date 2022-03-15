@@ -42,7 +42,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">FLIXPEDIA-admin</div>
+                <div class="sidebar-brand-text mx-3"><strong>FLIXPEDIA-admin</strong></div>
             </a>
 
             <!-- Divider -->
@@ -132,7 +132,7 @@
 
             <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
+                <img class="sidebar-card-illustration mb-2" style="width:150px; height:auto; "src="<%=request.getContextPath()%>/resources/admin/img/logo.png" alt="...">
                 <p class="text-center mb-2"><strong>FLIXPEDIA</strong> 메인페이지로 이동하여 자세한 사항을 확인하세요</p>
                 <a class="btn btn-success btn-sm" href="${commonURL}/">도메인이동</a>
             </div>
@@ -153,20 +153,6 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
-                    <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -315,7 +301,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Made By HJ &copy; FLIXPEDIA 2022</span>
                     </div>
                 </div>
             </footer>
@@ -436,11 +422,6 @@
 		frm.action="<%=request.getContextPath()%>/admin/enterboard/save";
 		frm.method="post";
 		frm.submit(); //서버로 전송하기
-	}
-	
-	function goMain()
-	{
-		location.href="${commonURL}/admin/adminhome";		
 	}
 	
 	function readURL(input) {
