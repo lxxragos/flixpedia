@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.semi.flix.Visit.VisitService;
+import com.semi.flix.Visit.*;
 
 @Controller
 public class MemberController {
@@ -102,10 +103,13 @@ public class MemberController {
 				session.setAttribute("email", resultDto.getEmail());
 				session.setAttribute("phone", resultDto.getPhone());
 				
-				if(visitService.getVisit_count()==0)
-					visitService.insert();
+				//방문자 카운터 - 로그인 했을때 
+				//만약 방문자가 wdate에 널이라면 값을 넣어주고
+				if(visitService.getTotal(null)==0)
+					visitService.insert(null);
+				//널이 아니라면 wdate+1로 업데이트 해준다.
 				else
-					visitService.update();
+					visitService.update(null);
 			}
 			else
 			{

@@ -9,9 +9,11 @@
 	<typeAliases>
     	
    <typeAlias alias="DramaDto" type="com.semi.flix.drama.DramaDto"/>
-   <typeAlias alias="MemberDto" type="com.semi.flix.member.MemberDto"/>	
-   <typeAlias alias="VisitDto" type="com.semi.flix.visit.VisitDto"/>	
+   <typeAlias alias="MemberDto" type="com.semi.flix.member.MemberDto"/>
+   <typeAlias alias="Q_A_DTO" type="com.semi.flix.Q_A.Q_A_DTO"/>	
+   <typeAlias alias="VisitDto" type="com.semi.flix.Visit.VisitDto"/>	
    <typeAlias alias="AdminMemberDto" type="com.semi.flix.admin.member.AdminMemberDto"/>
+   <typeAlias alias="AdminBoardDto" type="com.semi.flix.admin.board.AdminBoardDto"/>
 
    <typeAlias alias="MovieBoardDto" type="com.semi.flix.admin.movieboard.MovieBoardDto"/>
    <typeAlias alias="ToonBoardDto" type="com.semi.flix.admin.toonboard.ToonBoardDto"/>
@@ -21,6 +23,8 @@
    <typeAlias alias="UserDto" type="com.semi.flix.admin.user.UserDto"/>
    <typeAlias alias="ReviewDto" type="com.semi.flix.admin.review.ReviewDto"/>
    <typeAlias alias="MailDto" type="com.semi.flix.admin.mail.MailDto"/>
+   <typeAlias alias="AdminQ_ADto" type="com.semi.flix.admin.adminQ_A.AdminQ_ADto"/>
+   <typeAlias alias="CommentDto" type="com.semi.flix.admin.comment.CommentDto"/>
    
 
     	
@@ -31,7 +35,9 @@
 		<mapper resource=	"/com/semi/flix/mapper/Drama.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Member.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Visit.xml"/>
+		<mapper resource=	"/com/semi/flix/mapper/Q_A.xml"/>
 		<mapper resource=	"/com/semi/flix/admin/mapper/AdminMember.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/AdminBoard.xml"/>
 
 		<mapper resource=	"/com/semi/flix/admin/mapper/MovieBoard.xml"/>
 		<mapper resource=	"/com/semi/flix/admin/mapper/ToonBoard.xml"/>
@@ -41,6 +47,8 @@
 		<mapper resource=	"/com/semi/flix/admin/mapper/User.xml"/>
 		<mapper resource=	"/com/semi/flix/admin/mapper/Review.xml"/>
 		<mapper resource=	"/com/semi/flix/admin/mapper/Mail.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/AdminQ_A.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/Comment.xml"/>
 		
 	</mappers>
 	

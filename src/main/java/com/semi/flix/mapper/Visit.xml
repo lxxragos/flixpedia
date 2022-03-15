@@ -15,4 +15,8 @@
 	<select id="Visit_update" parameterType="VisitDto">
 		update tb_visit_count set visit_count = visit_count+1 where wdate=date_format(now(), '%Y-%m-%d');
 	</select>
+	
+	<select id="Visit_month" resultType="VisitDto">
+	select DATE_FORMAT(wdate, '%m') as month, sum(visit_count) as m_cnt from tb_visit_count group by month;
+	</select>
 </mapper>

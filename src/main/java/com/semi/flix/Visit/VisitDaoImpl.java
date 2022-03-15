@@ -1,5 +1,7 @@
 package com.semi.flix.Visit;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,6 +26,11 @@ public class VisitDaoImpl implements VisitDao {
 	@Override
 	public void update(VisitDto dto) {
 		sm.update("Visit_update", dto);
+	}
+
+	@Override
+	public List<VisitDto> getMonth() {
+		return sm.selectList("Visit_month");
 	}
 	
 

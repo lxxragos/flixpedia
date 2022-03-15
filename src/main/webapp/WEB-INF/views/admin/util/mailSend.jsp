@@ -73,9 +73,11 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">게시판 관리:</h6>
+
                         <a class="collapse-item" href="${commonURL}/admin/board/writemain">게시글 업로드</a>
                         <a class="collapse-item" href="${commonURL}/admin/board/listmain">게시글 수정/삭제</a>
-                        <a class="collapse-item" href="${commonURL}/admin/board/avgmain">평점 관리</a>
+                        <a class="collapse-item" href="${commonURL}/admin/review/list">평점 관리</a>
+
                     </div>
                 </div>
             </li>
@@ -92,7 +94,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">회원 관리:</h6>
                         <a class="collapse-item" href="${commonURL}/admin/user/list">회원정보관리</a>
-                        <a class="collapse-item" href="utilities-other.html">고객센터</a>
+                        <a class="collapse-item" href="${commonURL}/admin/q_a/list">고객센터</a>
                     </div>
                 </div>
             </li>
@@ -115,8 +117,7 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">기타 기능 관리:</h6>
-                        <a class="collapse-item" href="login.html">광고메일전송</a>
-                        <a class="collapse-item" href="register.html">고객센터</a>
+                        <a class="collapse-item" href="${commonURL}/admin/list">광고메일전송</a>
                     </div>
                 </div>
             </li>
@@ -391,7 +392,7 @@
 			frm.content.focus();
 			return false;
 		}
-		frm.action="${commonURL}/sendMail"
+		frm.action="${commonURL}/admin/sendMail"
 		frm.method="post";
 		frm.submit(); //서버로 전송하기
 		
@@ -401,7 +402,7 @@
 	$(()=>{
 		$("#btnfind").click(()=>{
 			$.ajax({
-				url:"${commonURL}/find",	//요청 url정보
+				url:"${commonURL}/admin/find",	//요청 url정보
 				data:{email:$("#email1").val()},	//서버로 전달할 데이터 정보 : JSON형태
 				dataType:"json",	//결과를 json으로 받겠다. 이렇게 안하면 결과값이 text로 온다.
 				type:"POST"

@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.semi.flix.Visit.VisitDto;
+import com.semi.flix.Visit.VisitService;
+import com.semi.flix.admin.adminQ_A.AdminQ_ADto;
+import com.semi.flix.admin.adminQ_A.AdminQ_AService;
 import com.semi.flix.admin.mail.MailDto;
 
 import javax.mail.internet.MimeMessage;
@@ -74,6 +78,10 @@ public class AdminMemberController {
 
 	@Resource(name="adminmemberService")
 	AdminMemberService adminmemberService;
+	@Resource(name="visitService")
+	VisitService visitService;
+	@Resource(name="adminQ_AService")
+	AdminQ_AService q_a_Service;
 	
 	@RequestMapping("/admin/adminmember/join")
 	String adminmember_register(Model model)
@@ -244,11 +252,14 @@ public class AdminMemberController {
 	   }
 	
 	@RequestMapping(value="/admin/adminhome", method=RequestMethod.GET)
-	   public String adminmember_home(Model model, AdminMemberDto dto)
+	   public String adminmember_home(Model model, AdminMemberDto dto, VisitDto dto2, AdminQ_ADto dto3)
 	   {
+		  model.addAttribute("totalCnt", visitService.getTotal(dto2));
 		  model.addAttribute("cnt", adminmemberService.cnt(dto));
 		  model.addAttribute("user", adminmemberService.user(dto));
 		  model.addAttribute("category", adminmemberService.category(dto));
+		  model.addAttribute("dataList", visitService.getMonth());
+		  model.addAttribute("q_a_cnt", q_a_Service.getTotal(dto3));
 	      return "/admin/adminhome";
 	   }
 	@RequestMapping("/admin/adminmember/juso")
