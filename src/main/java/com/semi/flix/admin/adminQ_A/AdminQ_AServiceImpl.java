@@ -7,8 +7,8 @@ import javax.annotation.Resource;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.semi.flix.admin.comment.CommentDto;
-import com.semi.flix.admin.comment.CommentDao;
+import com.semi.flix.admin.admincomment.AdminCommentDao;
+import com.semi.flix.admin.admincomment.AdminCommentDto;
 
 @Service("adminQ_AService")
 public class AdminQ_AServiceImpl implements AdminQ_AService{
@@ -38,27 +38,27 @@ public class AdminQ_AServiceImpl implements AdminQ_AService{
 		
 	}
 
-	@Resource(name="commentDao")
-	CommentDao commentDao;
+	@Resource(name="admincommentDao")
+	AdminCommentDao admincommentDao;
 	
 	@Override
-	public CommentDto getCommentView(CommentDto dto) {
-		return commentDao.comment_getView(dto);
+	public AdminCommentDto getCommentView(AdminCommentDto dto) {
+		return admincommentDao.comment_getView(dto);
 	}
 	
 	@Override
-	public void comment_delete(CommentDto dto) {
-		commentDao.comment_delete(dto);
+	public void comment_delete(AdminCommentDto dto) {
+		admincommentDao.comment_delete(dto);
 		
 	}
 	@Override
-	public void comment_insert(CommentDto dto) {
-		commentDao.insert(dto);
+	public void comment_insert(AdminCommentDto dto) {
+		admincommentDao.insert(dto);
 		
 	}
 	@Override
-	public List<CommentDto> getCommentList(CommentDto dto) {
-		return commentDao.getList(dto);
+	public List<AdminCommentDto> getCommentList(AdminCommentDto dto) {
+		return admincommentDao.getList(dto);
 	}
 
 }

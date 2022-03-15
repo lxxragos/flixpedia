@@ -170,13 +170,13 @@ public class MemberController {
 				session.setAttribute("nickname", resultDto.getNick_name());
 				session.setAttribute("userimage", resultDto.getUser_images());
         
-				if(visitService.getVisit_count()==0)
-					visitService.insert();
+				if(visitService.getTotal(null)==0)
+					visitService.insert(null);
 				//만약 방문자가 wdate에 널이라면 값을 넣어주고
 				//방문자 카운터 - 로그인 했을때 
 				//널이 아니라면 wdate+1로 업데이트 해준다.
 				else
-					visitService.update();
+					visitService.update(null);
 
 			}
 			else

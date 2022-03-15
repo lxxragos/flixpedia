@@ -1,8 +1,8 @@
-package com.semi.flix.admin.comment;
+package com.semi.flix.admin.admincomment;
 
 import com.semi.flix.admin.common.AdminBaseDto;
 
-public class CommentDto extends AdminBaseDto{
+public class AdminCommentDto extends AdminBaseDto{
 	
 	private String seq="";
 	private String title="";

@@ -31,6 +31,7 @@ public class VisitServiceImpl implements VisitService{
 		return visitDao.getMonth();
 	}
 
+
 		
 }
 
