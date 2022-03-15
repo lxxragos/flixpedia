@@ -1,7 +1,6 @@
 <%@page import="com.semi.flix.common.StringUtil"%>
 <%@page import="com.semi.flix.member.MemberDto"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" pageEncoding="utf-8"%>
 <%
 request.setAttribute("commonURL", request.getContextPath());
 
@@ -86,7 +85,8 @@ request.setAttribute("commonURL", request.getContextPath());
 					</div>
 					
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="주소" id=address1 name="address1" readonly="readonly">
+
+						<input type="text" class="sign__input" placeholder="주소" id="address1" name="address1" readonly="readonly">
 					</div>
 					
 					<div class="sign__group">
@@ -163,12 +163,14 @@ function goPopup()
 	
 	}
 
+
 function jusoCallBack(address1,address2, zipcode)
 {
 		document.form.address1.value = address1;
 		document.form.address2.value = address2;
 		document.form.zipcode.value = zipcode;
 	}
+
 	
 function goWrite() 
 {

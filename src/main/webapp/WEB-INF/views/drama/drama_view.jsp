@@ -3,8 +3,8 @@
 <%@page import="com.semi.flix.common.Pager"%>
 <%@page import="com.semi.flix.drama.DramaDto"%>
 <%@page import="com.semi.flix.common.StringUtil"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">

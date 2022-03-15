@@ -20,17 +20,19 @@ import com.semi.flix.animation.AnimationDto;
 import com.semi.flix.comment.CommentDto;
 import com.semi.flix.common.FileUploadUtil;
 
+
 @Controller
 public class MemberController {
 	
 	@Resource(name="memberService")
 	MemberService memberService;
 	
-	//회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싱듸옙
+
+	//�쉶�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�떛�벝�삕
 	@RequestMapping("member/signup")
 	String signup() {
 		return "member/signup";
-		//src/main/webapp/WEB-INF/view/test.jsp占쏙옙 占쏙옙占쏙옙占쏙옙
+		//src/main/webapp/WEB-INF/view/test.jsp�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕
 	}
 	@RequestMapping("member/myinfo")
 	String myinfo(Model model,MemberDto dto) {
@@ -39,17 +41,19 @@ public class MemberController {
 		MemberDto resultDto = memberService.getInfo(dto);
 		model.addAttribute("memberDto", resultDto);
 		return "member/myinfo";
-		//src/main/webapp/WEB-INF/view/test.jsp占쏙옙 占쏙옙占쏙옙占쏙옙
+		//src/main/webapp/WEB-INF/view/test.jsp�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕
 	}
 	
-	//占쌍쇽옙 占쌉뤄옙 占싯억옙창
+	//�뜝�뙇�눦�삕 �뜝�뙃琉꾩삕 �뜝�떙�뼲�삕李�
 	@RequestMapping("/member/jusoPopup")
 	String jusoPopup() {
 		return "member/jusoPopup";
-		//src/main/webapp/WEB-INF/view/test.jsp占쏙옙 占쏙옙占쏙옙占쏙옙
+		//src/main/webapp/WEB-INF/view/test.jsp�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕
 	}
+
 	
-	//회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
+	
+
 	@RequestMapping(value="/member/insert", method=RequestMethod.POST)
 	String member_insert(MemberDto dto, HttpServletRequest req, MultipartHttpServletRequest multi )
 	{
@@ -79,13 +83,13 @@ public class MemberController {
 	{
 		MemberDto resultDto = memberService.getInfo(dto);
 		if(dto.getUser_images().equals(resultDto.getUser_images())) {
-			System.out.println("디티오 : " +dto.getUser_images()+","+dto.getNick_name());
+			System.out.println("�뵒�떚�삤 : " +dto.getUser_images()+","+dto.getNick_name());
 			
 			memberService.update(dto);
 			
-			System.out.println("_________________________________________이미지 변경 사항 없음");
+			System.out.println("_________________________________________�씠誘몄� 蹂�寃� �궗�빆 �뾾�쓬");
 		}else {
-			System.out.println("______________________________________이미지 변경 사항 있음");
+			System.out.println("______________________________________�씠誘몄� 蹂�寃� �궗�빆 �엳�쓬");
 			
 		List<MultipartFile> multiList = new ArrayList<MultipartFile>();
 		multiList.add(multi.getFile("upload"));
@@ -113,9 +117,11 @@ public class MemberController {
 		return "/home";
 	}
 	
-	//占쏙옙占싱듸옙 占쌩븝옙확占쏙옙
+
+	//�뜝�룞�삕�뜝�떛�벝�삕 �뜝�뙥釉앹삕�솗�뜝�룞�삕
 	@RequestMapping("/member/isDuplicate")
 	@ResponseBody 
+
 	public HashMap<String, String> member_isDuplicate(MemberDto dto)
 	{
 		System.out.println("userid : " + dto.getUser_id());
@@ -127,20 +133,17 @@ public class MemberController {
 		return map;
 	}
 	
-	
-	//占싸깍옙占쏙옙
 	@RequestMapping(value="/member/signin")
 	public String member_login()
 	{
 		return "member/signin";
 	}
-	
-	//占싸깍옙占쏙옙 占쌜듸옙
+  
 	@RequestMapping(value="/member/login_proc")
 	@ResponseBody
 	public HashMap<String, String> member_login_proc(MemberDto dto, HttpServletRequest request)
 	{
-		
+
 		HttpSession session = request.getSession();
 		
 		MemberDto resultDto = memberService.getInfo(dto);
@@ -156,13 +159,16 @@ public class MemberController {
 		{
 			if(resultDto.getPassword().equals(dto.getPassword()))
 			{
-				map.put("flag", "1"); //占싸그울옙 占쏙옙占쏙옙占쏙옙 占쏙옙占실울옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싼댐옙 
+
+				map.put("flag", "1"); //�뜝�떥洹몄슱�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�떎�슱�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�떬�뙋�삕 
 				session.setAttribute("userid", resultDto.getUser_id());
 				session.setAttribute("username", resultDto.getName());
 				session.setAttribute("userseq", resultDto.getUser_seq());
 				session.setAttribute("nickname", resultDto.getNick_name());
 				session.setAttribute("userimage", resultDto.getUser_images());
+        
 				
+
 			}
 			else
 			{
@@ -173,33 +179,30 @@ public class MemberController {
 		
 		return map;
 	}
-	
-	//占싸그아울옙
+
 	@RequestMapping(value="/member/logout")
 	public String member_logout(HttpServletRequest request)
 	{
 	
 		HttpSession session = request.getSession();
+
 		session.invalidate(); 
-		
+
 		return "redirect:/";
 	}
-	
-	//占쏙옙占싱듸옙 찾占쏙옙 占쏙옙占쏙옙占쏙옙 占싱듸옙 
+
 	@RequestMapping(value="/member/findid")
 	public String member_findid()
 	{	
 		return "member/member_findid";
 	}
-	
-	//占쏙옙占시ｏ옙占� 占쏙옙占쏙옙占쏙옙 占싱듸옙
+
 	@RequestMapping(value="/member/findpassword")
 	public String member_findpassword()
 	{	
 		return "member/member_findpassword";
 	}
-	
-	//占쏙옙橘占싫Ｃｏ옙占�
+
 	@RequestMapping(value="/member/findpass_proc")
 	@ResponseBody
 	public HashMap<String, String> member_findpass_proc(MemberDto dto)
@@ -216,8 +219,7 @@ public class MemberController {
 		}
 		return map;
 	}
-	
-	//占쏙옙占싱듸옙찾占쏙옙
+
 	@RequestMapping(value="/member/findid_proc")
 	@ResponseBody
 	public HashMap<String, String> member_findid_proc(MemberDto dto)

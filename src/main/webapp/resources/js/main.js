@@ -63,7 +63,7 @@ $(document).ready(function () {
 		loop: true,
 		autoplay: false,
 		smartSpeed: 600,
-		margin: 0,
+		margin: 30,
 		responsive : {
 			0 : {
 				items: 5,
@@ -130,7 +130,7 @@ $(document).ready(function () {
     loop: true,
     autoplay: false,
     smartSpeed: 600,
-    margin: 0,
+    margin: 30,
     responsive: {
       0: {
         items: 2,
@@ -432,7 +432,7 @@ $(document).ready(function () {
 	  });
 	  $(window).trigger("resize");
 
-	  /*==============================
+	/*==============================
 	enter
 	==============================*/
 	$(".enter__bg").owlCarousel({
@@ -860,32 +860,32 @@ $(document).ready(function () {
 	$(window).on('load', initializeSecondSlider());
 
 	/*3*/
-	function initializeThirdSlider() {
-	if ($('#slider__rating').length) {
-		var thirdSlider = document.getElementById('slider__rating');
-		noUiSlider.create(thirdSlider, {
-			range: {
-				'min': 0,
-				'max': 10
-			},
-			connect: [true, false],
-			step: 0.1,
-			start: 8.6,
-			format: wNumb({
-				decimals: 1,
-			})
-		});
+   function initializeThirdSlider() {
+   if ($('#slider__rating').length) {
+      var thirdSlider = document.getElementById('slider__rating');
+      noUiSlider.create(thirdSlider, {
+         range: {
+            'min': 0,
+            'max': 10
+         },
+         connect: [true, false],
+         step: 0.1,
+         start: 8.6,
+         format: wNumb({
+            decimals: 1,
+         })
+      });
 
-		var thirdValue = document.getElementById('form__slider-value');
+      var thirdValue = document.getElementById('form__slider-value');
 
-		thirdSlider.noUiSlider.on('update', function( values, handle ) {
-			thirdValue.innerHTML = values[handle];
-			document.getElementById('form__slider-value').value=thirdValue.innerHTML;
-		});
-	} else {
-		return false;
-	}
-	return false;
+      thirdSlider.noUiSlider.on('update', function( values, handle ) {
+         thirdValue.innerHTML = values[handle];
+         document.getElementById('form__slider-value').value=thirdValue.innerHTML;
+      });
+   } else {
+      return false;
+   }
+   return false;
 }
 $(window).on('load', initializeThirdSlider());
 });
