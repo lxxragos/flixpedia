@@ -28,6 +28,7 @@
    <typeAlias alias="UserDto" type="com.semi.flix.admin.user.UserDto"/>
    <typeAlias alias="ReviewDto" type="com.semi.flix.admin.review.ReviewDto"/>
    <typeAlias alias="MailDto" type="com.semi.flix.admin.mail.MailDto"/>
+    	<typeAlias alias="EnterDto" type="com.semi.flix.enter.EnterDto"/>
     	
 	</typeAliases>
 
@@ -39,6 +40,8 @@
 		<mapper resource=	"/com/semi/flix/mapper/Drama.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Animation.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Search.xml"/>
+		<mapper resource=	"/com/semi/flix/mapper/Movie.xml"/>
+		<mapper resource=	"/com/semi/flix/mapper/Enter.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Visit.xml"/>
 		<mapper resource=	"/com/semi/flix/admin/mapper/AdminMember.xml"/>
 		<mapper resource=	"/com/semi/flix/admin/mapper/MovieBoard.xml"/>

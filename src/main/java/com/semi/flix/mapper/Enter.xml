@@ -3,42 +3,36 @@
 	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="Drama">
+<mapper namespace="Entertain">
 
-	<select id="Drama_getList" parameterType="DramaDto" resultType="DramaDto">
-   select board_seq,
-				genre_code,
-				drama_title,
-				drama_content,
-				drama_images,
-				drama_producer,
-				drama_hit,
-				drama_url,
-				drama_avg_ratings,
-				drama_productionyear,
-				wdate,
-				drama_agelimit, 
-				rnum,
-                category_code,
-				ifnull((select round(avg(star_point),2) from review_tbl B where A.board_seq =B.board_seq and A.category_code=B.category_code),0) as star_avg 
-		from 
+	<!-- 쿼리를 xml로 작성하고 id:식별값  
+		  parameterType:우리가 전달할값 
+	     resultType : 받아오는값  -->
+	     
+	<!-- if test="key=='1'"  - 이렇게 쓰면 안된다 인식안된다 -->
+	
+	 
+	<select id="Entertain_getList" parameterType="EnterDto" resultType="EnterDto">
+		select A.*, 
+		ifnull((select round(avg(star_point),2) from review_tbl B 
+		where A.board_seq =B.board_seq and A.category_code=B.category_code),0) as star_avg 
+ 
+		from
  		(
 	 		select
 				board_seq,
+				category_code,
 				genre_code,
-				drama_title,
-				drama_content,
-				drama_images,
-				drama_producer,
-				drama_hit,
-				drama_url,
-				drama_avg_ratings,
-				drama_productionyear,
-				wdate,
-				drama_agelimit,
-                category_code,
+				enter_title,
+				enter_producer,
+				enter_content,
+				enter_images,
+				enter_hit,
+				enter_productionyear,
+				enter_agelimit,
+				enter_url,
 			    @rownum := @rownum+1 AS rnum
-				from drama_tbl, (select @rownum:=0) B		
+				from entertain_tbl A, (select @rownum:=0) B
 				
 				<if test='key!=null'>
 	
@@ -73,11 +67,11 @@
 			order by board_seq desc
 		) A
 		   
-		limit 0, 10   
+		limit #{start}, #{pageSize}   
 	</select>
 	
-	<select id="Drama_getTotal" parameterType="DramaDto" resultType="Integer">
-		select count(*) from drama_tbl 
+	<select id="Entertain_getTotal" parameterType="EnterDto" resultType="Integer">
+		select count(*) from entertain_tbl 
 		<if test='key!=null'>
 	
 					<if test='key=="0"'>
@@ -103,17 +97,33 @@
 					</if>
 					<if test='key=="7"'>
 					</if>
+				
+				
 				</if> 
+		
 	</select>
-	
-	<select id="Drama_getView" parameterType="DramaDto" resultType="DramaDto">
+	 
+	 <select id="Entertain_getView" parameterType="EnterDto" resultType="EnterDto">
 	 	select A.*,
 	 	ifnull((select round(avg(star_point),2) from review_tbl B where A.board_seq =B.board_seq and A.category_code=B.category_code),0) as star_avg
 	 	
-	 	 from drama_tbl A  where board_seq=#{board_seq}
+	 	 from entertain_tbl A where board_seq=#{board_seq}
 	 </select>
 	
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
