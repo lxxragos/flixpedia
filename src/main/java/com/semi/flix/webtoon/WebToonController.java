@@ -18,7 +18,7 @@ public class WebToonController {
 	@Resource(name = "webtoonService")
 	WebtoonService service;
 
-	// �쎒�댆 紐⑸줉 �럹�씠吏� �씠�룞
+	// 占쎌럲占쎈뙀 筌뤴뫖以� 占쎈읂占쎌뵠筌욑옙 占쎌뵠占쎈짗
 	@RequestMapping("/webtoon/list")
 	String webtoon_list(Model model, WebtoonDto dto) {
 		dto.setPageSize(12);
@@ -36,7 +36,7 @@ public class WebToonController {
 		return "webtoon/webtoon_list";
 	}
 
-	// �쎒�댆 �긽�꽭蹂닿린 �럹�씠吏�
+	// 占쎌럲占쎈뙀 占쎄맒占쎄쉭癰귣떯由� 占쎈읂占쎌뵠筌욑옙
 	@RequestMapping("/webtoon/view")
 	String webtoon_view(WebtoonDto dto, CommentDto Cdto, Model model) {
 

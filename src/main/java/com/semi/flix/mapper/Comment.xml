@@ -13,6 +13,7 @@
 			board_seq,
 			content,
 			wdate,
+			nick_name,
 			star_point,
 			category_code
 		)
@@ -22,7 +23,7 @@
 	
 	
 	<select id="Comment_getList" parameterType="CommentDto"  resultType="CommentDto">
-	 select A.*,user_images,nick_name 
+	 select A.*,user_images,u.nick_name 
 	 	from user u join review_tbl A on A.user_seq=u.user_seq 
 	 		where A.board_seq=#{board_seq} and A.category_code=#{category_code}
 	 		order by review_seq desc
@@ -38,7 +39,7 @@
 		delete from review_tbl where review_seq=#{review_seq}
 	</delete> 
 	
-	<!-- 
+	 
 	<select id="Comment_getView" parameterType="CommentDto"  resultType="CommentDto">
 	select 
 			A.userid, comment, A.wdate, A.id, username, board_id
@@ -49,7 +50,7 @@
 	
 	<update id="Comment_update" parameterType="CommentDto">
 		update tb_comment set comment = #{comment} where id=#{comment_id}
-	</update>-->
+	</update>
 	
 		
 </mapper>

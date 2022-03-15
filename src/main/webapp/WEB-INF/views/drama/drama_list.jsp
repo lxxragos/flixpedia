@@ -14,11 +14,15 @@
 	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
 </head>
 <body class="body">
+
 	<%
-	String key = StringUtil.nullToValue(request.getParameter("key"), "7");
+	request.setAttribute("commonURL", request.getContextPath());
+	String key = StringUtil.nullToValue(request.getParameter("key"), "1");
 	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
 	int totalCnt = (Integer)request.getAttribute("totalCnt");
+	%>
+	<%
 	List<DramaDto> list =(List<DramaDto>)request.getAttribute("dramaList");
 	%>
 	<%@include file="../include/header.jsp" %>
@@ -45,13 +49,11 @@
 		</div>
 	</section>
 	<!-- end page title -->
-<form name="myform" method="get">
-	<input type="hidden" name="pg"  id="pg" value="<%=pg%>"/>
-	<input type="hidden" name="key" id="key" value="<%=key%>"/>
-	<input type="hidden" name="board_seq"  id="board_seq" value=""/>
-	<input type="hidden" name="category_code"  id="category_code" value=""/>
 	
-	
+	<form name="myform" method="get">
+		<input type="hidden" name="pg"  id="pg" value="<%=pg%>"/>
+		<input type="hidden" name="key" id="key" value="<%=key%>"/>
+		<input type="hidden" name="board_seq"  id="board_seq" value=""/>
 		<!-- filter -->
 		<div class="filter">
 			<div class="container">
@@ -106,7 +108,11 @@
 					<!-- card -->
 					
 					
-					<%for(DramaDto dto : list){%>
+					<%for(DramaDto dto : list){
+					System.out.println("-------------번 호-----------------"+dto.getBoard_seq());
+					System.out.println("-------------제 목------------------"+dto.getDrama_title());
+					System.out.println("-------------이미지----------------"+dto.getDrama_images());
+					%>
 					<div class="col-6 col-sm-4 col-lg-3 col-xl-2">
 						<div class="card">
 							<div class="card__cover">
@@ -175,7 +181,6 @@ window.onload=function(){
 	
 	document.getElementById("searchItem").value=texts[key];
 }
-
 function changeSearch(id)
 {
 	var texts=["Action", "Romance", "Comedy", "Thriller/Crime", "Horror","Fantasy","Drama","전체"];
@@ -183,7 +188,6 @@ function changeSearch(id)
 	document.getElementById("key").value=id;//컨트롤러로 넘기기 위해서
 	
 }
-
 function goSearch(){
 	let frm = document.myform;
 	frm.pg.value=0;
@@ -191,18 +195,15 @@ function goSearch(){
 	frm.method="get";
 	frm.submit();
 }
-
 function goView(id)
 {
 	
 	frm = document.myform;
 	frm.board_seq.value=id;///////////
-	frm.category_code.value="02";
 	frm.method="get";
 	frm.action="${pageContext.request.contextPath}/drama/view";
 	frm.submit();
 }
-
 function goPage(pg)
 {
 	frm = document.myform;
@@ -211,7 +212,4 @@ function goPage(pg)
 	frm.action="${pageContext.request.contextPath}/drama/list";
 	frm.submit();
 }
-
-
-
 </script>

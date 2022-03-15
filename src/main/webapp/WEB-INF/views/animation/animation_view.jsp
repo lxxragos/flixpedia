@@ -5,8 +5,7 @@
 <%@page import="com.semi.flix.comment.CommentDto"%>
 <%@page import="com.semi.flix.animation.AnimationDto"%>
 <%@page import="com.semi.flix.common.StringUtil"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java"   pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">

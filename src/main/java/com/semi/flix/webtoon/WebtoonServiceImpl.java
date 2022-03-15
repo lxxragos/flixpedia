@@ -59,7 +59,7 @@ public class WebtoonServiceImpl implements WebtoonService {
 
 	
 	
-	//댓글
+	//�뙎湲�
 	
 	
 	

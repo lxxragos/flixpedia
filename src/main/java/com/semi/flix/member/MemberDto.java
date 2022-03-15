@@ -88,9 +88,8 @@ public class MemberDto {
 	public String getUser_images() {
 		return user_images;
 	}
-	public void setUser_images(String user_images) {
-		this.user_images = user_images;
-	}
+
+
 	public MemberDto(String user_seq, String name, String user_id, String password, String nick_name, String email,
 			String phone, String wdate, String address1, String address2, String zipcode) {
 		super();
@@ -110,5 +109,6 @@ public class MemberDto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 
 }
