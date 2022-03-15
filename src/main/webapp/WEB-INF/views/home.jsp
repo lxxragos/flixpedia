@@ -24,6 +24,7 @@
 	<%
 	List<DramaDto> dramaList =(List<DramaDto>)request.getAttribute("dramaList"); 
 	dramaList = dramaList==null ? new ArrayList<DramaDto>() : dramaList;
+	
 	List<MovieDto> movieList =(List<MovieDto>)request.getAttribute("movieList");
 	movieList = movieList==null ? new ArrayList<MovieDto>() : movieList;
 	List<WebtoonDto> webtoonList =(List<WebtoonDto>)request.getAttribute("webtoonList");
@@ -32,7 +33,6 @@
 	aniList = aniList==null ? new ArrayList<AnimationDto>() : aniList;
 	%>
 
-	
 <!-- **************************************************영화 카졸********************************************************** -->
 <form id="movieForm" name="movieForm" >
 	<input type="hidden" name="board_seq" value=""/>
@@ -136,7 +136,7 @@
 							<!-- card -->
 							<div class="card card--big">
 								<div class="card__cover" onclick="goView('<%=tempDto.getBoard_seq()%>')">
-									<img src="<%=request.getContextPath() %>/resources/drama_images/<%=tempDto.getDrama_images()%>" alt="">
+									<img src="<%=request.getContextPath() %>/resources/drama_img/<%=tempDto.getDrama_images()%>" alt="">
 									<a href="#" class="card__play">
 										<i class="icon ion-ios-play"></i>
 									</a>
@@ -227,9 +227,11 @@
 <!-- ************************************************예능 카졸 끝************************************************************ -->
 
 <!-- ************************************************ 웹툰 카졸 ************************************************************ -->
+	<form id="webtoonForm" name="webtoonForm" >
+	<input type="hidden" name="board_seq" value=""/>
 	<section class="webtoon" style="margin-top:0px; padding-top: 50px;">
 		<!-- 카졸 백그라운드 이미지 webtoon bg -->
-		<div class="owl-carousel webtoon__bg">
+		<div class="owl-carousel drama__bg">
 			<div class="item webtoon__cover" data-bg="<%=request.getContextPath() %>/resources/img/home/home__bg.jpg"></div>
 			<div class="item webtoon__cover" data-bg="<%=request.getContextPath() %>/resources/img/home/home__bg2.jpg"></div>
 			<div class="item webtoon__cover" data-bg="<%=request.getContextPath() %>/resources/img/home/home__bg3.jpg"></div>
@@ -237,52 +239,56 @@
 		</div>
 		<!-- 카졸 백그라운드 이미지 끝end webtoon bg -->
 
-		<!-- webtoon 카졸 내용-->
+
+		<!-- webtoon 카졸 move-->
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
-					<h1 class="webtoon__title"><b>웹툰</b> webtoon</h1>
-					
-					<!-- webtoon 카졸 move-->
+					<h1 class="webtoon__title"><a href="${commonURL}/webtoon/list" style="color:white;"><b>웹툰</b>WEBTOON</a></h1>
 					<button class="webtoon__nav webtoon__nav--prev" type="button">
 						<i class="icon ion-ios-arrow-round-back"></i>
 					</button>
 					<button class="webtoon__nav webtoon__nav--next" type="button">
 						<i class="icon ion-ios-arrow-round-forward"></i>
 					</button>
-					<!-- webtoon 카졸 move end-->
 				</div>
-
-				<div class="col-12"> <!-- webtoon 카톨 content start-->
+				<div class="col-12">
 					<div class="owl-carousel webtoon__carousel">
-
-						<div class="item">
+				<!-- drama 카졸 move end-->
+							
+				<%						
+					for(WebtoonDto tempDto: webtoonList){
+				%>
+						<div class="item" style="width: 255px; margin-right: 80px;">
 							<!-- card -->
 							<div class="card card--big">
-								<div class="card__cover">
-									<img src="<%=request.getContextPath() %>/resources/img/covers/cover3.jpg" alt="">
+								<div class="card__cover" onclick="goView('<%=tempDto.getBoard_seq()%>')">
+									<img src="<%=request.getContextPath() %>/resources/webtoon_img/<%=tempDto.getToon_images()%>" alt="">
 									<a href="#" class="card__play">
-									
 										<i class="icon ion-ios-play"></i>
 									</a>
 								</div>
 								<div class="card__content">
-									<h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
+									<h3 class="card__title" onclick="goView('<%=tempDto.getBoard_seq()%>')"><a href="#"><%=tempDto.getToon_title() %></a></h3>
 									<span class="card__category">
-										<a href="#">Action</a>
-										<a href="#">Triler</a>
+										<a href="#"><%=tempDto.getGenre_code() %></a>
+										
 									</span>
-									<span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+									<span class="card__rate"><i class="icon ion-ios-star"></i><%=tempDto.getToon_hit() %></span>
 								</div>
 							</div>
 						</div>
 						<!-- end card -->
-
+				<%
+					}
+				%>
+						
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+	</form>
 	<!-- ************************************************ 웹툰 카졸 끝 ************************************************************ -->
 
 	<!-- ************************************************ 애니 카졸 시작 ************************************************************ -->

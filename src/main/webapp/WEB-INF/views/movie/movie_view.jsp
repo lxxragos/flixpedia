@@ -1,27 +1,30 @@
 
-<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
-<%@page import="com.semi.flix.common.Pager"%>
-<%@page import="java.util.List"%>
-<%@page import="com.semi.flix.comment.CommentDto"%>
-<%@page import="com.semi.flix.animation.AnimationDto"%>
 <%@page import="com.semi.flix.common.StringUtil"%>
-<%@ page language="java"   pageEncoding="utf-8"%>
+<%@page import="com.semi.flix.movie.*"%>
+<%@page import="com.semi.flix.comment.*"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<%@include file="../include/css.jsp" %>
-	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
+	<title>FlixPedia</title>
 </head>
 <body class="body">
-	<%
-	String key = StringUtil.nullToValue(request.getParameter("key"), "7");
-	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
-	int commentTotalCnt = (Integer)request.getAttribute("commentTotalCnt");
-	AnimationDto dto = (AnimationDto)request.getAttribute("animationDto");
-	List<CommentDto> list =(List<CommentDto>)request.getAttribute("commentList");
 	
+	<%
+	request.setAttribute("commonURL", request.getContextPath());
+	String key = StringUtil.nullToValue(request.getParameter("key"), "1");
+	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
+	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
+	int totalCnt = (Integer)request.getAttribute("totalCnt");
+	%>
+	
+	<%
+	int commentTotalCnt = (Integer)request.getAttribute("commentTotalCnt");
+	List<CommentDto> list =(List<CommentDto>)request.getAttribute("commentList");
+	MovieDto dto = (MovieDto)request.getAttribute("movieDto");
 	%>
 	<%@include file="../include/header.jsp" %>
 
@@ -29,17 +32,18 @@
 	
 	<!-- details -->
 	<section class="section details">
-
-	
+	<form name="myform">
+	<input type="hidden" name="board_seq"      value="<%=dto.getBoard_seq()%>" >
+	<input type="hidden" name="pg"      value="<%=pg%>" >
 		<!-- details background -->
-		<div class="details__bg" data-bg="${commonURL }/resources/img/home/home__bg.jpg"></div>
+		<div class="details__bg" data-bg="img/home/home__bg.jpg"></div>
 		<!-- end details background -->
 		<!-- details content -->
 		<div class="container">
 			<div class="row">
 				<!-- title -->
 				<div class="col-12">
-					<h1 class="details__title"><%=dto.getAni_title() %></h1>
+					<h1 class="details__title"><%=dto.getMovie_title() %></h1>
 				</div>
 				<!-- end title -->
 
@@ -50,7 +54,7 @@
 							<!-- card cover -->
 							<div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-5">
 								<div class="card__cover">
-									<img src="${commonURL}/resources/animation_img/<%=dto.getAni_images() %>" alt="">
+									<img src="${commonURL}/resources/movie_img/<%=dto.getMovie_images() %>" alt="">
 								</div>
 							</div>
 							<!-- end card cover -->
@@ -59,11 +63,11 @@
 							<div class="col-12 col-sm-8 col-md-8 col-lg-9 col-xl-7">
 								<div class="card__content">
 									<div class="card__wrap">
-										<span class="card__rate"><i class="icon ion-ios-star"></i><%=dto.getStar_avg() %></span>
+										<span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
 
 										<ul class="card__list">
-											<li><%=dto.getAni_agelimit() %></li>
-											
+											<li>화질정보 기능</li>
+											<li>연령등급 기능</li>
 										</ul>
 									</div>
 
@@ -85,15 +89,16 @@
 													<%}else if(dto.getGenre_code().equals("06")){ %>
 													<a href="#">Drama</a>
 													<%}%>
+													
+												
 										</li>
-										<li><span>출시년:</span> <%=dto.getAni_productionyear() %></li>
-										<li><span>작가:</span> <%=dto.getAni_author() %></li>
+										<li><span>출시연도:</span> 출시년</li>
+										<li><span>연출/각본:</span> <%=dto.getMovie_producer() %></li>
 									</ul>
 
 									<div class="card__description card__description--details">
-										<%=dto.getAni_content() %>
+										<%=dto.getMovie_content() %>
 									</div>
-								
 								</div>
 							</div>
 							<!-- end card content -->
@@ -105,10 +110,8 @@
 
 				<!-- player -->
 				<div class="col-12 col-xl-6">
-					<iframe width="560" height="315" src="<%=dto.getAni_url() %>"
-					title="YouTube video player" frameborder="0" 
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-					allowfullscreen></iframe>
+					<iframe width="560" height="315" src="<%=dto.getMovie_url() %>"
+					title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				</div>
 				<!-- end player -->
 
@@ -142,9 +145,10 @@
 				</div>
 			</div>
 		</div>
-		
+		</form>
 		<!-- end details content -->
-		
+	</section>
+	<!-- end details -->
 		<!-- content -->
 	<section class="content">
 		<div class="content__head">
@@ -185,25 +189,26 @@
 								<!-- reviews -->
 								<div class="col-12">
 									<div class="reviews">
-						<form name="commentForm" method="post" >
+						<form name="commentForm" method="post">
 							<input type="hidden" name="pg"  id="pg" value="<%=pg%>"/>
+		
 							<input type="hidden" id="board_seq" name="board_seq" value="<%=dto.getBoard_seq()%>">
 							<input type="hidden" id="category_code" name="category_code" value="<%=dto.getCategory_code()%>">
 							<input type="hidden" id="review_seq" name="review_seq" value="">
 							<ul class="reviews__list">
+										
 							<% for(CommentDto Cdto : list){ %>
 										<!--댓글 한칸 시작  -->
 											<li class="reviews__item">
-												
 												<div class="reviews__autor">
-													<img class="reviews__avatar" src="${commonURL }/resources/user_img/<%=Cdto.getUser_images() %>" alt=""> 
+													<img class="reviews__avatar" src="${commonURL}/resources/user_img/<%=Cdto.getUser_images() %>" alt=""> 
 													<span class="reviews__name">닉네임 : <%=Cdto.getNick_name() %></span>
 													<span class="reviews__time">작성일 : <%=Cdto.getWdate() %></span>
 
 													<span class="reviews__rating"><i class="icon ion-ios-star"></i><%=Cdto.getStar_point() %></span>
 												</div>
 												<p class="reviews__text"><%=Cdto.getContent() %></p>
-												<%
+											<%
 												if(Cdto.getUser_seq().equals(userseq)){
 												%>
 												<div align="right">
@@ -212,11 +217,7 @@
 												</div>
 											<%} %>
 											</li>
-							<%
-							
-								
-							
-							} %>
+							<%} %>
 										<!--댓글 한칸 끝  -->
 										
 										</ul>
@@ -226,19 +227,19 @@
 							</form>			
 
 										<form action="#" class="form" name="myform">
-											<<input type="hidden" id="board_seq" name="board_seq" value="<%=dto.getBoard_seq()%>">
+											<input type="hidden" id="board_seq" name="board_seq" value="<%=dto.getBoard_seq()%>">
 											<input type="hidden" id="category_code" name="category_code" value="<%=dto.getCategory_code()%>">
-											<input type="hidden" id="user_seq" name="user_seq" value="<%=userseq%>"> 
+											<input type="hidden" id="user_seq" name="user_seq" value="<%=userseq%>">
 											<input type="hidden" id="star_point" name="star_point" value="">
 											
-											<input type="text" class="form__input" placeholder="Title" value="<%=nickname%>">
+											<input type="text" class="form__input" placeholder="Title" name="nick_name" id="nick_name" value="<%=nickname%>">
 											<textarea class="form__textarea" placeholder="Review" name="content" id="content" ></textarea>
 											<div class="form__slider" >
 												<div class="form__slider-rating" id="slider__rating"></div>
 												<div class="form__slider-value" id="form__slider-value" ></div>
 											</div>
 											
-											<button type="button" class="form__btn" onclick="goCommentWrite()">등록</button>
+											<button type="button" class="form__btn" onclick="goCommentWrite()">Send</button>
 											
 										</form>
 									</div>
@@ -246,10 +247,12 @@
 								<!-- end reviews -->
 							</div>
 						</div>
-		</div></div></div></div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 	<!-- end details -->
-	
 
 	
 	 <%@include file="../include/footer.jsp" %>
@@ -257,81 +260,3 @@
 
 </body>
 </html>
-<script>
-
-
-function goCommentWrite()
-{
-	var star_point = document.getElementById('form__slider-value').value;
-	frm2 = document.myform;
-	frm2.star_point.value=star_point;
-	
-	var userid='<%=userid%>';
-	if(userid=="")
-	{
-		alert("로그인하세요");
-		location.href="${commonURL}/member/signin";
-	}
-	
-	var queryString = $("form[name=myform]").serialize();
-   $.ajax({
-	   url:"${commonURL}/comment/write",
-      data:queryString,
-      type:"POST",
-      dataType:"json"
-   })
-   .done( (result)=>{
-	    $("#content").val("");
-	    //$("#btnCommentSave").html("답글등록");
-	    //$("#comment_id").val("");
-      	alert("등록완료");
-      	location.reload()
-   })
-   .fail( (error)=>{
-      console.log(error);
-   })
-} 
-function goPage(pg)
-{
-	frm = document.commentForm;
-	frm.pg.value=pg;///////////
-	frm.method="post";
-	frm.action="${pageContext.request.contextPath}/animation/view";
-	frm.submit();
-}
-
-function commentDelete(useq)
-{
-  
-	frm = document.commentForm;
-	frm.review_seq.value=useq;
-   
-   if( !confirm("삭제하시겠습니까?"))
-	   return false;
-   
-   //var frmData = new FormData(document.commentForm);
-   //console.log( frmData );
-   var queryString = $("form[name=commentForm]").serialize(); 
-   console.log( queryString );
-  $.ajax({
-     url:"${commonURL}/comment/delete",
-     data:queryString,
-     type:"POST",
-     dataType:"json"
-    
-   })
-   .done( (result)=>{
-	    alert("삭제완료");
-     	location.reload()
-   })
-   .fail( (error)=>{
-      console.log(error);
-   })
-}
-
-
-
-
-</script>
-
-

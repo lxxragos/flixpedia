@@ -10,7 +10,7 @@ public class DramaDto extends BaseDto {
 	private String drama_content="";
 	private String drama_images="";
 	private String category_code="";
-	private String drama_author="";
+	private String drama_producer="";
 	private String drama_hit="";
 	private String wdate="";
 	private String drama_productionyear="";
@@ -54,11 +54,11 @@ public class DramaDto extends BaseDto {
 	public void setCategory_code(String category_code) {
 		this.category_code = category_code;
 	}
-	public String getDrama_author() {
-		return drama_author;
+	public String getDrama_producer() {
+		return drama_producer;
 	}
-	public void setDrama_author(String drama_author) {
-		this.drama_author = drama_author;
+	public void setDrama_producer(String drama_producer) {
+		this.drama_producer = drama_producer;
 	}
 	public String getDrama_hit() {
 		return drama_hit;
@@ -96,13 +96,15 @@ public class DramaDto extends BaseDto {
 	public void setStar_avg(String star_avg) {
 		this.star_avg = star_avg;
 	}
+	@Override
+	public String toString() {
+		return "DramaDto [board_seq=" + board_seq + ", genre_code=" + genre_code + ", drama_title=" + drama_title
+				+ ", drama_content=" + drama_content + ", drama_images=" + drama_images + ", category_code="
+				+ category_code + ", drama_producer=" + drama_producer + ", drama_hit=" + drama_hit + ", wdate=" + wdate
+				+ ", drama_productionyear=" + drama_productionyear + ", drama_agelimit=" + drama_agelimit
+				+ ", drama_url=" + drama_url + ", star_avg=" + star_avg + "]";
+	}
 	
-	
-	
-	
-	
-	
-		
-	
+
 	
 }
