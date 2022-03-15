@@ -34,9 +34,11 @@
 		#{email},
 		#{phone},
 		now(),
-		#{zipcode},
 		#{address1},
-		#{address2}
+		#{address2},
+		#{zipcode},
+		#{user_images}
+
 	)
 	</insert>
 	
@@ -64,17 +66,20 @@
 		from user
 		where name=#{name} and phone=#{phone} 
 	</select>
-	<!-- <update id="Member_update" parameterType="MemberDto" >
-	update member set 
-			password=#{password}
-			,email = #{email}
-			,phone = #{phone}
-			,address1 = #{address1}
-			,address2 = #{address2}
-			,zipcode = #{zipcode}
-			,nickname = #{nickname}
-	where  userid=#{userid}
-	</update> -->
+	<update id="Member_update" parameterType="MemberDto" >
+	update user set 
+			user_id=#{user_id},
+			
+			nick_name=#{nick_name},
+			name=#{name},
+			email=#{email},
+			phone=#{phone},
+			zipcode=#{zipcode},
+			address1=#{address1},
+			address2=#{address2},
+			user_images=#{user_images}
+	where  user_seq=#{user_seq}
+	</update> 
 </mapper>
 
 

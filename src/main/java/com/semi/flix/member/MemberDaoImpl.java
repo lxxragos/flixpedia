@@ -21,9 +21,9 @@ public class MemberDaoImpl implements MemberDao {
 		
 		int cnt = sm.selectOne("Member_isduplicate", dto);
 		if(cnt==0)
-			return false; //Áßº¹¾Æ´Ô, »ç¿ë°¡´ÉÇÑ ¾ÆÀÌµðÀÓ  
+			return false; //ï¿½ßºï¿½ï¿½Æ´ï¿½, ï¿½ï¿½ë°¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½  
 		else
-			return true; //ÀÌ¹Ì »ç¿ëÁßÀÓ 
+			return true; //ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	}
 	
 	@Override
@@ -41,6 +41,12 @@ public class MemberDaoImpl implements MemberDao {
 	public MemberDto findId(MemberDto dto) {
 		
 	    return sm.selectOne("Member_findid", dto);
+	}
+
+	@Override
+	public void update(MemberDto dto) {
+		sm.update("Member_update",dto);
+		
 	}
 
 

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="utf-8"%>
 <!-- Font -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600%7CUbuntu:300,400,500,700" rel="stylesheet"> 
 
@@ -40,3 +39,14 @@
 	<script src="<%=request.getContextPath() %>/resources/js/photoswipe.min.js"></script>
 	<script src="<%=request.getContextPath() %>/resources/js/photoswipe-ui-default.min.js"></script>
 	<script src="<%=request.getContextPath() %>/resources/js/main.js"></script>
+	
+	<script>
+	function goMypage(id)
+	{
+		frm = document.mypageForm;
+		frm.user_id.value=id;///////////
+		frm.method="get";
+		frm.action="${pageContext.request.contextPath}/member/myinfo";
+		frm.submit();
+	}
+	</script>
