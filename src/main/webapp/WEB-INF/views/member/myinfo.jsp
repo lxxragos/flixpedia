@@ -1,6 +1,7 @@
-z`<%@page import="com.semi.flix.common.StringUtil"%>
+<%@page import="com.semi.flix.common.StringUtil"%>
 <%@page import="com.semi.flix.member.MemberDto"%>
-<%@ page language="java"  pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%
 request.setAttribute("commonURL", request.getContextPath());
 

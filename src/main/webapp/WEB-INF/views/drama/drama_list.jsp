@@ -1,9 +1,10 @@
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="com.semi.flix.common.Pager"%>
-<%@page import="com.semi.flix.drama.*"%>
+<%@page import="com.semi.flix.drama.DramaDto"%>
 <%@page import="java.util.List"%>
 <%@page import="com.semi.flix.common.StringUtil"%>
-<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">

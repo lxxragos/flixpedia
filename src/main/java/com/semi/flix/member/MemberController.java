@@ -20,7 +20,6 @@ import com.semi.flix.animation.AnimationDto;
 import com.semi.flix.comment.CommentDto;
 import com.semi.flix.common.FileUploadUtil;
 
-import com.semi.flix.Visit.VisitService;
 
 @Controller
 public class MemberController {
@@ -29,11 +28,11 @@ public class MemberController {
 	MemberService memberService;
 	
 
-	//회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싱듸옙
+	//�쉶�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�떛�벝�삕
 	@RequestMapping("member/signup")
 	String signup() {
 		return "member/signup";
-		//src/main/webapp/WEB-INF/view/test.jsp占쏙옙 占쏙옙占쏙옙占쏙옙
+		//src/main/webapp/WEB-INF/view/test.jsp�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕
 	}
 	@RequestMapping("member/myinfo")
 	String myinfo(Model model,MemberDto dto) {
@@ -42,18 +41,17 @@ public class MemberController {
 		MemberDto resultDto = memberService.getInfo(dto);
 		model.addAttribute("memberDto", resultDto);
 		return "member/myinfo";
-		//src/main/webapp/WEB-INF/view/test.jsp占쏙옙 占쏙옙占쏙옙占쏙옙
+		//src/main/webapp/WEB-INF/view/test.jsp�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕
 	}
 	
-	//占쌍쇽옙 占쌉뤄옙 占싯억옙창
+	//�뜝�뙇�눦�삕 �뜝�뙃琉꾩삕 �뜝�떙�뼲�삕李�
 	@RequestMapping("/member/jusoPopup")
 	String jusoPopup() {
 		return "member/jusoPopup";
-		//src/main/webapp/WEB-INF/view/test.jsp占쏙옙 占쏙옙占쏙옙占쏙옙
+		//src/main/webapp/WEB-INF/view/test.jsp�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕
 	}
 
-	@Resource(name="visitService")
-	VisitService visitService;
+	
 	
 
 	@RequestMapping(value="/member/insert", method=RequestMethod.POST)
@@ -85,13 +83,13 @@ public class MemberController {
 	{
 		MemberDto resultDto = memberService.getInfo(dto);
 		if(dto.getUser_images().equals(resultDto.getUser_images())) {
-			System.out.println("디티오 : " +dto.getUser_images()+","+dto.getNick_name());
+			System.out.println("�뵒�떚�삤 : " +dto.getUser_images()+","+dto.getNick_name());
 			
 			memberService.update(dto);
 			
-			System.out.println("_________________________________________이미지 변경 사항 없음");
+			System.out.println("_________________________________________�씠誘몄� 蹂�寃� �궗�빆 �뾾�쓬");
 		}else {
-			System.out.println("______________________________________이미지 변경 사항 있음");
+			System.out.println("______________________________________�씠誘몄� 蹂�寃� �궗�빆 �엳�쓬");
 			
 		List<MultipartFile> multiList = new ArrayList<MultipartFile>();
 		multiList.add(multi.getFile("upload"));
@@ -120,7 +118,7 @@ public class MemberController {
 	}
 	
 
-	//占쏙옙占싱듸옙 占쌩븝옙확占쏙옙
+	//�뜝�룞�삕�뜝�떛�벝�삕 �뜝�뙥釉앹삕�솗�뜝�룞�삕
 	@RequestMapping("/member/isDuplicate")
 	@ResponseBody 
 
@@ -162,17 +160,14 @@ public class MemberController {
 			if(resultDto.getPassword().equals(dto.getPassword()))
 			{
 
-				map.put("flag", "1"); //占싸그울옙 占쏙옙占쏙옙占쏙옙 占쏙옙占실울옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싼댐옙 
+				map.put("flag", "1"); //�뜝�떥洹몄슱�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�떎�슱�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�떬�뙋�삕 
 				session.setAttribute("userid", resultDto.getUser_id());
 				session.setAttribute("username", resultDto.getName());
 				session.setAttribute("userseq", resultDto.getUser_seq());
 				session.setAttribute("nickname", resultDto.getNick_name());
 				session.setAttribute("userimage", resultDto.getUser_images());
         
-				if(visitService.getVisit_count()==0)
-					visitService.insert();
-				else
-					visitService.update();
+				
 
 			}
 			else

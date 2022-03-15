@@ -3,7 +3,10 @@
 <%@page import="com.semi.flix.common.Pager"%>
 <%@page import="java.util.List"%>
 <%@page import="com.semi.flix.common.StringUtil"%>
+
+
 <%@ page language="java"   pageEncoding="utf-8"%>
+
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
