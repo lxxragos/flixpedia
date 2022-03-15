@@ -66,7 +66,11 @@ public class HomeController {
 		return "home";
 	}
 	
-	
+	@RequestMapping(value = "/admin/adminindex", method = RequestMethod.GET)
+	public String admin(Locale locale, Model model) {
 
-	
+		return "admin/adminindex";
+	}
+  
 }
+

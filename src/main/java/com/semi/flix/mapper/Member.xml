@@ -38,6 +38,7 @@
 		#{address2},
 		#{zipcode},
 		#{user_images}
+
 	)
 	</insert>
 	

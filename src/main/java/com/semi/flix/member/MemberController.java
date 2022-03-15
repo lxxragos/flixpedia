@@ -20,12 +20,15 @@ import com.semi.flix.animation.AnimationDto;
 import com.semi.flix.comment.CommentDto;
 import com.semi.flix.common.FileUploadUtil;
 
+import com.semi.flix.Visit.VisitService;
+
 @Controller
 public class MemberController {
 	
 	@Resource(name="memberService")
 	MemberService memberService;
 	
+
 	//회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싱듸옙
 	@RequestMapping("member/signup")
 	String signup() {
@@ -48,8 +51,11 @@ public class MemberController {
 		return "member/jusoPopup";
 		//src/main/webapp/WEB-INF/view/test.jsp占쏙옙 占쏙옙占쏙옙占쏙옙
 	}
+
+	@Resource(name="visitService")
+	VisitService visitService;
 	
-	//회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
+
 	@RequestMapping(value="/member/insert", method=RequestMethod.POST)
 	String member_insert(MemberDto dto, HttpServletRequest req, MultipartHttpServletRequest multi )
 	{
@@ -113,9 +119,11 @@ public class MemberController {
 		return "/home";
 	}
 	
+
 	//占쏙옙占싱듸옙 占쌩븝옙확占쏙옙
 	@RequestMapping("/member/isDuplicate")
 	@ResponseBody 
+
 	public HashMap<String, String> member_isDuplicate(MemberDto dto)
 	{
 		System.out.println("userid : " + dto.getUser_id());
@@ -127,20 +135,17 @@ public class MemberController {
 		return map;
 	}
 	
-	
-	//占싸깍옙占쏙옙
 	@RequestMapping(value="/member/signin")
 	public String member_login()
 	{
 		return "member/signin";
 	}
-	
-	//占싸깍옙占쏙옙 占쌜듸옙
+  
 	@RequestMapping(value="/member/login_proc")
 	@ResponseBody
 	public HashMap<String, String> member_login_proc(MemberDto dto, HttpServletRequest request)
 	{
-		
+
 		HttpSession session = request.getSession();
 		
 		MemberDto resultDto = memberService.getInfo(dto);
@@ -156,13 +161,19 @@ public class MemberController {
 		{
 			if(resultDto.getPassword().equals(dto.getPassword()))
 			{
+
 				map.put("flag", "1"); //占싸그울옙 占쏙옙占쏙옙占쏙옙 占쏙옙占실울옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싼댐옙 
 				session.setAttribute("userid", resultDto.getUser_id());
 				session.setAttribute("username", resultDto.getName());
 				session.setAttribute("userseq", resultDto.getUser_seq());
 				session.setAttribute("nickname", resultDto.getNick_name());
 				session.setAttribute("userimage", resultDto.getUser_images());
-				
+        
+				if(visitService.getVisit_count()==0)
+					visitService.insert();
+				else
+					visitService.update();
+
 			}
 			else
 			{
@@ -173,33 +184,30 @@ public class MemberController {
 		
 		return map;
 	}
-	
-	//占싸그아울옙
+
 	@RequestMapping(value="/member/logout")
 	public String member_logout(HttpServletRequest request)
 	{
 	
 		HttpSession session = request.getSession();
+
 		session.invalidate(); 
-		
+
 		return "redirect:/";
 	}
-	
-	//占쏙옙占싱듸옙 찾占쏙옙 占쏙옙占쏙옙占쏙옙 占싱듸옙 
+
 	@RequestMapping(value="/member/findid")
 	public String member_findid()
 	{	
 		return "member/member_findid";
 	}
-	
-	//占쏙옙占시ｏ옙占� 占쏙옙占쏙옙占쏙옙 占싱듸옙
+
 	@RequestMapping(value="/member/findpassword")
 	public String member_findpassword()
 	{	
 		return "member/member_findpassword";
 	}
-	
-	//占쏙옙橘占싫Ｃｏ옙占�
+
 	@RequestMapping(value="/member/findpass_proc")
 	@ResponseBody
 	public HashMap<String, String> member_findpass_proc(MemberDto dto)
@@ -216,8 +224,7 @@ public class MemberController {
 		}
 		return map;
 	}
-	
-	//占쏙옙占싱듸옙찾占쏙옙
+
 	@RequestMapping(value="/member/findid_proc")
 	@ResponseBody
 	public HashMap<String, String> member_findid_proc(MemberDto dto)

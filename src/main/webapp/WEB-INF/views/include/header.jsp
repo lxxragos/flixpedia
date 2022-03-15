@@ -65,7 +65,9 @@ String userimage= StringUtil.nullToValue(session.getAttribute("userimage"), "");
 									<ul class="dropdown-menu header__dropdown-menu" aria-labelledby="dropdownMenuMore">
 										<li><a href="about.html">Q&A</a></li> <!-- list,view작업 안됨 -->
 										<li><a href="about.html">공지사항</a></li> <!-- list,view작업 안됨 -->
-										<li><a href="signup.html">관리자 페이지</a></li>
+										<li><a href="signin.html">로그인</a></li>
+										<li><a href="signup.html">회원가입</a></li>
+										<li><a href="${commonURL}/admin/adminindex">관리자페이지</a></li>
 										
 									</ul>
 								</li>
