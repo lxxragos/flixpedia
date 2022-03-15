@@ -1,7 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@page import="com.semi.flix.common.StringUtil"%>
+<%@page import="com.semi.flix.member.MemberDto"%>
+<%@ page language="java" pageEncoding="utf-8"%>
 <%
 request.setAttribute("commonURL", request.getContextPath());
+
 %>
 <!DOCTYPE html>
 <html>
@@ -12,17 +14,33 @@ request.setAttribute("commonURL", request.getContextPath());
 	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
 </head>
 <body class="body">
-
- <div class="sign section--bg" data-bg="img/section/section.jpg">
+<%@include file="../include/header.jsp" %>
+ <div class="sign section--bg" data-bg="${commonURL }/resources/img/section/section.jpg" style="margin-top : 70px;">
  	<div class="container">
  		<div class="col-12">
  			<div class="sign__content">
-				<form name="form" id="form" method="post" class="sign__form">
+ 			
+				<form name="form" id="form" method="post" class="sign__form" enctype="multipart/form-data">
 					<a href="index.html" class="sign__logo">
+					
+					
 					<img src="../resources/img/logo.svg" alt=""></a>
 					
+
+					<div style="width: 130px;height: 130px; border-radius: 50%; overflow: hidden; margin-bottom: 50px; "	>
+					<img class="thumb" src="${commonURL }/resources/user_img/basic.jpg" 
+					style="width: 130px; height: 130px; object-fit: cover; " />
+					</div>
+					
+					<div class="filebox">
+						<input class="sign__input" id="upload-name" value="" placeholder="프로필사진"><br>
+                        <label for="upload" style="width:100px; height: 30px; margin:2px;" 
+                         >사진 찾기</label> 
+   						<input type="file"  id="upload" name="upload"
+   							accept="image/jpeg, image/jpg, image/png" multiple>
+					</div>
 					<div class="sign__group">
-						<input type="text" class="sign__input" placeholder="이름" id="name" name="name">
+						<input type="text" class="sign__input" placeholder="이름" id="name" name="name" >
 					</div>
 					<div class="sign__group">
 						<input type="text" class="sign__input" placeholder="아이디" id="user_id" name="user_id">
@@ -67,14 +85,15 @@ request.setAttribute("commonURL", request.getContextPath());
 					</div>
 					
 					<div class="sign__group">
+
 						<input type="text" class="sign__input" placeholder="주소" id="address1" name="address1" readonly="readonly">
 					</div>
 					
 					<div class="sign__group">
 						<input type="text" class="sign__input" placeholder="상세주소" id="address2" name="address2" readonly="readonly">
 					</div>
-					
 					<button type="button" class="sign__btn" onclick="goWrite()">등록</button>
+					
 				</form>
 			</div>
 		</div>
@@ -85,18 +104,73 @@ request.setAttribute("commonURL", request.getContextPath());
 </body>
 </html>
 <script language="javascript">
+//파일 추가 하면 파일명 보여쥬기
+$("#upload").on('change',function(){
+  var fileName = $("#upload").val();
+  $("#upload-name").val(fileName);
+
+});	
+	 
+	 document.addEventListener('DOMContentLoaded', function(){
+		    //이미지 객체 타입으로 이미지 확장자 밸리데이션
+		    var validateType = function(img){
+		        return (['image/jpeg','image/jpg','image/png'].indexOf(img.type) > -1);
+		    }
+
+		    var validateName = function(fname){
+		        let extensions = ['jpeg','jpg','png'];
+		        let fparts = fname.split('.');
+		        let fext = '';
+		    
+		        if(fparts.length > 1){
+		            fext = fparts[fparts.length-1];
+		        }
+		    
+		        let validated = false;
+		        
+		        if(fext != ''){
+		            extensions.forEach(function(ext){
+		                if(ext == fext){
+		                    validated = true;
+		                }
+		            });
+		        }
+		    
+		        return validated;
+		    }
+
+		    // 파일 선택 필드에 이벤트 리스너 등록
+		    document.getElementById('upload').addEventListener('change', function(e){
+		        let elem = e.target;
+		        if(validateType(elem.files[0])){
+		            let preview = document.querySelector('.thumb');
+		            preview.src = URL.createObjectURL(elem.files[0]); //파일 객체에서 이미지 데이터 가져옴.
+		            
+		            //document.querySelector('.dellink').style.display = 'block'; // 이미지 삭제 링크 표시
+		            preview.onload = function() {
+		                URL.revokeObjectURL(preview.src); //URL 객체 해제
+		            }
+		        }else{
+		        console.log('이미지 파일이 아닙니다.');
+		        }
+		    });
+
+		   
+		});
 function goPopup()
 {
 	var pop = window.open("jusoPopup","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 	
 	}
 
-function jusoCallBack(address1,address2,zipcode)
+
+function jusoCallBack(address1,address2, zipcode)
 {
-		document.myform.address1.value = address1;
-		document.myform.address2.value = address2;
-		document.myform.zipcode.value = zipcode;
-}
+		document.form.address1.value = address1;
+		document.form.address2.value = address2;
+		document.form.zipcode.value = zipcode;
+	}
+
 	
 function goWrite() 
 {
@@ -144,6 +218,12 @@ function goWrite()
 		frm.nick_name.focus();
 		return false;
 	};
+	if( frm.nick_name.value.trim().length>4)
+	{
+		alert("별명은 4글자 이내로 입력하세요");
+		frm.nick_name.focus();
+		return false;
+	};
 	if( frm.email.value.trim()=="")
 	{
 		alert("이메일을 입력하세요");
@@ -175,14 +255,15 @@ function goWrite()
 		alert("아이디 중복체크를 하세요")
 		frm.user_id.focus();
 	}else{
-   //var frmData = new FormData(document.myform);
+   var frmData = new FormData(document.form);
   // console.log( frmData );
-   var queryString = $("form[name=form]").serialize(); 
+  // var queryString = $("form[name=form]").serialize(); 
 	$.ajax({
       url:"${commonURL}/member/insert",
-      data:queryString,
-      type:"POST",
-      data:queryString
+      processData : false,
+      contentType : false,
+      data : frmData,
+      type:"POST"
    })
    .done( (result)=>{
       console.log(result);
@@ -192,6 +273,8 @@ function goWrite()
    .fail( (error)=>{
       console.log(error);
    })
+  
+	//서버로 전송하기 
 	}
 }
 
@@ -240,10 +323,8 @@ $(()=>{
        })
     })
  })
-	
-	
-	
-	
-	
+
+ 
+
 
 </script>

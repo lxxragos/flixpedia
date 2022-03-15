@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" pageEncoding="utf-8"%>
  <%
 request.setAttribute("commonURL", request.getContextPath());
 %>
@@ -15,7 +14,7 @@ request.setAttribute("commonURL", request.getContextPath());
 
 </head>
 <body class="body">
-
+<%@include file="../include/header.jsp" %>
 	<div class="sign section--bg" data-bg="<%=request.getContextPath() %>/resources/img/section/section.jpg">
 		<div class="container">
 			<div class="row">

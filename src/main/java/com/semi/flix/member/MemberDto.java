@@ -10,9 +10,12 @@ public class MemberDto {
 	private String email ="";	
 	private String phone ="";	
 	private String wdate ="";	
+
+	private String zipcode ="";
 	private String address1 ="";	
 	private String address2 ="";
-	private int zipcode =0;
+	private String user_images ="";
+
 	public String getUser_seq() {
 		return user_seq;
 	}
@@ -61,6 +64,14 @@ public class MemberDto {
 	public void setWdate(String wdate) {
 		this.wdate = wdate;
 	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
 	public String getAddress1() {
 		return address1;
 	}
@@ -73,12 +84,13 @@ public class MemberDto {
 	public void setAddress2(String address2) {
 		this.address2 = address2;
 	}
-	public int getZipcode() {
-		return zipcode;
+
+	public String getUser_images() {
+		return user_images;
 	}
-	public void setZipcode(int zipcode) {
-		this.zipcode = zipcode;
-	}
+	public void setUser_images(String user_images) {
+		this.user_images = user_images;
+
 	public MemberDto(String user_seq, String name, String user_id, String password, String nick_name, String email,
 			String phone, String wdate, String address1, String address2, int zipcode) {
 		super();
