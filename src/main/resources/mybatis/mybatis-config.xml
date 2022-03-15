@@ -15,6 +15,7 @@
     	<typeAlias alias="MovieDto" type="com.semi.flix.movie.MovieDto"/>
     	<typeAlias alias="SearchDto" type="com.semi.flix.search.SearchDto"/>
     	<typeAlias alias="AnimationDto" type="com.semi.flix.animation.AnimationDto"/>
+    	<typeAlias alias="EnterDto" type="com.semi.flix.enter.EnterDto"/>
     	
 	</typeAliases>
 
@@ -27,6 +28,7 @@
 		<mapper resource=	"/com/semi/flix/mapper/Animation.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Search.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Movie.xml"/>
+		<mapper resource=	"/com/semi/flix/mapper/Enter.xml"/>
 		
 	</mappers>
 	
