@@ -26,6 +26,7 @@
 	 select A.*,user_images,u.nick_name 
 	 	from user u join review_tbl A on A.user_seq=u.user_seq 
 	 		where A.board_seq=#{board_seq} and A.category_code=#{category_code}
+	 		order by review_seq desc
 	 		 limit #{start}, #{pageSize}
 	</select>
 	

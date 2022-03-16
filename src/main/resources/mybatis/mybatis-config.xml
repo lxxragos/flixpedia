@@ -18,6 +18,7 @@
     	<typeAlias alias="Q_A_DTO" type="com.semi.flix.Q_A.Q_A_DTO"/>
     	<typeAlias alias="AnimationDto" type="com.semi.flix.animation.AnimationDto"/>
 
+
 	   <typeAlias alias="VisitDto" type="com.semi.flix.Visit.VisitDto"/>	
 	   <typeAlias alias="AdminMemberDto" type="com.semi.flix.admin.member.AdminMemberDto"/>
 	   <typeAlias alias="AdminBoardDto" type="com.semi.flix.admin.board.AdminBoardDto"/>
@@ -32,9 +33,8 @@
 	   <typeAlias alias="MailDto" type="com.semi.flix.admin.mail.MailDto"/>
 	   <typeAlias alias="AdminQ_ADto" type="com.semi.flix.admin.adminQ_A.AdminQ_ADto"/>
 	   <typeAlias alias="AdminCommentDto" type="com.semi.flix.admin.admincomment.AdminCommentDto"/>
-   
+    	<typeAlias alias="EnterDto" type="com.semi.flix.enter.EnterDto"/>
 
-    	
 	</typeAliases>
 
 	<mappers>
@@ -60,6 +60,8 @@
 		<mapper resource=	"/com/semi/flix/admin/mapper/Mail.xml"/>
 		<mapper resource=	"/com/semi/flix/admin/mapper/AdminQ_A.xml"/>
 		<mapper resource=	"/com/semi/flix/admin/mapper/Comment.xml"/>
+		<mapper resource=	"/com/semi/flix/mapper/Enter.xml"/>
+
 		
 	</mappers>
 	
