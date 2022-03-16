@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
 <%@page import="com.semi.flix.admin.common.*"%>
-<%@page import="com.semi.flix.admin.board.*"%>
+<%@page import="com.semi.flix.admin.adminQ_A.*"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>adminboard_list</title>
+    <title>FLIXMEDIA-Q_A list</title>
 
     <!-- Custom fonts for this template -->
     <link href="<%=request.getContextPath()%>/resources/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -34,12 +34,6 @@
 </head>
 
 <body id="page-top">
-<%
-	String key = AdminStringUtil.nullToValue(request.getParameter("key"), "1");
-	String keyword = AdminStringUtil.nullToValue(request.getParameter("keyword"), "");
-	String pg = AdminStringUtil.nullToValue(request.getParameter("pg"), "0");
-	int totalCnt = (Integer)request.getAttribute("totalCnt");
-%>
     <%@include file="../include/adminnav.jsp" %>
     
     <!-- Page Wrapper -->
@@ -53,7 +47,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">FLIXPEDIA-admin</div>
+                <div class="sidebar-brand-text mx-3"><strong>FLIXPEDIA-admin</strong></div>
             </a>
 
             <!-- Divider -->
@@ -84,9 +78,11 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">게시판 관리:</h6>
-                        <a class="collapse-item" href="${commonURL}/admin/board/write">게시글 업로드</a>
-                        <a class="collapse-item" href="${commonURL}/admin/board/list">게시글 수정/삭제</a>
-                        <a class="collapse-item" href="cards.html">평점 관리</a>
+
+                        <a class="collapse-item" href="${commonURL}/admin/board/writemain">게시글 업로드</a>
+                        <a class="collapse-item" href="${commonURL}/admin/board/listmain">게시글 수정/삭제</a>
+                        <a class="collapse-item" href="${commonURL}/admin/review/list">평점 관리</a>
+
                     </div>
                 </div>
             </li>
@@ -102,10 +98,8 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">회원 관리:</h6>
-                        <a class="collapse-item" href="utilities-color.html">회원정보관리</a>
-                        <a class="collapse-item" href="utilities-border.html">회원조회</a>
-                        <a class="collapse-item" href="utilities-animation.html">회원탈퇴</a>
-                        <a class="collapse-item" href="utilities-other.html">고객센터</a>
+                        <a class="collapse-item" href="${commonURL}/admin/user/list">회원정보관리</a>
+                        <a class="collapse-item" href="${commonURL}/admin/q_a/list">고객센터</a>
                     </div>
                 </div>
             </li>
@@ -128,8 +122,7 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">기타 기능 관리:</h6>
-                        <a class="collapse-item" href="login.html">광고메일전송</a>
-                        <a class="collapse-item" href="register.html">고객센터</a>
+                        <a class="collapse-item" href="${commonURL}/admin/list">광고메일전송</a>
                     </div>
                 </div>
             </li>
@@ -144,9 +137,9 @@
 
             <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
+                <img class="sidebar-card-illustration mb-2" style="width:150px; height:auto; "src="<%=request.getContextPath()%>/resources/admin/img/logo.png" alt="...">
                 <p class="text-center mb-2"><strong>FLIXPEDIA</strong> 메인페이지로 이동하여 자세한 사항을 확인하세요</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">도메인이동</a>
+                <a class="btn btn-success btn-sm" href="${commonURL}/">도메인이동</a>
             </div>
 
         </ul>
@@ -167,13 +160,13 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <form name="myform2" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
+                                aria-label="Search" aria-describedby="basic-addon2" name="keyword2" id="keyword2" value="<%=keyword2 %>"
+                                onkeydown="naventerkey();">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-primary" type="button" onclick="goMainSearch()">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -207,137 +200,16 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username"><%=username%></span>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="${commonURL}/member/myinfo">
+                                <a class="dropdown-item" href="${commonURL}/admin/adminmember/myinfo">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     내 정보
                                 </a>
@@ -357,10 +229,10 @@
                 <!-- Begin Page Content -->
                 
                     <!-- DataTales Example -->
-                    <form name="myform" method="post">
+                    <form name="myform">
                         <input type="hidden" name="key" id="key" value="<%=key%>"/>
                         <input type="hidden" name="pg" id="pg" value="<%=pg%>"/>
-                        <input type="hidden" name="board_seq" id="board_seq" value=""/>
+                        <input type="hidden" name="seq" id="seq" value=""/>
                     
                         <div class="container" style="margin-top:80px">
                             <h2>게시판 목록 (${totalCnt})</h2>
@@ -372,8 +244,8 @@
                                 <ul class="dropdown-menu">
                                   <li><a class="dropdown-item" href="#" onclick="changeSearch('1')">전체</a></li>
                                   <li><a class="dropdown-item" href="#" onclick="changeSearch('2')">제목</a></li>
-                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('3')">감독</a></li>
-                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('4')">장르</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('3')">이름</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="changeSearch('4')">날짜</a></li>
                                 </ul>
                                 <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword" value="<%=keyword%>">
                                 <button class="btn btn-secondary" type="button" onclick="goSearch()">Go</button>
@@ -382,8 +254,6 @@
                             <table class="table table-hover ">
                                 <colgroup>
                                     <col width="8%">
-                                    <col width="10%">
-                                    <col width="10%">
                                     <col width="*">
                                     <col width="12%">
                                     <col width="12%">
@@ -391,25 +261,21 @@
                                 <thead class="table-secondary">
                                   <tr>
                                     <th>번호</th>
-                                    <th>카테고리</th>
-                                    <th>장르</th>
                                     <th>제목</th>
-                                    <th>감독</th>
+                                    <th>작성자</th>
                                     <th>작성일</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                 <%
-                                List<AdminBoardDto> list = (List<AdminBoardDto>)request.getAttribute("adminboardList");
-                                                                for(AdminBoardDto tempDto : list){
+                                List<AdminQ_ADto> list = (List<AdminQ_ADto>)request.getAttribute("q_a_list");
+                                                                for(AdminQ_ADto tempDto : list){
                                 %>
                                   <tr>
                                     <td><%=totalCnt - tempDto.getRnum()+1%></td>
-                                    <td><%=tempDto.getCategory_code()%></td>
-                                    <td><%=tempDto.getGenre_code()%></td>
-                                    <td><a href="#none" onclick="goView('<%=tempDto.getBoard_seq()%>')"><%=tempDto.getTitle()%></a></td>
-                                    <td><%=tempDto.getWriter()%></td>
-                                    <td><%=tempDto.getWdate()%></td>
+                                    <td><a href="#none" onclick="goView('<%=tempDto.getSeq()%>')"><%=tempDto.getTitle()%></a></td>
+                                    <td><%=tempDto.getName()%></td>
+                                    <td><%=tempDto.getDate()%></td>
                                   </tr>
                                 <%} %>
                                 </tbody>
@@ -431,7 +297,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Made By HJ &copy; FLIXPEDIA 2022</span>
                     </div>
                 </div>
             </footer>
@@ -454,15 +320,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">로그아웃</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">로그아웃 하시겠습니까?</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="${commonURL}/admin/index">Logout</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+
+                    <a class="btn btn-primary" href="${commonURL}/admin/adminindex">로그아웃</a>
+
                 </div>
             </div>
         </div>
@@ -491,21 +359,22 @@
 <script>
 	window.onload = function(){
 		let key = '<%=key%>';
-		var texts=["","전체","제목","감독","장르"];
+		var texts=["","전체","제목","이름","날짜"];
 		document.getElementById("searchItem").innerHTML=texts[key];	
 	}
-	function changeSearch(board_seq)
+	
+	function changeSearch(seq)
 	{
-		var texts=["","전체","제목","감독","장르"];
-		document.getElementById("searchItem").innerHTML=texts[board_seq]; //화면에 보이기 위해서
-		document.getElementById("key").value=board_seq; //컨트롤러로 넘기기 위해서
+		var texts=["","전체","제목","이름","날짜"];
+		document.getElementById("searchItem").innerHTML=texts[seq]; //화면에 보이기 위해서
+		document.getElementById("key").value=seq; //컨트롤러로 넘기기 위해서
 		document.getElementById("keyword").value="";
 	}
 	
 	function goSearch(){
 		let frm = document.myform;
 		frm.pg.value=0;
-		frm.action = "<%=request.getContextPath()%>/board/list";
+		frm.action = "<%=request.getContextPath()%>/admin/q_a/list";
 		frm.method = "get";
 		frm.submit();
 	}
@@ -514,19 +383,15 @@
 		let frm = document.myform;
 		frm.pg.value = pg;
 		frm.method = "get";
-		frm.action = "${pageContext.request.contextPath}/board/list";
+		frm.action = "${pageContext.request.contextPath}/admin/q_a/list";
 		frm.submit();
 	}
 	
-	function goView(board_seq){
+	function goView(seq){
 		let frm = document.myform;
-		frm.board_seq.value = board_seq;
+		frm.seq.value = seq;
 		frm.method = "get";
-		frm.action = "${pageContext.request.contextPath}/board/view";
+		frm.action = "${pageContext.request.contextPath}/admin/q_a/view";
 		frm.submit();
-	}
-	function goMain()
-	{
-		location.href="${commonURL}/admin/home";	//페이지 이동	
 	}
 </script>

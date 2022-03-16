@@ -53,24 +53,26 @@
                                     </div>
                                     	<div class="form-group">
 		                                    <input type="text" class="form-control form-control-user" name="userid" id="userid"
-		                                        placeholder="id">
+		                                        placeholder="id" onkeyup="enterkey();">
 		                                </div>
                                     	<div class="form-group">
 		                                    <input type="text" class="form-control form-control-user" name="username" id="username"
-		                                        placeholder="Name">
+		                                        placeholder="Name" onkeyup="enterkey();">
 		                                </div>
 		                                <div class="form-group">
 		                                    <input type="email" class="form-control form-control-user" name="email" id="email"
-		                                        placeholder="Email Address">
+		                                        placeholder="Email Address" onkeyup="enterkey();">
 		                                </div>
 		                               	<div class="input-group mb-3">
 		    								<input type="text" class="form-control form-control-user" name="phone" id="phone" 
-		    									placeholder="phone number">
+		    									placeholder="phone number" onkeyup="enterkey();">
 		  								</div>
 		  								<div class="mt-1 text-center" id="result">
                                         <a onclick="goFindPassword()" class="btn btn-primary btn-user btn-block">
                                             패스워드 찾기
                                         </a>
+                                        </div>
+                                        <div class="mt-1 text-center" id="result">
                                         <a class="small" style="float:left; margin-top:4px;"onclick="goRegister()">회원가입</a>
                                         <a class="small" style="float:right; margin-top:4px;"onclick="goCancel()">취소</a>
                                         </div>
@@ -102,6 +104,12 @@
 </html>
 
 <script>
+function enterkey(){
+	if(window.event.keyCode == 13)
+	{
+		goFindPassword();
+	}
+}
 function goFindPassword()
 {
 	var queryString = $("form[name=myform]").serialize();

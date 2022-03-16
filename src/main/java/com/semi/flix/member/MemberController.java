@@ -20,6 +20,9 @@ import com.semi.flix.animation.AnimationDto;
 import com.semi.flix.comment.CommentDto;
 import com.semi.flix.common.FileUploadUtil;
 
+import com.semi.flix.Visit.VisitService;
+import com.semi.flix.Visit.*;
+
 
 @Controller
 public class MemberController {
@@ -167,7 +170,14 @@ public class MemberController {
 				session.setAttribute("nickname", resultDto.getNick_name());
 				session.setAttribute("userimage", resultDto.getUser_images());
         
-				
+
+				if(visitService.getTotal(null)==0)
+					visitService.insert(null);
+				//만약 방문자가 wdate에 널이라면 값을 넣어주고
+				//방문자 카운터 - 로그인 했을때 
+				//널이 아니라면 wdate+1로 업데이트 해준다.
+				else
+					visitService.update(null);
 
 			}
 			else

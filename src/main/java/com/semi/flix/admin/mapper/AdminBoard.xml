@@ -133,4 +133,7 @@
 						,attendance = #{attendance}
 		where board_seq=#{board_seq}
 	</update>
+	<select id="nav_search" parameterType="AdminBoardDto" resultType="AdminBoardDto">
+		select url from adminsearch where tb_name like concat('%', #{keyword2} , '%')
+	</select>
 </mapper>

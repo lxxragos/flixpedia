@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.semi.flix.admin.common.AdminFileUploadUtil;
+import com.semi.flix.admin.member.AdminMemberDto;
 
 @Controller
 public class UserController {
@@ -111,15 +112,35 @@ public class UserController {
 		return map;
 	}
 	
-	@RequestMapping(value="/admin/user/insert", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/user/insert", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public HashMap<String, String> user_insert(UserDto dto)
 	{
-		System.out.println("user_id : " + dto.getUser_id());
-		service.insert(dto);
+		System.out.println("userid : " + dto.getUser_id());
+		
+		if( dto.getUser_seq().equals("") )
+			service.insert(dto);
+		else
+			service.update(dto);
+		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("result", "success");
 		return map;
+	}
+	
+	@RequestMapping(value="/admin/user/update")
+	@ResponseBody
+	public HashMap<String,String> user_update(UserDto dto)
+	{
+		service.update(dto);
+		HashMap map = new HashMap<String, String>();
+		map.put("result", "success");
+		return map;
+	}
+	
+	@RequestMapping("/admin/user/juso")
+	String jusoPopup() {
+		return "admin/user/juso";
 	}
 	
 }

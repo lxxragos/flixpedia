@@ -36,7 +36,7 @@
 
 <body class="bg-gradient-primary">
 <%@include file="../admin/include/adminnav.jsp" %>
-	<form class="user" name="myform" id="myform">
+	<form class="user" name="myform" id="myform" method="POST">
 	<input type="hidden" name="idcheck" id="idcheck" value="N"/>
     <div class="container" style="margin-top:70px">
     	
@@ -58,11 +58,11 @@
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 name="userid" id="userid" aria-describedby="emailHelp"
-                                                placeholder="Enter id">
+                                                placeholder="Enter id" onkeyup="enterkey();">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                name="password" id="password" placeholder="Password">
+                                                name="password" id="password" placeholder="Password" onkeyup="enterkey();">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -114,6 +114,13 @@
 </html>
 
 <script>
+function enterkey(){
+	if(window.event.keyCode == 13)
+	{
+			goWrite();
+	}
+}
+
 function goWrite()
 {
 	var queryString = $("form[name=myform]").serialize();

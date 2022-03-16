@@ -42,7 +42,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">FLIXPEDIA-admin</div>
+                <div class="sidebar-brand-text mx-3"><strong>FLIXPEDIA-admin</strong></div>
             </a>
 
             <!-- Divider -->
@@ -80,6 +80,25 @@
                 </div>
             </li>
 
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>게시판</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">게시판 관리:</h6>
+
+                        <a class="collapse-item" href="${commonURL}/admin/board/writemain">게시글 업로드</a>
+                        <a class="collapse-item" href="${commonURL}/admin/board/listmain">게시글 수정/삭제</a>
+                        <a class="collapse-item" href="${commonURL}/admin/review/list">평점 관리</a>
+
+                    </div>
+                </div>
+            </li>
+
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -92,7 +111,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">회원 관리:</h6>
                         <a class="collapse-item" href="${commonURL}/admin/user/list">회원정보관리</a>
-                        <a class="collapse-item" href="utilities-other.html">고객센터</a>
+                        <a class="collapse-item" href="${commonURL}/admin/q_a/list">고객센터</a>
                     </div>
                 </div>
             </li>
@@ -115,8 +134,7 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">기타 기능 관리:</h6>
-                        <a class="collapse-item" href="login.html">광고메일전송</a>
-                        <a class="collapse-item" href="register.html">고객센터</a>
+                        <a class="collapse-item" href="${commonURL}/admin/list">광고메일전송</a>
                     </div>
                 </div>
             </li>
@@ -131,7 +149,7 @@
 
             <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
+                <img class="sidebar-card-illustration mb-2" style="width:150px; height:auto; "src="<%=request.getContextPath()%>/resources/admin/img/logo.png" alt="...">
                 <p class="text-center mb-2"><strong>FLIXPEDIA</strong> 메인페이지로 이동하여 자세한 사항을 확인하세요</p>
                 <a class="btn btn-success btn-sm" href="${commonURL}/">도메인이동</a>
             </div>
@@ -154,13 +172,13 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <form name="myform2" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
+                                aria-label="Search" aria-describedby="basic-addon2" name="keyword2" id="keyword2" value="<%=keyword2 %>"
+                                onkeydown="naventerkey();">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-primary" type="button" onclick="goMainSearch()">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -194,125 +212,6 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -343,119 +242,110 @@
 				<form id="myform" name="myform" enctype="multipart/form-data">
 				<input type="hidden" name="user_seq" id="user_seq" value="<%=dto.getUser_seq() %>"/>
 				
-				<div class="container rounded bg-white mt-5 mb-5">
-				    <div class="row">
-				        <div class="col-md-5 border-right">
-					            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-					                <img class="rounded mt-5" src="">       
-					                <input type="file" class="form-control" id="uplaod" name="upload" 
-					                        placeholder="이미지를 업로드하세요" value="<%=dto.getUser_images() %>" onchange="readURL(this);"/>
-					                        <br/><br/>
-									<img id="preview" src="../../upload/<%=dto.getUser_images() %>"style="width:50%; height:auto;"/>
-									<input type="hidden" name="user_images" value="<%=dto.getUser_images() %>"/>
+					<div class="container rounded bg-white mt-5 mb-5">
+					    <div class="row">
+					        <div class="col-md-6 border-right">
+						            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+						                <img class="rounded mt-5" src="">       
+						                <input type="file" class="form-control" id="uplaod" name="upload" 
+						                        placeholder="이미지를 업로드하세요" value="<%=dto.getUser_images() %>" onchange="readURL(this);"/>
+						                        <br/><br/>
+										<img id="preview" src="../../upload/<%=dto.getUser_images() %>"style="width:50%; height:auto;"/>
+										<input type="hidden" name="user_images" value="<%=dto.getUser_images() %>"/>
+						            </div>
+					        </div>
+					        <div class="col-md-6">
+					            <div class="p-3 py-5">
+					                <div class="d-flex justify-content-between align-items-center mb-3">
+					                    
+					                </div>
+					           	<div class="row" style="align-items: center !important;">    
+			                        <div class="p-5">
+			                            <div class="text-center">
+			                                <h1 class="h4 text-gray-900 mb-4"><strong>회원가입</strong></h1>
+			                            </div>
+			                            <% if(dto.getUser_id().equals("")) {%>
+			                                <div class="form-group">
+			                                    	<input type="hidden" name="idcheck" id="idcheck" value="N"/>
+			                                        <div style="overflow:hidden;">
+			                                        <input style="width:65% !important; float:left;" type="text" 
+			                                        class="form-control form-control-user" name="user_id" id="user_id"
+			                                            placeholder="user id" value="<%=dto.getUser_id()%>">
+			                                        <div style="float:right;" class="form-group-append">
+			   											<button class="btn btn-success" type="button" id="btnDuplicate"
+			   											style=" width:100px; height: 50px;">중복체크</button>  
+			     									</div>
+			     									</div>
+			                                        <p style="font-size: 11px">아이디는 영문 대소문자와 숫자 4~12자리로 입력하세요</p>
+			                                </div>
+			                            <%} else {%>
+			                            	<div class="form-group">
+			                                    	<input type="hidden" name="idcheck" id="idcheck" value="N"/>
+			                                        <input type="text" class="form-control form-control-user" name="user_id" id="user_id"
+			                                        placeholder="user id" value="<%=dto.getUser_id()%>" readonly>
+			                                        <div class="form-group-append">
+			      										<button class="btn btn-success" type="button" id="btnDuplicate"></button>  
+			     									</div>
+			                                </div>
+			                             <%} %>
+			                             
+			                                <div class="form-group main i">
+			                                    <input type="password" class="form-control form-control-user" name="password" id="password" 
+			                                        placeholder="password" value="<%=dto.getPassword()%>">
+			                                        <i class="fa fa-eye fa-lg"></i>
+			                                    <p style="font-size: 11px">비밀번호는 영문 대소문자와 숫자 4~12자리로 입력하세요</p>
+			                                </div>
+			                                <div class="form-group main i">
+			                                    <input type="password" class="form-control form-control-user" name="pwd_ck" id="pwd_ck" 
+			                                        placeholder="password check" value="<%=dto.getPassword()%>">
+			                                        <i class="fa fa-eye fa-lg"></i>
+			                                </div>
+			                                <div class="form-group">
+			                                        <input type="text" class="form-control form-control-user"
+			                                            name="name" id="name" placeholder="이름" value="<%=dto.getName()%>">
+			                                 </div>
+			                                 <div class="form-group">
+			                                        <input type="text" class="form-control form-control-user"
+			                                            name="nick_name" id="nick_name" placeholder="닉네임" value="<%=dto.getNick_name()%>">
+			                                 </div>
+			                                 <div class="form-group">
+			                                        <input type="text" class="form-control form-control-user"
+			                                            name="email" id="email" placeholder="email" value="<%=dto.getEmail()%>">
+			                                 </div>
+			                                 <div class="form-group">
+			                                        <input type="text" class="form-control form-control-user"
+			                                            name="phone" id="phone" placeholder="전화번호" value="<%=dto.getPhone()%>">
+			                                 </div>
+			                                 <div class="form-group">
+			                                 <div style="overflow:hidden;">
+			                                        <input style="width:65% !important; float:left;" 
+			                                        	type="text" class="form-control form-control-user" readonly="readonly"
+			                                            name="zipcode" id="zipcode" placeholder="우편번호" value="<%=dto.getZipcode()%>">
+			                                        <button class="btn btn-success" type="button" onClick="goPopup();" value="팝업_domainChk"
+			                                        		style="float:right; width:100px; height: 50px;">
+			                                        		주소 검색
+			                                        </button>
+			                                 </div>
+													<p style="font-size: 11px">주소는 검색을 이용해주세요</p>
+			                                 </div>
+			                                 <div class="form-group">
+			                                        <input type="text" class="form-control form-control-user" readonly="readonly"
+			                                            name="address1" id="address1" placeholder="도로주소" value="<%=dto.getAddress1()%>">
+			                                 </div>
+			                                 <div class="input-group mb-3">
+			                                        <input type="text" class="form-control form-control-user" readonly="readonly"
+			                                            name="address2" id="address2" placeholder="상세주소" value="<%=dto.getAddress2()%>">
+			                                 </div>
+			                                 <div class="mt-1 text-center" id="result">
+				                                <button class="btn btn-primary profile-button" type="button" onclick="goWrite()">등록</button>
+							                    <button class="btn btn-primary profile-button" type="button" onclick="goCancle()">취소</button>
+			                                </div>
+		                                </div>
+	                        	</div>
 					            </div>
-				        </div>
-				        <div class="col-md-7 border-right">
-				            <div class="p-3 py-5">
-				                <div class="d-flex justify-content-between align-items-center mb-3">
-				                    
-				                </div>
-				           	<div class="row mt-3">
-				            <% if(dto.getUser_id().equals("")) {%>
-				                <div class="col-md-12">
-				                	<label class="labels">아이디</label>
-				                	<input type="hidden" name="idcheck" id="idcheck" value="N"/>
-				                	<input type="text" class="form-control" placeholder="userid" id="user_id" name="user_id"
-				                	value="<%=dto.getUser_id()%>" >
-				                	<p style="font-size: 11px">아이디는 영문 대소문자와 숫자 4~12자리로 입력하세요</p>
-				                </div>
-				                <div class="input-group-append">
-									<button class="btn btn-success" type="button" id="btnDuplicate">중복체크</button>  
-								</div>
-				            <% }else{ %>
-				                <div class="col-md-12">
-				                	<label class="labels">아이디</label>
-				                	<input type="hidden" name="idcheck" id="idcheck" value="N"/>
-				                	<input type="text" class="form-control" placeholder="userid" id="user_id" name="user_id"
-				                	value="<%=dto.getUser_id()%>" readonly>
-				                </div>
-				                <div class="input-group-append">
-									<button class="btn btn-success" type="button" id="btnDuplicate"></button>  
-								</div>
-				             <%} %>
-				             </div>
-				             <div class="row mt-2">
-				                <div class="col-md-6">
-				                <label class="labels">패스워드</label>
-				                <input type="text" class="form-control" placeholder="password" id="password" name="password"
-				                value="<%=dto.getPassword()%>" >
-				                <p style="font-size: 11px">비밀번호는 영문 대소문자와 숫자 4~12자리로 입력하세요</p>
-				                </div>
-				                <div class="col-md-6">
-				                <label class="labels">패스워드</label>
-				                <input type="text" class="form-control" placeholder="password check" id="pwd_ck" name="pwd_ck"
-				                value="<%=dto.getPassword()%>" >
-				                </div>
-				            </div>
-				            <div class="row mt-2">
-				                <div class="col-md-6">
-				                <label class="labels">이름</label>
-				                <input type="text" class="form-control" placeholder="name" id="name" name="name"
-				                value="<%=dto.getName()%>">
-				                </div>
-				                <div class="col-md-6">
-				                <label class="labels">닉네임</label>
-				                <input type="text" class="form-control" placeholder="nick_name" id="nick_name" name="nick_name"
-				                value="<%=dto.getNick_name()%>" >
-				                </div>
-				            </div>
-				            <div class="row mt-3">
-				                <div class="col-md-12">
-				                <label class="labels">이메일</label>
-				                <input class="form-control" id="email" name="email" placeholder="email" 
-				                ><%=dto.getEmail()%></textarea>
-				                </div>
-				            </div>
-				            <div class="row mt-3">
-				                <div class="col-md-12">
-				                <label class="labels">휴대폰</label>
-				                <input class="form-control" id="phone" name="phone" placeholder="phone" 
-				                ><%=dto.getPhone()%></textarea>
-				                </div>
-				            </div>
-				            <button type="button"
-									onClick="goPopup();" value="팝업_domainChk"
-									style="width:100px; height: 30px; margin:2px;">주소 검색</button>
-							<div class="form-group row">
-								<p style="font-size: 11px">주소는 검색을 이용해주세요</p>
-							</div>
-				            <div class="row mt-3">
-				                <div class="col-md-12">
-				                <label class="labels">도로명주소</label>
-				                <input class="form-control" readonly="readonly" id="address1" name="address1" placeholder="도로명주소" 
-				                ><%=dto.getAddress1()%></textarea>
-				                </div>
-				            </div>
-				            <div class="row mt-2">
-				                <div class="col-md-7">
-				                <label class="labels">상세주소</label>
-				                <input type="text" class="form-control"readonly="readonly" placeholder="상세주소" id="address2" name="address2"
-				                value="<%=dto.getAddress2()%>">
-				                </div>
-				                <div class="col-md-5">
-				                <label class="labels">우편번호</label>
-				                <input type="text" class="form-control"readonly="readonly" placeholder="우편번호" id="zipcode" name="zipcode"
-				                value="<%=dto.getZipcode()%>" >
-				                </div>
-				            </div>
-				            <div class="mt-5 text-center">
-				                <button class="btn btn-primary profile-button" type="button" onclick="goWrite()">수정</button>
-				                <button class="btn btn-primary profile-button" type="button" onclick="goCancle()">취소</button>
-				            </div>
-				            </div>
-				        </div>
-				    </div>
-				</div>
+					        </div>
+					    </div>
+					</div>
 				</form>
 <!-- /.container-fluid -->
 
@@ -466,7 +356,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Made By HJ &copy; FLIXPEDIA 2022</span>
                     </div>
                 </div>
             </footer>
@@ -531,12 +421,14 @@ function goPopup()
 	var pop = window.open("juso","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 	
 }
+//주소 api
 function jusoCallBack(address1,address2,zipcode)
 {
 		document.myform.address1.value = address1;
 		document.myform.address2.value = address2;
 		document.myform.zipcode.value = zipcode;
 }
+//아이디 중보체크
 $(()=>{
 	$("#btnDuplicate").click(()=>{
 		$.ajax({
@@ -639,17 +531,17 @@ $(()=>{
 		return false;
 	};
 	
-	if(userid=='')
+	if(user_id=='')
 	{
 		url="${commonURL}/admin/user/insert",
-		msg="회원가입이 되었습니다.";
+		msg="회원가입 되었습니다.";
 	}
 	else
 	{
 		url="${commonURL}/admin/user/update",
-		msg="회원 정보가 수정되었습니다."
+		msg="수정 되었습니다.";
 	}
-		
+
 	$.ajax({
 		url:url,
 		data:queryString,
@@ -664,12 +556,7 @@ $(()=>{
 		console.log(error);
 	})
 	}
-	
-	function goMain()
-	{
-		location.href="${commonURL}/admin/adminhome";		
-	}
-	
+	//이미지 섬네일 기능
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 	    var reader = new FileReader();
@@ -682,7 +569,20 @@ $(()=>{
 	    document.getElementById('preview').src = "";
 	    }
 	}
-	
+
+	//패스워드 숨기기 보이기 기능구현
+	$(document).ready(function(){
+	    $('.main i').on('click',function(){
+	        $('input').toggleClass('active');
+	        if($('input').hasClass('active')){
+	            $(this).attr('class',"fa fa-eye-slash fa-lg")
+	            .prev('input').attr('type',"text");
+	        }else{
+	            $(this).attr('class',"fa fa-eye fa-lg")
+	            .prev('input').attr('type','password');
+	        }
+	    });
+	});
 	function goCancel()
 	{
 		location.href="${commonURL}/admin/user/list";

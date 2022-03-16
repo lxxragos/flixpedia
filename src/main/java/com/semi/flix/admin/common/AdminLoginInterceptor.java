@@ -34,8 +34,10 @@ public class AdminLoginInterceptor extends HandlerInterceptorAdapter{
 		if(userid!=null)	//이미 로그인이 된 상태
 			return true;
 		
+			
+		
 		//로그인이 안된 상태라면
-		response.sendRedirect(request.getContextPath()+"/adminmember/login");
+		response.sendRedirect(request.getContextPath()+"/admin/adminindex");
 			return false;
 	}
 

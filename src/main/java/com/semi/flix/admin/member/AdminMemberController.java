@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.semi.flix.Visit.VisitDto;
+import com.semi.flix.Visit.VisitService;
+import com.semi.flix.admin.adminQ_A.AdminQ_ADto;
+import com.semi.flix.admin.adminQ_A.AdminQ_AService;
 import com.semi.flix.admin.mail.MailDto;
 
 import javax.mail.internet.MimeMessage;
@@ -30,50 +34,12 @@ public class AdminMemberController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-//	@RequestMapping(value = "/sendMail", method = RequestMethod.GET)
-//    public void sendMailTest() throws Exception{
-//        
-//        String subject = "test 메일";
-//        String content = "메일 테스트 내용";
-//        String from = "dlgurwn33@naver.com";
-//        String to = "dlgurwn33@naver.com";
-//        
-//        try {
-//            MimeMessage mail = mailSender.createMimeMessage();
-//            MimeMessageHelper mailHelper = new MimeMessageHelper(mail,true,"UTF-8");
-//            // true는 멀티파트 메세지를 사용하겠다는 의미
-//            
-//            /*
-//             * 단순한 텍스트 메세지만 사용시엔 아래의 코드도 사용 가능 
-//             * MimeMessageHelper mailHelper = new MimeMessageHelper(mail,"UTF-8");
-//             */
-//            
-//            mailHelper.setFrom(from);
-//            // 빈에 아이디 설정한 것은 단순히 smtp 인증을 받기 위해 사용 따라서 보내는이(setFrom())반드시 필요
-//            // 보내는이와 메일주소를 수신하는이가 볼때 모두 표기 되게 원하신다면 아래의 코드를 사용하시면 됩니다.
-//            //mailHelper.setFrom("보내는이 이름 <보내는이 아이디@도메인주소>");
-//            mailHelper.setTo(to);
-//            mailHelper.setSubject(subject);
-//            mailHelper.setText(content, true);
-//            // true는 html을 사용하겠다는 의미입니다.
-//            
-//            /*
-//             * 단순한 텍스트만 사용하신다면 다음의 코드를 사용하셔도 됩니다. mailHelper.setText(content);
-//             */
-//            FileSystemResource file = new FileSystemResource(new File("")); 
-//            mailHelper.addAttachment("업로드파일.형식", file);
-//            
-//            mailSender.send(mail);
-//            
-//        } catch(Exception e) {
-//            e.printStackTrace();
-//        }
-//        
-//    }
-	
-
 	@Resource(name="adminmemberService")
 	AdminMemberService adminmemberService;
+	@Resource(name="visitService")
+	VisitService visitService;
+	@Resource(name="adminQ_AService")
+	AdminQ_AService q_a_Service;
 	
 	@RequestMapping("/admin/adminmember/join")
 	String adminmember_register(Model model)
@@ -97,7 +63,7 @@ public class AdminMemberController {
 		
 		AdminMemberDto resultDto = adminmemberService.getInfo(dto);
 		model.addAttribute("adminmemberDto", resultDto);
-		return "admin/member/adminmember_register";
+		return "admin/member/adminmember_view";
 	}
 	
 	@RequestMapping("/admin/adminmember/isDuplicate")
@@ -113,12 +79,11 @@ public class AdminMemberController {
 		return map;
 	}
 	
-	@RequestMapping(value="/admin/adminmember/insert", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/adminmember/insert", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public HashMap<String, String> adminmember_insert(AdminMemberDto dto)
 	{
 		System.out.println("userid : " + dto.getUserid());
-		adminmemberService.insert(dto);
 		
 		if( dto.getId().equals("") )
 			adminmemberService.insert(dto);
@@ -244,16 +209,18 @@ public class AdminMemberController {
 	   }
 	
 	@RequestMapping(value="/admin/adminhome", method=RequestMethod.GET)
-	   public String adminmember_home(Model model, AdminMemberDto dto)
+	   public String adminmember_home(Model model, AdminMemberDto dto, VisitDto dto2, AdminQ_ADto dto3)
 	   {
+		  model.addAttribute("totalCnt", visitService.getTotal(dto2));
 		  model.addAttribute("cnt", adminmemberService.cnt(dto));
 		  model.addAttribute("user", adminmemberService.user(dto));
 		  model.addAttribute("category", adminmemberService.category(dto));
+		  model.addAttribute("dataList", visitService.getMonth());
+		  model.addAttribute("q_a_cnt", q_a_Service.getTotal(dto3));
 	      return "/admin/adminhome";
 	   }
 	@RequestMapping("/admin/adminmember/juso")
 	String jusoPopup() {
-		//
 		return "admin/adminmember/juso";
 	}
 	@RequestMapping(value="/admin/mailsend")

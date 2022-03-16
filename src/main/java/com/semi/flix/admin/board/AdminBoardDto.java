@@ -15,9 +15,12 @@ public class AdminBoardDto extends AdminBaseDto{
 	private int hit=0;
 	private String wdate="";
 	private String username="";
+	private String url="";
+	private String tb_name="";
 
 	public AdminBoardDto(String board_seq, String genre_code, String category_code, String title, String writer,
-			String contents, String images, String attendance, int hit, String wdate, String username) {
+			String contents, String images, String attendance, int hit, String wdate, String username, String url,
+			String tb_name) {
 		super();
 		this.board_seq = board_seq;
 		this.genre_code = genre_code;
@@ -30,6 +33,24 @@ public class AdminBoardDto extends AdminBaseDto{
 		this.hit = hit;
 		this.wdate = wdate;
 		this.username = username;
+		this.url = url;
+		this.tb_name = tb_name;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getTb_name() {
+		return tb_name;
+	}
+
+	public void setTb_name(String tb_name) {
+		this.tb_name = tb_name;
 	}
 
 	public String getBoard_seq() {

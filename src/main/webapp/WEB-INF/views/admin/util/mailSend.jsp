@@ -42,7 +42,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">FLIXPEDIA-admin</div>
+                <div class="sidebar-brand-text mx-3"><strong>FLIXPEDIA-admin</strong></div>
             </a>
 
             <!-- Divider -->
@@ -73,9 +73,11 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">게시판 관리:</h6>
+
                         <a class="collapse-item" href="${commonURL}/admin/board/writemain">게시글 업로드</a>
                         <a class="collapse-item" href="${commonURL}/admin/board/listmain">게시글 수정/삭제</a>
-                        <a class="collapse-item" href="${commonURL}/admin/board/avgmain">평점 관리</a>
+                        <a class="collapse-item" href="${commonURL}/admin/review/list">평점 관리</a>
+
                     </div>
                 </div>
             </li>
@@ -92,7 +94,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">회원 관리:</h6>
                         <a class="collapse-item" href="${commonURL}/admin/user/list">회원정보관리</a>
-                        <a class="collapse-item" href="utilities-other.html">고객센터</a>
+                        <a class="collapse-item" href="${commonURL}/admin/q_a/list">고객센터</a>
                     </div>
                 </div>
             </li>
@@ -115,8 +117,7 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">기타 기능 관리:</h6>
-                        <a class="collapse-item" href="login.html">광고메일전송</a>
-                        <a class="collapse-item" href="register.html">고객센터</a>
+                        <a class="collapse-item" href="${commonURL}/admin/list">광고메일전송</a>
                     </div>
                 </div>
             </li>
@@ -131,7 +132,7 @@
 
             <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
+                <img class="sidebar-card-illustration mb-2" style="width:150px; height:auto; "src="<%=request.getContextPath()%>/resources/admin/img/logo.png" alt="...">
                 <p class="text-center mb-2"><strong>FLIXPEDIA</strong> 메인페이지로 이동하여 자세한 사항을 확인하세요</p>
                 <a class="btn btn-success btn-sm" href="${commonURL}/">도메인이동</a>
             </div>
@@ -154,13 +155,13 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <form name="myform2" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
+                                aria-label="Search" aria-describedby="basic-addon2" name="keyword2" id="keyword2" value="<%=keyword2 %>"
+                                onkeydown="naventerkey();">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-primary" type="button" onclick="goMainSearch()">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -292,7 +293,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Made By HJ &copy; FLIXPEDIA 2022</span>
                     </div>
                 </div>
             </footer>
@@ -391,7 +392,7 @@
 			frm.content.focus();
 			return false;
 		}
-		frm.action="${commonURL}/sendMail"
+		frm.action="${commonURL}/admin/sendMail"
 		frm.method="post";
 		frm.submit(); //서버로 전송하기
 		
@@ -401,7 +402,7 @@
 	$(()=>{
 		$("#btnfind").click(()=>{
 			$.ajax({
-				url:"${commonURL}/find",	//요청 url정보
+				url:"${commonURL}/admin/find",	//요청 url정보
 				data:{email:$("#email1").val()},	//서버로 전달할 데이터 정보 : JSON형태
 				dataType:"json",	//결과를 json으로 받겠다. 이렇게 안하면 결과값이 text로 온다.
 				type:"POST"
@@ -427,9 +428,4 @@
 		})
 	})
 	
-	function goMain()
-	{
-		location.href="${commonURL}/admin/adminhome";		
-	}
-
 </script>

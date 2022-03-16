@@ -1,4 +1,6 @@
 package com.semi.flix.Visit;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -23,6 +25,12 @@ public class VisitServiceImpl implements VisitService{
 	public void update(VisitDto dto) {
 		visitDao.update(dto);
 	}
+
+	@Override
+	public List<VisitDto> getMonth() {
+		return visitDao.getMonth();
+	}
+
 
 		
 }

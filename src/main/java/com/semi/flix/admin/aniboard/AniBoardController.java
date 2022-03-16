@@ -26,10 +26,12 @@ public class AniBoardController {
 	@RequestMapping(value="/admin/aniboard/list", method=RequestMethod.GET)
 	String aniboard_list(Model model, AniBoardDto dto)
 	{
-
+		System.out.println("--------------------------------");
+		System.out.println(dto.getKey() + ", " + dto.getKeyword());
 		dto.setStart(dto.getPg()*10);
 		
 		List<AniBoardDto> list = service.getList(dto);
+		System.out.println("-----------" + list);
 		
 		model.addAttribute("aniboardList", list);
 		model.addAttribute("totalCnt", service.getTotal(dto));

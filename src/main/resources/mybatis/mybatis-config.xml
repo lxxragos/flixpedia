@@ -15,9 +15,26 @@
     	<typeAlias alias="DramaDto" type="com.semi.flix.drama.DramaDto"/>
     	<typeAlias alias="MovieDto" type="com.semi.flix.movie.MovieDto"/>
     	<typeAlias alias="SearchDto" type="com.semi.flix.search.SearchDto"/>
+    	<typeAlias alias="Q_A_DTO" type="com.semi.flix.Q_A.Q_A_DTO"/>
     	<typeAlias alias="AnimationDto" type="com.semi.flix.animation.AnimationDto"/>
+
+
+	   <typeAlias alias="VisitDto" type="com.semi.flix.Visit.VisitDto"/>	
+	   <typeAlias alias="AdminMemberDto" type="com.semi.flix.admin.member.AdminMemberDto"/>
+	   <typeAlias alias="AdminBoardDto" type="com.semi.flix.admin.board.AdminBoardDto"/>
+	
+	   <typeAlias alias="MovieBoardDto" type="com.semi.flix.admin.movieboard.MovieBoardDto"/>
+	   <typeAlias alias="ToonBoardDto" type="com.semi.flix.admin.toonboard.ToonBoardDto"/>
+	   <typeAlias alias="AniBoardDto" type="com.semi.flix.admin.aniboard.AniBoardDto"/>
+	   <typeAlias alias="EnterBoardDto" type="com.semi.flix.admin.enterboard.EnterBoardDto"/>
+	   <typeAlias alias="DramaBoardDto" type="com.semi.flix.admin.dramaboard.DramaBoardDto"/>
+	   <typeAlias alias="UserDto" type="com.semi.flix.admin.user.UserDto"/>
+	   <typeAlias alias="ReviewDto" type="com.semi.flix.admin.review.ReviewDto"/>
+	   <typeAlias alias="MailDto" type="com.semi.flix.admin.mail.MailDto"/>
+	   <typeAlias alias="AdminQ_ADto" type="com.semi.flix.admin.adminQ_A.AdminQ_ADto"/>
+	   <typeAlias alias="AdminCommentDto" type="com.semi.flix.admin.admincomment.AdminCommentDto"/>
     	<typeAlias alias="EnterDto" type="com.semi.flix.enter.EnterDto"/>
-    	
+
 	</typeAliases>
 
 	<mappers>
@@ -27,10 +44,23 @@
 		<mapper resource=	"/com/semi/flix/mapper/Comment.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Drama.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Animation.xml"/>
-		<mapper resource=	"/com/semi/flix/mapper/Search.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Movie.xml"/>
+		<mapper resource=	"/com/semi/flix/mapper/Search.xml"/>
+		<mapper resource=	"/com/semi/flix/mapper/Visit.xml"/>
+		<mapper resource=	"/com/semi/flix/mapper/Q_A.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/AdminMember.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/AdminBoard.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/MovieBoard.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/ToonBoard.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/AniBoard.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/EnterBoard.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/DramaBoard.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/User.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/Review.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/Mail.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/AdminQ_A.xml"/>
+		<mapper resource=	"/com/semi/flix/admin/mapper/Comment.xml"/>
 		<mapper resource=	"/com/semi/flix/mapper/Enter.xml"/>
-
 
 		
 	</mappers>
